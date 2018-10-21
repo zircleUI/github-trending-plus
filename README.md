@@ -1,2 +1,3 @@
 # github-trending-plus
-WIP // An alternative Github trending UI using zircle-ui
+An alternative Github trending UI using zircle-ui
+## ❗️This is yet an alpha project.
