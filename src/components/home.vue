@@ -244,14 +244,14 @@ export default {
   color: #454545;
   font-weight: 400;
   background-color: transparent !important;
-  font-size: calc(1vw + 1vh + 1vmin);
+  font-size: calc(0.7vw + 0.7vh + 0.7vmin);
 }
 
 .side>.z-label>.inside {
   color: inherit !important;
   font-weight: 500 !important;
   background-color: transparent !important;
-  font-size: calc(1vw + 1vh + 1vmin);
+  font-size: calc(0.7vw + 0.7vh + 0.7vmin);
 }
 
 </style>

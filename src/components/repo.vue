@@ -1,5 +1,5 @@
 <template>
-  <z-view size=xxl style="border-width: 7px" :style="'background-color:' + colorMe.sec + '; border-color:' + colorMe.main">
+  <z-view size=xxl style="border-width: 7px" :style="'border-color:' + colorMe.main">
    <div class="label" :style="'color:' + colorMe.main"> 
      {{info.description.length > 90 ? info.description.substring(0,90) + '…' : info.description}}
      
@@ -16,8 +16,9 @@
 
       <z-spot
          :angle="-45"
-         :distance="120"
-         label="position"
+         :distance="125"
+         :label="info.position + 1 + '˚ pos.'"
+         
          size="xs"
          class="side"
          :style="'color:' + colorMe.sec + '; border-width: 1px; background-color:' + colorMe.sec + '; border-color:' + colorMe.sec">
@@ -28,8 +29,7 @@
           :distance="1"
           size="xxs"
           class="side"
-          :label="info.position + 1 + '˚'"
-          label-pos="right"
+          
           :style="'color:' + colorMe.sec"
           style="border: none; background-color: transparent;">
         </z-spot>
@@ -41,6 +41,7 @@
          :distance="120"
          size="xs"
          class="side"
+         :label="'' + info.diff"
          :style="'color:' + colorMe.sec + '; border-width: 1px; background-color:' + colorMe.sec + '; border-color:' + colorMe.sec">
          <i v-if="info.diff > 0 && info.prevPos !== -1" class="fas fa-arrow-up" :style="'color:' + colorMe.main"></i>
          <i v-if="info.diff < 0" class="fas fa-arrow-down" :style="'color:' + colorMe.main"></i>
@@ -50,8 +51,6 @@
           :distance="1"
           size="xxs"
           class="side"
-          :label="' ' + info.diff"
-          label-pos="right"
           :style="'color:' + colorMe.sec"
           style="border: none; background-color: transparent;">
         </z-spot>
@@ -62,7 +61,7 @@
          :distance="120"
          size="xs"
          class="side"
-         :label="sharedState.since === 'daily' ? 'today' : sharedState.since === 'weekly' ? 'this week' : 'this month'"
+          :label="'+' + (info.periodStars > 999 ? Math.round((info.periodStars / 1000) * 10 ) / 10 + 'k' : ' ' + info.periodStars) + ' ' + (sharedState.since === 'daily' ? 'today' : sharedState.since === 'weekly' ? 'this week' : 'this month')"
          :style="'color:' + colorMe.sec + '; border-width: 1px; background-color:' + colorMe.sec + '; border-color:' + colorMe.sec">
          <i class="fas fa-star" :style="'color:' + colorMe.main"></i>
         <z-spot
@@ -71,7 +70,8 @@
           :distance="1"
           size="xxs"
           class="side"
-          :label="'+' + info.periodStars > 999 ? Math.round((info.periodStars / 1000) * 10 ) / 10 + 'k' : '+' + info.periodStars"
+          
+         
           label-pos="right"
           :style="'color:' + colorMe.sec"
           style="border: none; background-color: transparent;">
@@ -83,7 +83,7 @@
          :distance="120"
          size="xs"
          class="side"
-         label="on chart"
+        :label="permanency + ' ' + 'on chart'"
          :style="'color:' + colorMe.sec + '; border-width: 1px; background-color:' + colorMe.sec + '; border-color:' + colorMe.sec">
          <i class="fas fa-chart-line" :style="'color:' + colorMe.main"></i>
         <z-spot
@@ -92,8 +92,8 @@
           :distance="1"
           size="xxs"
           class="side"
-          :label="permanency"
-          label-pos="right"
+         
+          
           :style="'color:' + colorMe.sec"
           style="border: none; background-color: transparent;">
         </z-spot>
@@ -189,7 +189,7 @@ export default {
       if (this.info.stay === 3) {
         return 'new!'
       } else if (this.info.stay > 3 && this.info.stay < 24) {
-        return this.info.stay + ' hs.'
+        return this.info.stay + ' h.'
       } else if (this.info.stay > 24 && this.info.stay < 48) {
         return 'a day'
       } else if (this.info.stay > 48) {
