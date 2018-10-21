@@ -4,11 +4,11 @@ An alternative Github trending UI using **zircle-ui**
 
 ### ❗️This is an alpha project yet.
 
-<p align="center">
+
   <a href="http://zircle.io">
-    <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/screen.png" width="300">
+    <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/screen.png" width="80%">
   </a>
-</p>
+
 
 ## Why?
 Github offers the possibility of see what repositories and developers are more interesting for the community daily, weekly and monthly. Also you can filter them by selecting your preferred coding language. It’s pretty good to have an idea of what the community is most excited about. 
