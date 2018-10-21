@@ -15,7 +15,7 @@ Github offers the possibility of see the repositories and developers that are mo
 
 However, I want to add some features. For example, the ability to know how much time the repo/dev is on the spot and its relative gains and looses positions during the permanency on the trending chart.
 
-or those reasons and because I want to show some uses for [**zircle-ui**](https://github.com/zircleUI/zircleUI) is that I'm trying to present  an alternative approach. 
+For those reasons and because I want to show some uses for [**zircle-ui**](https://github.com/zircleUI/zircleUI) is that I'm trying to present  an alternative approach. 
 
 
 
