@@ -1,8 +1,8 @@
 # github-trending-plus
-## ❗️This is yet an alpha project.
+## ❗️This is an alpha project yet.
 <p align="center">
   <a href="http://zircle.io">
-    <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/screen.png" width="200">
+    <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/screen.png" width="300">
   </a>
 </p>
 
