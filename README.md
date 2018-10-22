@@ -17,6 +17,8 @@ However, I want to add some features. For example, the ability to know how much 
 
 For those reasons and because I want to show some uses for [**zircle-ui**](https://github.com/zircleUI/zircleUI) is that I'm trying to present  an alternative approach. 
 
+## Credits
+This project is based on this awesome API https://github.com/huchenme/github-trending-api
 
 ## Project setup
 
