@@ -18,4 +18,29 @@ However, I want to add some features. For example, the ability to know how much 
 For those reasons and because I want to show some uses for [**zircle-ui**](https://github.com/zircleUI/zircleUI) is that I'm trying to present  an alternative approach. 
 
 
+## Project setup
 
+```
+git clone https://github.com/zircleUI/github-trending-plus.git
+```
+
+After cloning the repository, execute:
+
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
