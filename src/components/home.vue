@@ -144,17 +144,18 @@
         D
       </z-spot>
       <z-spot
+        button
         class="meteors"
         :distance="160"
         :angle="182"
         size=s
         style="font-size: 30px;color: hsl(220, 12%, 25%);  border-color: white; border-width: 0px; background-color: #D4D7DD;"
-        to-view="about"
-        label="about">i
+        label="about"
+        @click.native="toLink('#')">i
       </z-spot>
       <z-spot
       class="meteors"
-        button
+        
         :distance=180
         size='s'
         style="background-color: #D4D7DD;"
@@ -193,6 +194,9 @@ export default {
     }
   },
   methods: {
+    toLink (url) {
+      return window.open(url, '_blank')
+    },
     foik () {
       console.log(this.devs1)
     },

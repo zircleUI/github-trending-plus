@@ -26,6 +26,7 @@
             size="xs"
             :index="props.index"
             :distance='110'
+            
             style="background-color: transparent; border: none;">
             {{props.position + 1}}˚
           </z-spot>
@@ -170,16 +171,15 @@ export default {
         opacity: [0, 1],
         duration: function (el, i) {
           return 500 + (i * 200)
-        },
-        delay: function (e, i) { return i * 150 }
+        }
       })
       anime({
         targets: els,
         opacity: [0, 1],
         duration: function (el, i) {
-          return 10000 + (i * 1000)
+          return 2000 + (i * 100)
         },
-        delay: function (e, i) { return i * 150 },
+        delay: function (e, i) { return i * 50 },
         complete: function () {
           return pag
         }
@@ -197,15 +197,12 @@ export default {
           vm.showResults = true
           vm.animee()
         } else if (vm.progress === 18) {
-          vm.msg = 'Retrieving repos...'
           vm.day0 = true
           vm.progress++
         } else if (vm.progress === 22) {
-          vm.msg = 'Preparing filters...'
           vm.day1 = true
           vm.progress++
         } else if (vm.progress === 70) {
-          vm.msg = 'Sorting data...'
           vm.day = true
           vm.progress++
         } else if (vm.progress === 80) {
@@ -264,7 +261,7 @@ export default {
       if (this.sharedState.language === 'css') rankingDB = 'v05qk'
       if (this.sharedState.language === 'shell') rankingDB = '1e213g'
       axios.all([
-        axios.get('https://api.myjson.com/bins/' + rankingDB),
+        axios.get('https://zircle-github-trending-ranking.now.sh/' + rankingDB),
         axios.get('https://github-trending-api.now.sh/repositories?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language)),
         axios.get('https://github-trending-api.now.sh/developers?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language))
       ])
@@ -345,7 +342,7 @@ color: #606368
 
 }
 .pos{
-  color: #606368 !important;
+ 
   font-weight: 700;
   font-size: 16px;
 }

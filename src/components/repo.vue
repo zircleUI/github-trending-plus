@@ -18,7 +18,6 @@
          :angle="-45"
          :distance="125"
          :label="info.position + 1 + '˚ pos.'"
-         
          size="xs"
          class="side"
          :style="'color:' + colorMe.sec + '; border-width: 1px; background-color:' + colorMe.sec + '; border-color:' + colorMe.sec">
@@ -36,14 +35,14 @@
       </z-spot>
 
       <z-spot
-          v-if="info.prevPos !== -1"
+          v-if="info.prevPos !== -1 && info.diff !== 0"
          :angle="-14"
          :distance="120"
          size="xs"
          class="side"
          :label="'' + info.diff"
          :style="'color:' + colorMe.sec + '; border-width: 1px; background-color:' + colorMe.sec + '; border-color:' + colorMe.sec">
-         <i v-if="info.diff > 0 && info.prevPos !== -1" class="fas fa-arrow-up" :style="'color:' + colorMe.main"></i>
+         <i v-if="info.diff > 0" class="fas fa-arrow-up" :style="'color:' + colorMe.main"></i>
          <i v-if="info.diff < 0" class="fas fa-arrow-down" :style="'color:' + colorMe.main"></i>
         <z-spot
           slot="extension"
@@ -57,7 +56,7 @@
       </z-spot>
 
       <z-spot
-         :angle="info.prevPos !== -1 ? 14 : 0"
+         :angle="info.prevPos !== -1 && info.diff !== 0 ? 14 : 0"
          :distance="120"
          size="xs"
          class="side"
@@ -137,7 +136,7 @@
          :distance="120"
          size="xs"
          class="side"
-         :label="info.language === '' ? '?' : info.language"
+         :label="info.language === '' ? 'not defined' : info.language"
          :style="'color:' + colorMe.sec"
          style="background-color: transparent; border: none">
          <i class="fas fa-code"></i>

@@ -215,7 +215,7 @@ export default {
       // .then(response => (this.collection = response.data))
       var vm = this
       axios.all([
-        axios.get('https://api.myjson.com/bins/8d2zo'),
+        axios.get('https://zircle-github-trending-ranking.now.sh/8d2zo'),
         axios.get('https://github-trending-api.now.sh/developers?since=' + this.sharedState.since + '&language=' + this.sharedState.language)
       ])
         .then(axios.spread((myjson, github) => {
