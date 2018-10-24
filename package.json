@@ -1,5 +1,7 @@
 {
-  "name": "github-trending",
+  "name": "github-trending-plus",
+  "description": "Alternative Github trending UI with some cool extra features",
+  "author": "Juan Martín Muda <juan.martin.muda@gmail.com>",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,12 +9,18 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "keywords": [
+    "zircle",
+    "github",
+    "trending",
+    "ranking",
+    "repositories",
+    "developers"
+  ],
   "dependencies": {
     "animejs": "^2.2.0",
     "axios": "^0.18.0",
-    "lodash": "^4.17.11",
     "vue": "^2.5.17",
-    "vue-carousel": "^0.14.0",
     "zircle": "^1.1.0"
   },
   "devDependencies": {
@@ -21,5 +29,14 @@
     "@vue/cli-service": "^3.0.1",
     "@vue/eslint-config-standard": "^3.0.1",
     "vue-template-compiler": "^2.5.17"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zircleui/github-trending-plus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zircleui/github-trending-plus/issues"
+  },
+  "homepage": "https://github.com/zircleui/github-trending-plus#readme",
+  "license": "MIT"
 }
