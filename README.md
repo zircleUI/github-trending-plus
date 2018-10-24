@@ -1,13 +1,15 @@
 # github-trending-plus
 
 An alternative [Github trending](https://github.com/trending) UI with some extra features.
-
-<a href="https://github.com/zircleUI/zircleUI"><img alt="zircle" src="https://img.shields.io/badge/zircle-1.x-brightgreen.svg"></a>
-<img alt="status" src="https://img.shields.io/badge/status-alpha-red.svg">
-
+<p align="center">
+  <a href="https://github.com/zircleUI/zircleUI"><img alt="zircle" src="https://img.shields.io/badge/zircle-1.x-brightgreen.svg"></a>
+  <img alt="status" src="https://img.shields.io/badge/status-alpha-red.svg">
+</p>
+<p align="center">
   <a href="http://zircle.io">
     <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/screen.png" width="350">
   </a>
+</p>
 
 ## Why?
 Github offers the possibility of see the repositories and developers that are more appealing for the community daily, weekly and monthly. Also you can filter them by selecting your preferred coding language. It’s pretty good for having an idea of what the community is most excited about.
