@@ -6,9 +6,6 @@ An alternative [Github trending](https://github.com/trending) UI using [**zircle
     <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/screen.png" width="350">
   </a>
 
-## Status: 🌱 Alpha 
-Many things could change before reach beta status. If you want to try it just clone this repo.
-
 ## Why?
 Github offers the possibility of see the repositories and developers that are more appealing for the community daily, weekly and monthly. Also you can filter them by selecting your preferred coding language. It’s pretty good for having an idea of what the community is most excited about.
 
@@ -22,6 +19,9 @@ For those reasons and because I want to show some uses for [**zircle-ui**](https
 - Shows only coding languages with trending results.
 - Most popular languages tracked.
 - No login required.
+
+## Status: 🌱 Alpha 
+Many things could change before reach beta status. If you want to try it just clone this repo.
 
 ## Credits
 This project is based on this awesome API https://github.com/huchenme/github-trending-api
