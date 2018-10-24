@@ -9,11 +9,11 @@
       <div v-if="results.length && search && $zircle.getCurrentViewName() === 'languages--0'">
       <z-spot
 
-      v-for="(language, index) in results"
+      v-for="(language, index) in wt"
       button
       :key="'lang' + index"
       :distance="60"
-      :angle="-90 + (360 / results.length * index)"
+      :angle="-90 + (360 / wt.length * index)"
       size="xs"
       class="test1 accent"
       :label="language.name"
@@ -75,6 +75,17 @@
 // :angle="(180 - (180 - ($zircle.getNumberOfPages() * 10))) / $zircle.getNumberOfPages() * ($zircle.getNumberOfPages() - index) + ((180 - (180 - (180 - ($zircle.getNumberOfPages() * 10)))) - ((180 - (180 - ($zircle.getNumberOfPages() * 10))) / $zircle.getNumberOfPages())) / 2"
 import state from '../store/state'
 import axios from 'axios'
+function fetchGalleries(results) {
+  return Promise.all(results.map(record => {
+      return axios.get('https://github-trending-api.now.sh/repositories?language=' + record.urlParam)
+  })).then(gal => {
+      var papa = gal.filter(function (el) {
+        return el.data.length > 0
+      })
+      console.log(papa.map(a => a.data[0].language))
+      return papa.map(a => a.data[0].language)
+  })
+}
 export default {
   data () {
     return {
@@ -83,6 +94,7 @@ export default {
       other: [],
       results: [],
       query: '',
+      wt: [],
       search: false,
       sharedState: state.$data
     }
@@ -105,14 +117,27 @@ export default {
   },
   methods: {
     searchLanguages (e) {
+      var vm = this
       if (e !== '') {
         var input = e.toLowerCase()
         this.results = this.other.filter(function (el) {
           var data = el.name.toLowerCase()
           return data.indexOf(input) > -1
         }).slice(-8)
-        // console.log(this.results)
+          var papa = fetchGalleries(vm.results)
+          papa.then(result => {
+            vm.wt = result.map(a => {
+              var url = a.toLowerCase().replace(' ', '-')
+              return {
+                name: a,
+                urlParam: url
+              }
+            })
+            //vm.wt = result
+          })
+        
         this.query = e
+
       } else {
         this.query = ''
         this.results = []
