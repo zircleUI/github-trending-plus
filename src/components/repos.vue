@@ -1,9 +1,13 @@
 <template>
   <z-view  :style="showResults ? 'border-width: 7px;' : 'border-width: 7px;'" slider :progress="progress">
       {{msg}}
+      <div v-if="!trending">
+        No trendings for {{sharedState.language}} <br>
+        Create something awesome to be on the spot!
+      </div>
     <div slot="extension" v-if="trending">
 
-      <z-spot v-if="day"
+      <z-spot v-if="day || !trending"
         button
         :distance=130
         size='s'
@@ -15,7 +19,7 @@
            <i style="color: hsl(220, 12%, 25%);" class="fas fa-ellipsis-v"></i>
         </z-spot>
 
-    <div v-if="collection.length && trending">
+    <div v-if="collection.length > 0 && trending">
       <z-list
         :items="collection"
         :per-page="5">
@@ -81,6 +85,7 @@
         </div>
         </z-list>
       </div>
+      
     </div>
   </z-view>
 </template>
@@ -270,14 +275,13 @@ export default {
           var full = github.data.map(function (e, index) {
             var search = myjson.data[myjson.data.length - 1][vm.sharedState.since].repos.find(el => el.name === e.name)
             if (search === undefined) search = { prevPos: -1, diff: 0, stay: 3 }
-            // var suma = avatars.data.concat(avatars1.data)
-            // console.log(suma.length)
-            var avatar = avatars.data.find(function (el) { return el.username === e.author})
-            if (avatar === undefined) {
-              avatar = { avatar: e.builtBy[0].avatar }
-              avatar.avatar = avatar.avatar.replace(/s=40/gi, 's=200')
+            var findAvatar = avatars.data.find(function (el) { return el.username === e.author})
+            if (findAvatar === undefined) {
+              findAvatar = {}
+              e.builtBy.length > 0 ? findAvatar['avatar'] = e.builtBy[0]['avatar'] : findAvatar['avatar'] = 'https://avatars1.githubusercontent.com/u/29514947?s=40&v=4'
+              findAvatar.avatar = findAvatar.avatar.replace(/s=40/gi, 's=200')
             } else {
-              avatar.avatar = avatar.avatar.replace(/s=96/gi, 's=200')
+              findAvatar.avatar = findAvatar.avatar.replace(/s=96/gi, 's=200')
             }
             return {
               position: index,
@@ -288,24 +292,29 @@ export default {
               language: e.language,
               stars: e.stars,
               forks: e.forks,
-              avatar: avatar.avatar,
+              avatar: findAvatar.avatar,
               currentPeriodStars: e.currentPeriodStars,
               prevPos: search.prevPos,
               diff: search.diff,
               stay: search.stay
             }
           })
-          vm.collection = full
-          if (vm.check) {
-            vm.vlang = vm.sharedState.language
-            vm.vsince = vm.sharedState.since
-            vm.init()
-          } else if (!vm.check && vm.sharedState.initRepos) {
-            vm.sharedState.initRepos = false
-            vm.init()
+          if (full.length > 0) {
+            vm.collection = full
+            if (vm.check) {
+              vm.vlang = vm.sharedState.language
+              vm.vsince = vm.sharedState.since
+              vm.init()
+            } else if (!vm.check && vm.sharedState.initRepos) {
+              vm.sharedState.initRepos = false
+              vm.init()
+            } else {
+              vm.init2()
+            }
           } else {
-            vm.init2()
+            vm.trending = false
           }
+          
         }))
     }
   },

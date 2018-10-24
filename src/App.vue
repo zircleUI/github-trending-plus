@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <span style="z-index:999; position: absolute; top: 10px; right: 10px; font-weight: 300; font-size: 12px" ><span v-if="$zircle.getCurrentViewName() !== 'home--0'">Github trending +  |  </span> by <a href="https://github.com/zircleui/zircleui/" target="_blank"> <img style="vertical-align:middle" src="zircle.png" width="13px"/>  zircle</a> </span>
+    <span style="z-index:999; position: absolute; top: 10px; right: 10px; font-weight: 300; font-size: 12px" ><span v-if="$zircle.getCurrentViewName() !== 'home--0'">Github trending plus  |  </span> by <a href="https://github.com/zircleui/zircleui/" target="_blank"> <img style="vertical-align:middle" src="zircle.png" width="13px"/>  zircle</a> </span>
     <transition name="head">
       <div v-if="$zircle.getCurrentViewName() === 'home--0'" class="title home">
-        Github trending <span style="color: #8a8f94;">+</span>
+        Github trending <span :style="'color:' + sharedState.colorMe.main">plus</span>
         <br>
         <div style="line-height: 0.9em; font-weight: 300; font-size: 20px; color: #8a8f94" ><br><span style="text-transform: capitalize">{{sharedState.since}}</span> repos & devs for {{sharedState.language === '' ? 'all coding languages' : sharedState.language}}</div>
       </div>
