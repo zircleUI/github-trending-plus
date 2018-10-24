@@ -1,6 +1,8 @@
 # github-trending-plus
 
-An alternative [Github trending](https://github.com/trending) UI using [**zircle-ui**](https://github.com/zircleUI/zircleUI)
+An alternative [Github trending](https://github.com/trending) UI with some extra features.
+
+<a href="https://github.com/zircleUI/zircleUI"><img alt="npm" src="https://img.shields.io/badge/zircle-1.x-brightgreen.svg"></a>
 
   <a href="http://zircle.io">
     <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/screen.png" width="350">
@@ -52,3 +54,6 @@ npm run build
 ```
 npm run lint
 ```
+
+## License
+[MIT Licensed | Copyright © 2018 - present | Juan Martín Muda](https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/LICENSE)
