@@ -1,6 +1,6 @@
 # Github trending plus
 <p align="center">
-  An alternative [Github trending](https://github.com/trending) UI with some extra features.
+  An alternative <a href="https://github.com/trending" target="_blank">Github trending</a> UI with some extra features.
 </p>
 <p align="center">
   <a href="https://github.com/zircleUI/zircleUI"><img alt="zircle" src="https://img.shields.io/badge/zircle-1.x-brightgreen.svg"></a>
