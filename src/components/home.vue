@@ -108,6 +108,7 @@
         :angle="-82"
       />
        <z-spot
+       class="asteroids"
         style='border-width:3px; opacity: 0.15; border-color:white'
       size=xs
       :distance=190
@@ -181,27 +182,29 @@ export default {
       devs1: [],
       angle1: 0,
       ani: {},
-      colors: [{main: '#54a74c', sec: 'hsl(115, 37%, 18%)'}, {main: '#f2bd00', sec: 'hsl(47, 100%, 17%)'}, {main: '#5484f8', sec: 'hsl(222, 92%, 25%)'}]
+      colors: [{main: '#8a8f94', sec: '#454545'}, {main: '#54a74c', sec: 'hsl(115, 37%, 18%)'}, {main: '#f2bd00', sec: 'hsl(47, 100%, 17%)'}, {main: '#5484f8', sec: 'hsl(222, 92%, 25%)'}]
     }
   },
   computed: {
-    colorMe () {
-      var randomColor = this.colors[Math.floor(Math.random() * this.colors.length)]
-      this.sharedState.colorMe = randomColor
-      document.querySelector('.theme-github').style.setProperty('--accent-color', randomColor.sec)
-      document.querySelector('.theme-github').style.setProperty('--shade-color', randomColor.main)
-      return randomColor
+    home () {
+      return this.$zircle.getCurrentViewName()
+    }
+  },
+  watch: {
+    home () {
+      if (this.home === 'home--0') this.callRandomColors()
     }
   },
   methods: {
     toLink (url) {
       return window.open(url, '_blank')
     },
-    foik () {
-      console.log(this.devs1)
-    },
-    mierda () {
-      console.log(this.devs)
+    callRandomColors () {
+      var randomColor = this.colors[Math.floor(Math.random() * this.colors.length)]
+      this.sharedState.colorMe = randomColor
+      document.querySelector('.theme-github').style.setProperty('--accent-color', randomColor.sec)
+      document.querySelector('.theme-github').style.setProperty('--shade-color', randomColor.main)
+      return randomColor
     },
     asteroids () {
       var vm = this
@@ -236,11 +239,14 @@ export default {
     // this.meteors()
     // this.getAvatars()
     // this.setinit()
-    console.log(this.colorMe.main)
+    this.callRandomColors()
   }
 }
 </script>
 <style>
+.asteroids {
+  pointer-events: none !important;
+}
 .meteors {
   font-weight: 700;
 }

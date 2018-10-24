@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <span style="z-index:999; position: absolute; top: 10px; right: 10px; font-weight: 300; font-size: 12px" ><span v-if="$zircle.getCurrentViewName() !== 'home--0'">Github trending plus  |  </span> by <a href="https://github.com/zircleui/zircleui/" target="_blank"> <img style="vertical-align:middle" src="zircle.png" width="13px"/>  zircle</a> </span>
+    <span style="z-index:999; position: absolute; top: 10px; right: 10px; font-weight: 500; font-size: 12px" ><span v-if="$zircle.getCurrentViewName() !== 'home--0'">Github trending plus  |  </span> by <a href="https://github.com/zircleui/zircleui" target="_blank"> <img style="vertical-align:middle" src="zircle.png" width="13px"/>  zircle</a> </span>
     <transition name="head">
       <div v-if="$zircle.getCurrentViewName() === 'home--0'" class="title home">
         Github trending <span :style="'color:' + sharedState.colorMe.main">plus</span>
@@ -11,7 +11,7 @@
     <transition name="head">
     <div v-if="$zircle.getCurrentViewName() === 'home--0'" class="footer">
           <span style="font-size: 13px" >
-            <b>Tip: </b> use filter to change coding language & time span</span>
+            <b>Tip: </b> use filter to change coding language & time period</span>
       </div>
     </transition>
     <transition name="head">
@@ -26,13 +26,13 @@
     </transition>
     <transition name="head">
     <div v-if="$zircle.getCurrentViewName() === 'repos--0'" class="footer other">
-          <span style="font-size: 13px" ><b>Tip: </b> use filter to change coding language & time span</span>
+          <span style="font-size: 13px" ><b>Tip: </b> use filter to change coding language & time period</span>
       </div>
     </transition>
 
      <transition name="head">
     <div v-if="$zircle.getCurrentViewName() === 'languages--0'" class="title other">
-        Select a <b>coding language</b> and a <b>time span</b>
+        Select a coding language and a time period
       </div>
     </transition>
     <transition name="head">

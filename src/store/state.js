@@ -5,7 +5,8 @@ const state = new Vue({
     since: 'daily',
     refresh: false,
     initRepos: false,
-    colorMe: {}
+    colorMe: {},
+    axiosError: ''
   }
 })
 

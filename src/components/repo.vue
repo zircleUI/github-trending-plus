@@ -1,6 +1,6 @@
 <template>
-  <z-view size=xxl style="border-width: 7px" :style="'border-color:' + colorMe.main">
-   <div class="label" :style="'color:' + colorMe.main"> 
+  <z-view size=xxl style="border-width: 7px" :style="'border-color:' + sharedState.colorMe.main">
+   <div class="label" :style="'color:' + sharedState.colorMe.main"> 
      {{info.description.length > 90 ? info.description.substring(0,90) + '…' : info.description}}
      
       </div>
@@ -20,8 +20,8 @@
          :label="info.position + 1 + '˚ pos.'"
          size="xs"
          class="side"
-         :style="'color:' + colorMe.sec + '; border-width: 1px; background-color:' + colorMe.sec + '; border-color:' + colorMe.sec">
-         <i class="fas fa-award" :style="'color:' + colorMe.main"></i>
+         :style="'color:' + sharedState.colorMe.sec + '; border-width: 1px; background-color:' + sharedState.colorMe.sec + '; border-color:' + sharedState.colorMe.sec">
+         <i class="fas fa-award" :style="'color:' + sharedState.colorMe.main"></i>
         <z-spot
           slot="extension"
           :angle="-45"
@@ -29,7 +29,7 @@
           size="xxs"
           class="side"
           
-          :style="'color:' + colorMe.sec"
+          :style="'color:' + sharedState.colorMe.sec"
           style="border: none; background-color: transparent;">
         </z-spot>
       </z-spot>
@@ -41,16 +41,16 @@
          size="xs"
          class="side"
          :label="'' + info.diff"
-         :style="'color:' + colorMe.sec + '; border-width: 1px; background-color:' + colorMe.sec + '; border-color:' + colorMe.sec">
-         <i v-if="info.diff > 0" class="fas fa-arrow-up" :style="'color:' + colorMe.main"></i>
-         <i v-if="info.diff < 0" class="fas fa-arrow-down" :style="'color:' + colorMe.main"></i>
+         :style="'color:' + sharedState.colorMe.sec + '; border-width: 1px; background-color:' + sharedState.colorMe.sec + '; border-color:' + sharedState.colorMe.sec">
+         <i v-if="info.diff > 0" class="fas fa-arrow-up" :style="'color:' + sharedState.colorMe.main"></i>
+         <i v-if="info.diff < 0" class="fas fa-arrow-down" :style="'color:' + sharedState.colorMe.main"></i>
         <z-spot
           slot="extension"
           :angle="-45"
           :distance="1"
           size="xxs"
           class="side"
-          :style="'color:' + colorMe.sec"
+          :style="'color:' + sharedState.colorMe.sec"
           style="border: none; background-color: transparent;">
         </z-spot>
       </z-spot>
@@ -61,8 +61,8 @@
          size="xs"
          class="side"
           :label="'+' + (info.periodStars > 999 ? Math.round((info.periodStars / 1000) * 10 ) / 10 + 'k' : ' ' + info.periodStars) + ' ' + (sharedState.since === 'daily' ? 'today' : sharedState.since === 'weekly' ? 'this week' : 'this month')"
-         :style="'color:' + colorMe.sec + '; border-width: 1px; background-color:' + colorMe.sec + '; border-color:' + colorMe.sec">
-         <i class="fas fa-star" :style="'color:' + colorMe.main"></i>
+         :style="'color:' + sharedState.colorMe.sec + '; border-width: 1px; background-color:' + sharedState.colorMe.sec + '; border-color:' + sharedState.colorMe.sec">
+         <i class="fas fa-star" :style="'color:' + sharedState.colorMe.main"></i>
         <z-spot
           slot="extension"
           :angle="-45"
@@ -72,7 +72,7 @@
           
          
           label-pos="right"
-          :style="'color:' + colorMe.sec"
+          :style="'color:' + sharedState.colorMe.sec"
           style="border: none; background-color: transparent;">
         </z-spot>
       </z-spot>
@@ -83,8 +83,8 @@
          size="xs"
          class="side"
         :label="permanency + ' ' + 'on chart'"
-         :style="'color:' + colorMe.sec + '; border-width: 1px; background-color:' + colorMe.sec + '; border-color:' + colorMe.sec">
-         <i class="fas fa-chart-line" :style="'color:' + colorMe.main"></i>
+         :style="'color:' + sharedState.colorMe.sec + '; border-width: 1px; background-color:' + sharedState.colorMe.sec + '; border-color:' + sharedState.colorMe.sec">
+         <i class="fas fa-chart-line" :style="'color:' + sharedState.colorMe.main"></i>
         <z-spot
           slot="extension"
           :angle="-45"
@@ -93,7 +93,7 @@
           class="side"
          
           
-          :style="'color:' + colorMe.sec"
+          :style="'color:' + sharedState.colorMe.sec"
           style="border: none; background-color: transparent;">
         </z-spot>
       </z-spot>
@@ -104,7 +104,7 @@
          :label="info.stars > 999 ? Math.round((info.stars / 1000) * 10 ) / 10 + 'k' : ' ' + info.stars"
          size="xs"
          class="side"
-         :style="'color:' + colorMe.sec"
+         :style="'color:' + sharedState.colorMe.sec"
          style="background-color: transparent; border: none">
          <i class="fas fa-star"></i>
       </z-spot>
@@ -112,7 +112,7 @@
         size="xxs"
         :angle="-145"
         :distance='99'
-        :style="'background-color:' + colorMe.main + '; border-color:' + colorMe.main">
+        :style="'background-color:' + sharedState.colorMe.main + '; border-color:' + sharedState.colorMe.main">
       </z-spot>
 
       <z-spot
@@ -121,7 +121,7 @@
          size="xs"
          class="side"
          :label="info.forks > 999 ? Math.round((info.forks / 1000) * 10 ) / 10 + 'k' : ' ' + info.forks"
-         :style="'color:' + colorMe.sec"
+         :style="'color:' + sharedState.colorMe.sec"
          style="background-color: transparent; border: none">
          <i class="fas fa-code-branch"></i>
       </z-spot>
@@ -129,7 +129,7 @@
         size="xxs"
         :angle="-180"
         :distance='99'
-        :style="'background-color:' + colorMe.main + '; border-color:' + colorMe.main">
+        :style="'background-color:' + sharedState.colorMe.main + '; border-color:' + sharedState.colorMe.main">
       </z-spot>
       <z-spot
          :angle="145"
@@ -137,7 +137,7 @@
          size="xs"
          class="side"
          :label="info.language === '' ? 'not defined' : info.language"
-         :style="'color:' + colorMe.sec"
+         :style="'color:' + sharedState.colorMe.sec"
          style="background-color: transparent; border: none">
          <i class="fas fa-code"></i>
       </z-spot>
@@ -145,7 +145,7 @@
         size="xxs"
         :angle="145"
         :distance='99'
-        :style="'background-color:' + colorMe.main + '; border-color:' + colorMe.main">
+        :style="'background-color:' + sharedState.colorMe.main + '; border-color:' + sharedState.colorMe.main">
       </z-spot>
 
       <!-- <z-spot
@@ -155,7 +155,7 @@
          size="xs"
          label="repo url"
          @click.native='toLink(info.url)'
-         :style="'color:' + colorMe.sec"
+         :style="'color:' + sharedState.colorMe.sec"
          style="color: #454545; background-color: transparent; border: none">
          <i class="fas fa-link"></i>
       </z-spot> -->
