@@ -133,11 +133,8 @@ export default {
                 urlParam: url
               }
             })
-            //vm.wt = result
           })
-        
         this.query = e
-
       } else {
         this.query = ''
         this.results = []
