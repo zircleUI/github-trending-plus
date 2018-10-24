@@ -2,13 +2,12 @@
 
 An alternative [Github trending](https://github.com/trending) UI using [**zircle-ui**](https://github.com/zircleUI/zircleUI)
 
-### ❗️This is an alpha project yet.
-
-
   <a href="http://zircle.io">
     <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/screen.png" width="350">
   </a>
 
+## Status: 🌱 Alpha 
+Many things could change before reach beta status. If you want to try it just clone this repo.
 
 ## Why?
 Github offers the possibility of see the repositories and developers that are more appealing for the community daily, weekly and monthly. Also you can filter them by selecting your preferred coding language. It’s pretty good for having an idea of what the community is most excited about.
