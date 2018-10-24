@@ -17,6 +17,13 @@ However, I want to add some features. For example, the ability to know how much 
 
 For those reasons and because I want to show some uses for [**zircle-ui**](https://github.com/zircleUI/zircleUI) is that I'm trying to present  an alternative approach. 
 
+## Features
+- Gain/loss positions for repositories and developers during permanency on chart.
+- Time on the trending chart for repositories and developers.
+- Shows only coding languages with trending results.
+- Most popular languages tracked.
+- No login required.
+
 ## Credits
 This project is based on this awesome API https://github.com/huchenme/github-trending-api
 
@@ -26,7 +33,7 @@ This project is based on this awesome API https://github.com/huchenme/github-tre
 git clone https://github.com/zircleUI/github-trending-plus.git
 ```
 
-After cloning the repository, execute:
+After cloning the repository, go to project folder and execute:
 
 ```
 npm install
