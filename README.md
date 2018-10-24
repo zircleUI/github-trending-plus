@@ -1,4 +1,4 @@
-# github-trending-plus
+# Github trending plus
 
 An alternative [Github trending](https://github.com/trending) UI with some extra features.
 <p align="center">
