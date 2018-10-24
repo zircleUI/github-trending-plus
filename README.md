@@ -1,15 +1,12 @@
-# Github trending plus
 <p align="center">
-  An alternative <a href="https://github.com/trending" target="_blank">Github trending</a> UI with some extra features.
+    <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/screen.png" width="150">
+</p>
+<p align="center">
+  Github trending plus: an alternative <a href="https://github.com/trending">Github trending</a> UI with some extra features.
 </p>
 <p align="center">
   <a href="https://github.com/zircleUI/zircleUI"><img alt="zircle" src="https://img.shields.io/badge/zircle-1.x-brightgreen.svg"></a>
   <img alt="status" src="https://img.shields.io/badge/status-alpha-red.svg">
-</p>
-<p align="center">
-  <a href="http://zircle.io">
-    <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/screen.png" width="350">
-  </a>
 </p>
 
 ## Why?
