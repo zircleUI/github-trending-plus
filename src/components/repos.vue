@@ -1,6 +1,9 @@
 <template>
   <z-view  :style="showResults ? 'border-width: 7px;' : 'border-width: 7px;'" slider :progress="progress">
       {{msg}}
+      <div v-if="sharedState.axiosError !== ''">
+        Oops!! {{sharedState.axiosError}}
+      </div>
       <div v-if="!trending">
         No trendings for {{sharedState.language}} <br>
         Create something awesome to be on the spot!
@@ -271,6 +274,7 @@ export default {
         axios.get('https://github-trending-api.now.sh/developers?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language))
       ])
         .then(axios.spread((myjson, github, avatars) => {
+          vm.sharedState.axiosError = ''
           vm.collection = []
           var full = github.data.map(function (e, index) {
             var search = myjson.data[myjson.data.length - 1][vm.sharedState.since].repos.find(el => el.name === e.name)
@@ -316,6 +320,10 @@ export default {
           }
           
         }))
+        .catch((err) => {
+          console.log(err);
+          vm.sharedState.axiosError = err.message
+        })
     }
   },
   mounted () {

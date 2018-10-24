@@ -1,6 +1,8 @@
 <template>
   <z-view style="border-width: 7px;">
-
+    <div v-if="sharedState.axiosError !== ''">
+        Oops!! {{sharedState.axiosError}}
+      </div>
     <div v-if="search">
       <input type="text" placeholder="type a language ..." :value="language"
       @input="searchLanguages($event.target.value)">
@@ -78,6 +80,10 @@ import axios from 'axios'
 function fetchGalleries(results) {
   return Promise.all(results.map(record => {
       return axios.get('https://github-trending-api.now.sh/repositories?language=' + encodeURIComponent(record.urlParam))
+      .catch((err) => {
+          console.log(err);
+          vm.sharedState.axiosError = err.message
+        })
   })).then(gal => {
       var papa = gal.filter(function (el) {
         return el.data.length > 0
@@ -149,6 +155,10 @@ export default {
           res.push({ name: 'all code lang.', urlParam: '' })
           vm.popular = res
           vm.other = response.data.all
+        })
+        .catch((err) => {
+          console.log(err);
+          vm.sharedState.axiosError = err.message
         })
     }
   },
