@@ -77,7 +77,7 @@ import state from '../store/state'
 import axios from 'axios'
 function fetchGalleries(results) {
   return Promise.all(results.map(record => {
-      return axios.get('https://github-trending-api.now.sh/repositories?language=' + record.urlParam)
+      return axios.get('https://github-trending-api.now.sh/repositories?language=' + encodeURIComponent(record.urlParam))
   })).then(gal => {
       var papa = gal.filter(function (el) {
         return el.data.length > 0
@@ -127,7 +127,7 @@ export default {
           var papa = fetchGalleries(vm.results)
           papa.then(result => {
             vm.wt = result.map(a => {
-              var url = a.toLowerCase().replace(' ', '-')
+              var url = a.replace(/\s+/g, '-').toLowerCase()
               return {
                 name: a,
                 urlParam: url
