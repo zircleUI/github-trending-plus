@@ -1,8 +1,8 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/screen-logo.png" width="220">
+    <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/screen-logo.png" width="300">
 </p>
 <p align="center">
-  Github trending plus: an alternative <a href="https://github.com/trending">Github trending</a> UI with some extra features.
+  An alternative <a href="https://github.com/trending">Github trending</a> UI with some extra features.
 </p>
 <p align="center">
   <a href="https://github.com/zircleUI/zircleUI"><img alt="zircle" src="https://img.shields.io/badge/zircle-1.x-brightgreen.svg"></a>
