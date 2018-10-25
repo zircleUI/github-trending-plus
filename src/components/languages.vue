@@ -45,7 +45,7 @@
             size='xs'
             :distance='60'
             slot-scope="props"
-            
+
             :index="props.index"
             :label="props.name"
 
@@ -77,19 +77,19 @@
 // :angle="(180 - (180 - ($zircle.getNumberOfPages() * 10))) / $zircle.getNumberOfPages() * ($zircle.getNumberOfPages() - index) + ((180 - (180 - (180 - ($zircle.getNumberOfPages() * 10)))) - ((180 - (180 - ($zircle.getNumberOfPages() * 10))) / $zircle.getNumberOfPages())) / 2"
 import state from '../store/state'
 import axios from 'axios'
-function fetchGalleries(results) {
+function fetchGalleries (results, stateError) {
   return Promise.all(results.map(record => {
-      return axios.get('https://github-trending-api.now.sh/repositories?language=' + encodeURIComponent(record.urlParam))
+    return axios.get('https://github-trending-api.now.sh/repositories?language=' + encodeURIComponent(record.urlParam))
       .catch((err) => {
-          console.log(err);
-          vm.sharedState.axiosError = err.message
-        })
-  })).then(gal => {
-      var papa = gal.filter(function (el) {
-        return el.data.length > 0
+        console.log(err)
+        stateError = err.message
       })
-      console.log(papa.map(a => a.data[0].language))
-      return papa.map(a => a.data[0].language)
+  })).then(gal => {
+    var papa = gal.filter(function (el) {
+      return el.data.length > 0
+    })
+    console.log(papa.map(a => a.data[0].language))
+    return papa.map(a => a.data[0].language)
   })
 }
 export default {
@@ -130,16 +130,16 @@ export default {
           var data = el.name.toLowerCase()
           return data.indexOf(input) > -1
         }).slice(-8)
-          var papa = fetchGalleries(vm.results)
-          papa.then(result => {
-            vm.wt = result.map(a => {
-              var url = a.replace(/\s+/g, '-').toLowerCase()
-              return {
-                name: a,
-                urlParam: url
-              }
-            })
+        var papa = fetchGalleries(vm.results, vm.sharedState.axiosError)
+        papa.then(result => {
+          vm.wt = result.map(a => {
+            var url = a.replace(/\s+/g, '-').toLowerCase()
+            return {
+              name: a,
+              urlParam: url
+            }
           })
+        })
         this.query = e
       } else {
         this.query = ''
@@ -157,8 +157,8 @@ export default {
           vm.other = response.data.all
         })
         .catch((err) => {
-          console.log(err);
-          vm.sharedState.axiosError = err.message
+          console.log(err)
+          this.sharedState.axiosError = err.message
         })
     }
   },
