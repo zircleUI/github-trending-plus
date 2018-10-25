@@ -40,7 +40,7 @@
           <span style="font-size: 13px" ><b>Tip: </b> use search to find other languages</span>
       </div>
     </transition>
-    
+
     <z-canvas :views="$options.components"></z-canvas>
   </div>
 </template>

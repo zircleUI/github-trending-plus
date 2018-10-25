@@ -1,8 +1,8 @@
 <template>
   <z-view size=xxl style="border-width: 7px" :style="'border-color:' + sharedState.colorMe.main">
-   <div class="label" :style="'color:' + sharedState.colorMe.main"> 
+   <div class="label" :style="'color:' + sharedState.colorMe.main">
      {{info.description.length > 90 ? info.description.substring(0,90) + '…' : info.description}}
-     
+
       </div>
 
     <div slot="extension">
@@ -28,7 +28,7 @@
           :distance="1"
           size="xxs"
           class="side"
-          
+
           :style="'color:' + sharedState.colorMe.sec"
           style="border: none; background-color: transparent;">
         </z-spot>
@@ -69,8 +69,7 @@
           :distance="1"
           size="xxs"
           class="side"
-          
-         
+
           label-pos="right"
           :style="'color:' + sharedState.colorMe.sec"
           style="border: none; background-color: transparent;">
@@ -91,8 +90,7 @@
           :distance="1"
           size="xxs"
           class="side"
-         
-          
+
           :style="'color:' + sharedState.colorMe.sec"
           style="border: none; background-color: transparent;">
         </z-spot>
@@ -170,7 +168,7 @@ export default {
     return {
       info: {},
       sharedState: state.$data,
-      colors: [{main: '#54a74c', sec: 'hsl(115, 37%, 18%)'}, {main: '#f2bd00', sec: 'hsl(47, 100%, 17%)'}, {main: '#5484f8', sec: 'hsl(222, 92%, 25%)'}]
+      colors: [{ main: '#54a74c', sec: 'hsl(115, 37%, 18%)' }, { main: '#f2bd00', sec: 'hsl(47, 100%, 17%)' }, { main: '#5484f8', sec: 'hsl(222, 92%, 25%)' }]
     }
   },
   methods: {
@@ -179,11 +177,6 @@ export default {
     }
   },
   computed: {
-    colorMe () {
-      var randomColor = this.colors[Math.floor(Math.random() * this.colors.length)]
-      this.sharedState.colorMe = randomColor
-      return randomColor
-    },
     permanency () {
       if (this.info.stay === 3) {
         return 'new!'
@@ -219,7 +212,7 @@ export default {
 <style scoped>
 
 .label{
-  
+
   font-weight: 500;
   border-radius: 50%;
  word-break: break-word;
@@ -229,18 +222,14 @@ export default {
   padding: 10px;
   margin-left: 5%;
   margin-right: 5%;
- 
-  
 
   border-radius: 50%;
   font-size: calc(1.2vw + 1.2vh + 1.2vmin);
- 
-  
-  
+
 }
 .is-current-view > section > .z-outer-circle {
   border: 2px solid #454545;
   opacity: 1;
-  
+
 }
 </style>

@@ -156,7 +156,7 @@
       </z-spot>
       <z-spot
       class="meteors"
-        
+
         :distance=180
         size='s'
         style="background-color: #D4D7DD;"
@@ -182,7 +182,7 @@ export default {
       devs1: [],
       angle1: 0,
       ani: {},
-      colors: [{main: '#8a8f94', sec: '#454545'}, {main: '#54a74c', sec: 'hsl(115, 37%, 18%)'}, {main: '#f2bd00', sec: 'hsl(47, 100%, 17%)'}, {main: '#5484f8', sec: 'hsl(222, 92%, 25%)'}]
+      colors: [{ main: '#8a8f94', sec: '#454545' }, { main: '#54a74c', sec: 'hsl(115, 37%, 18%)' }, { main: '#f2bd00', sec: 'hsl(47, 100%, 17%)' }, { main: '#5484f8', sec: 'hsl(222, 92%, 25%)' }]
     }
   },
   computed: {
