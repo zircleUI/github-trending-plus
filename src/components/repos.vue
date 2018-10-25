@@ -4,10 +4,6 @@
       <div v-if="sharedState.axiosError !== ''">
         Oops!! {{sharedState.axiosError}}
       </div>
-      <div v-if="!trending">
-        No trendings for {{sharedState.language}} <br>
-        Create something awesome to be on the spot!
-      </div>
     <div slot="extension" v-if="trending">
 
       <z-spot v-if="day || !trending"
@@ -23,17 +19,24 @@
         </z-spot>
 
     <div v-if="collection.length > 0 && trending">
+
       <z-list
         :items="collection"
-        :per-page="5">
-        <div slot-scope="props"  @mouseenter="showMe(props.index)">
+        :per-page="5"
+        @touchstart.native="startPos"
+        @touchmove.native.prevent
+        @touchend.native="endPos"
+        >
+        <div slot-scope="props"  @mouseenter="showMe(props.index)"
+        >
+
           <z-spot
-         
+
             class="test pos"
             size="xs"
             :index="props.index"
             :distance='110'
-            
+
             style="background-color: transparent; border: none;">
             {{props.position + 1}}˚
           </z-spot>
@@ -82,13 +85,15 @@
                 style="border-color: #454545;  background-color:#da482f;  ">
                   <i style=" color: white" class="fas fa-arrow-down"></i>
               </z-spot>
+
             </div>
           </z-spot>
 
         </div>
         </z-list>
+
       </div>
-      
+
     </div>
   </z-view>
 </template>
@@ -96,6 +101,7 @@
 import state from '../store/state'
 import axios from 'axios'
 import anime from 'animejs'
+
 export default {
   data () {
     return {
@@ -105,6 +111,7 @@ export default {
       sharedState: state.$data,
       showResults: false,
       msg: '',
+      startX: {},
       progress: 0,
       day: false,
       day0: false,
@@ -154,6 +161,26 @@ export default {
     }
   },
   methods: {
+    startPos (e) {
+      e = e.changedTouches ? e.changedTouches[0] : e
+      this.startX = {
+        pos: e.pageX,
+        time: new Date().getTime() }
+    },
+    endPos (e) {
+      e = e.changedTouches ? e.changedTouches[0] : e
+      var distX = e.pageX - this.startX.pos
+      var elapsedTime = new Date().getTime() - this.startX.time
+      if (elapsedTime <= 300) {
+        if (Math.abs(distX) >= 50 && distX < 0) {
+          this.$zircle.setCurrentPageIndex(this.$zircle.getCurrentPageIndex() + 1)
+          this.startX = {}
+        } else if (Math.abs(distX) >= 50 && distX > 0) {
+          this.$zircle.setCurrentPageIndex(this.$zircle.getCurrentPageIndex() - 1)
+          this.startX = {}
+        }
+      }
+    },
     animee2 () {
       var els = document.querySelectorAll('.test')
       var els2 = document.querySelectorAll('.z-pagination')
@@ -269,9 +296,9 @@ export default {
       if (this.sharedState.language === 'css') rankingDB = 'v05qk'
       if (this.sharedState.language === 'shell') rankingDB = '1e213g'
       axios.all([
-        axios.get('https://zircle-github-trending-ranking.now.sh/' + rankingDB),
-        axios.get('https://github-trending-api.now.sh/repositories?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language)),
-        axios.get('https://github-trending-api.now.sh/developers?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language))
+        axios.get('https://zircle-github-trending-ranking.now.sh/' + rankingDB, { timeout: 0 }),
+        axios.get('https://github-trending-api.now.sh/repositories?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language), { timeout: 0 }),
+        axios.get('https://github-trending-api.now.sh/developers?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language), { timeout: 0 })
       ])
         .then(axios.spread((myjson, github, avatars) => {
           vm.sharedState.axiosError = ''
@@ -279,7 +306,7 @@ export default {
           var full = github.data.map(function (e, index) {
             var search = myjson.data[myjson.data.length - 1][vm.sharedState.since].repos.find(el => el.name === e.name)
             if (search === undefined) search = { prevPos: -1, diff: 0, stay: 3 }
-            var findAvatar = avatars.data.find(function (el) { return el.username === e.author})
+            var findAvatar = avatars.data.find(function (el) { return el.username === e.author })
             if (findAvatar === undefined) {
               findAvatar = {}
               e.builtBy.length > 0 ? findAvatar['avatar'] = e.builtBy[0]['avatar'] : findAvatar['avatar'] = 'https://avatars1.githubusercontent.com/u/29514947?s=40&v=4'
@@ -318,10 +345,9 @@ export default {
           } else {
             vm.trending = false
           }
-          
         }))
         .catch((err) => {
-          console.log(err);
+          console.log(err)
           vm.sharedState.axiosError = err.message
         })
     }
@@ -359,7 +385,7 @@ color: #606368
 
 }
 .pos{
- 
+
   font-weight: 700;
   font-size: 16px;
 }
