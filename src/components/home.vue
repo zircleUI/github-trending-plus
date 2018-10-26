@@ -27,7 +27,7 @@
       >
       </z-spot>
       <z-spot
-        class="asteroids"
+        class="asteroids stay"
         style='border-width: 5px; opacity: 1; background-color: #da482f; border-color:white '
         size=s
         :distance="130"
@@ -246,6 +246,18 @@ export default {
 <style>
 .asteroids {
   pointer-events: none !important;
+}
+.is-past-view {
+  opacity: 0 !important
+}
+.is-previous-view section {
+  opacity: 1 !important
+}
+.is-previous-view section div .meteors {
+  opacity: 0 !important
+}
+.is-previous-view section div .asteroids{
+  opacity: 1 !important
 }
 .meteors {
   font-weight: 700;

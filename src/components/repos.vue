@@ -4,10 +4,11 @@
       <div v-if="sharedState.axiosError !== ''">
         Oops!! {{sharedState.axiosError}}
       </div>
-    <div slot="extension" v-if="trending">
+    <div slot="extension" v-if="trending" :style="$zircle.getCurrentViewName() === 'repos--0' ? 'opacity: 1' : 'opacity: 0'">
 
       <z-spot v-if="day || !trending"
         button
+
         :distance=130
         size='s'
         style="background-color: #D4D7DD;"
@@ -296,9 +297,9 @@ export default {
       if (this.sharedState.language === 'css') rankingDB = 'v05qk'
       if (this.sharedState.language === 'shell') rankingDB = '1e213g'
       axios.all([
-        axios.get('https://zircle-github-trending-ranking.now.sh/' + rankingDB, { timeout: 0 }),
-        axios.get('https://github-trending-api.now.sh/repositories?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language), { timeout: 0 }),
-        axios.get('https://github-trending-api.now.sh/developers?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language), { timeout: 0 })
+        axios.get('https://github-trending-ranking.now.sh/' + rankingDB, { timeout: 6000 }),
+        axios.get('https://github-trending-api.now.sh/repositories?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language), { timeout: 6000 }),
+        axios.get('https://github-trending-api.now.sh/developers?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language), { timeout: 6000 })
       ])
         .then(axios.spread((myjson, github, avatars) => {
           vm.sharedState.axiosError = ''
