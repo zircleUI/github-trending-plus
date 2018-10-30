@@ -6,7 +6,8 @@ const state = new Vue({
     refresh: false,
     initRepos: false,
     colorMe: {},
-    axiosError: ''
+    axiosError: '',
+    clearResults: false
   }
 })
 

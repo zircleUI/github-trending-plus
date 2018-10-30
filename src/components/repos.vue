@@ -1,39 +1,42 @@
 <template>
-  <z-view  :style="showResults ? 'border-width: 7px;' : 'border-width: 7px;'" slider :progress="progress">
+  <z-view  class="is-repos" :style="$zircle.getCurrentViewName() === 'repos--0' ? 'border-width: 7px; background-color: var(--accent-color) !important' : 'border-width: 7px; background-color: var(--accent-color) !important'" slider :progress="progress">
       {{msg}}
       <div v-if="sharedState.axiosError !== ''">
         Oops!! {{sharedState.axiosError}}
       </div>
-    <div slot="extension" v-if="trending" :style="$zircle.getCurrentViewName() === 'repos--0' ? 'opacity: 1' : 'opacity: 0'">
+    <div slot="extension" v-if="trending">
 
       <z-spot v-if="day || !trending"
         button
-
+        class="filter"
         :distance=130
         size='s'
         style="background-color: #D4D7DD;"
         :angle="45"
         label="filter"
-        @click.native="collection = []"
+
         to-view="languages">
            <i style="color: hsl(220, 12%, 25%);" class="fas fa-ellipsis-v"></i>
         </z-spot>
 
-    <div v-if="collection.length > 0 && trending">
+    <div v-if="collection.length > 0 && showResults">
 
       <z-list
+      class="stay"
+      style=""
         :items="collection"
         :per-page="5"
         @touchstart.native="startPos"
         @touchmove.native.prevent
         @touchend.native="endPos"
+        
         >
-        <div slot-scope="props"  @mouseenter="showMe(props.index)"
-        >
+        
+        <div slot-scope="props"  @mouseenter="showMe(props.index)" >
 
           <z-spot
 
-            class="test pos"
+            class=" pos numeral"
             size="xs"
             :index="props.index"
             :distance='110'
@@ -42,7 +45,7 @@
             {{props.position + 1}}˚
           </z-spot>
           <z-spot
-          class="test"
+          class=" numeral"
             size="xxs"
             :index="props.index"
             :distance='99'
@@ -52,22 +55,23 @@
           <z-spot
             :image-path="props.avatar"
             class="test"
-            :distance='60'
-            :style="props.avatar === 'none' || !props.avatar ? 'background-color:' + colors[props.index] + '; border-width: 4px;' : 'border-width: 4px'"
-            style="color:hsl(217, 4%, 09%); background-color: rgba(0,0,0,0); border-color: var(--shade-color)"
+            :distance='55'
+            :props="props"
+            size=m
+            :ref="'res-' + props.index"
+            style="border-width: 0px; background-color: rgba(0,0,0,0); border-color: var(--shade-color)"
             :index="props.index"
-            :label="show === props.index ? props.name : props.name.substring(0,10) + '' + (props.name.length > 13 ? '…' : '')"
-            :to-view="{name: 'repo', params: {data: props}}"
+            :label="show === props.index ? props.name : ''"
+            @mouseup.native="hideMe('res-' + props.index)"
            >
-            <span v-if="props.avatar === 'none' || !props.avatar" style="color:white; font-weight: bolder; font-size: 20px; text-transform: capitalize;">
-                  {{ props.name.substring(0,1) }} {{ props.name.substring(props.name.length -1) }}
-                </span>
-            <div slot="extension">
+
+            <div slot="extension" class="extra">
               <z-spot v-if="props.diff > 0 && props.prevPos !== -1"
+
                 size="xs"
                 :angle="0"
                 :distance='100'
-                style="border-color: #454545; background-color:#54a74c;">
+                style="border-color: var(--accent-color);; background-color:#54a74c;">
                   <i style=" color: white" class="fas fa-arrow-up"></i>
               </z-spot>
 
@@ -75,7 +79,7 @@
                 size="xs"
                 :angle="0"
                 :distance='100'
-                style="font-weight: 700; font-size: 10px; color: hsl(47, 100%, 27%); border-color: #454545; background-color:#f2bd00;  ">
+                style="font-weight: 700; font-size: 10px; color: hsl(47, 100%, 27%); border-color: var(--accent-color);; background-color:#f2bd00;  ">
                 new
               </z-spot>
 
@@ -83,7 +87,7 @@
                 size="xs"
                 :angle="0"
                 :distance='100'
-                style="border-color: #454545;  background-color:#da482f;  ">
+                style="border-color: var(--accent-color);  background-color:#da482f;  ">
                   <i style=" color: white" class="fas fa-arrow-down"></i>
               </z-spot>
 
@@ -91,6 +95,7 @@
           </z-spot>
 
         </div>
+       
         </z-list>
 
       </div>
@@ -102,7 +107,7 @@
 import state from '../store/state'
 import axios from 'axios'
 import anime from 'animejs'
-
+// import html2canvas from 'html2canvas'
 export default {
   data () {
     return {
@@ -156,12 +161,17 @@ export default {
       this.animee()
     },
     viewn: function () {
-      if (this.$zircle.getCurrentViewName() === 'repos--0') {
+      if (this.$zircle.getCurrentViewName() === 'repos--0' && this.sharedState.clearResults) {
+        this.collection = []
         this.getRepos()
+        this.sharedState.clearResults = false
       }
     }
   },
   methods: {
+    hideMe (ref) {
+      this.$zircle.toView({ to: 'repo', fromSpot: this.$refs[ref], params: { data: this.$refs[ref].$attrs.props } })
+    },
     startPos (e) {
       e = e.changedTouches ? e.changedTouches[0] : e
       this.startX = {
@@ -242,7 +252,7 @@ export default {
           vm.day = true
           vm.progress++
         } else if (vm.progress === 80) {
-          vm.msg = 'Preparing to show...'
+          vm.msg = ''
           vm.lang = true
           vm.progress++
         } else {
@@ -297,9 +307,9 @@ export default {
       if (this.sharedState.language === 'css') rankingDB = 'v05qk'
       if (this.sharedState.language === 'shell') rankingDB = '1e213g'
       axios.all([
-        axios.get('https://github-trending-ranking.now.sh/' + rankingDB, { timeout: 6000 }),
-        axios.get('https://github-trending-api.now.sh/repositories?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language), { timeout: 6000 }),
-        axios.get('https://github-trending-api.now.sh/developers?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language), { timeout: 6000 })
+        axios.get('https://zircle-github-trending-ranking.now.sh/' + rankingDB, { timeout: 12000 }),
+        axios.get('https://github-trending-api.now.sh/repositories?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language), { timeout: 12000 }),
+        axios.get('https://github-trending-api.now.sh/developers?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language), { timeout: 12000 })
       ])
         .then(axios.spread((myjson, github, avatars) => {
           vm.sharedState.axiosError = ''
@@ -354,25 +364,52 @@ export default {
     }
   },
   mounted () {
-    this.getRepos()
+    if (this.collection.length === 0) this.getRepos()
   }
 }
 </script>
 <style>
-.test {
- opacity: 0;
+.z-content {
+  top: 0 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+
 }
 .z-pagination {
- opacity: 0;
+ // opacity: 0;
+}
+.test{
+  border: 3px solid var(--shade-color) !important;
+  
+}
+.test:hover {
+  border: 3px solid var(--shade-color) !important;
+  
 }
 a {
   color: white;
 }
+.test>.z-label.bottom{
+ 
+  
+  top: 106% !important;
+  
+}
+.is-repos{
+  background-color: white !important
+}
+
 .test>.z-label.bottom>.inside {
-  background-color: transparent;
+  border: 1px solid var(--shade-color) !important;
+  background-color: var(--accent-color) !important;
   font-size: 13px !important;
-  top: 105% !important;
-  color: white
+  font-weight: 500;
+  
+  
+  color: var(--shade-color)
 }
 .z-label.right>.inside{
 background-color: transparent !important;
@@ -390,10 +427,7 @@ color: #606368
   font-weight: 700;
   font-size: 16px;
 }
- .z-label.bottom > .inside {
-    background-color: transparent !important;
- }
-
+ 
 @media (max-width: 450px) {
 }
 

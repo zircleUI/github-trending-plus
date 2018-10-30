@@ -1,7 +1,8 @@
 <template>
-  <z-view style="color: white;border-width: 7px;" size="xl">
+  <z-view class="is-home" style="color: white;border-width: 7px;" size="xl">
     <i class="fab fa-github fa-4x"></i>
     <div slot="extension">
+
       <z-spot
         class="asteroids"
         style='border-width: 3px; opacity: 0.3; border-color:white '
@@ -27,18 +28,18 @@
       >
       </z-spot>
       <z-spot
-        class="asteroids stay"
+        class="asteroids"
         style='border-width: 5px; opacity: 1; background-color: #da482f; border-color:white '
         size=s
         :distance="130"
         :angle="75"
       />
       <z-spot
-        class="asteroids"
+        class="asteroids stay"
         style='border-width: 6px; opacity: 1; background-color: #5484f8; border-color:white '
         size=xs
         :distance="160"
-        :angle="-50"
+        :angle="-47"
       />
       <z-spot
         class="asteroids"
@@ -129,9 +130,10 @@
       class="meteors"
       :distance="170"
       :angle="-30"
+      ref="repos"
       style="font-size: 40px;color: hsl(220, 12%, 25%); border-color: white; border-width: 3px; background-color: #D4D7DD;"
-      @click.native="sharedState.initRepos = true"
-      to-view="repos"
+      @click.native="renderMe('repos')"
+
       label="top repos">
         R
       </z-spot>
@@ -196,6 +198,21 @@ export default {
     }
   },
   methods: {
+    renderMe (ref) {
+      this.sharedState.initRepos = true
+      this.$zircle.toView({ to: 'repos', fromSpot: this.$refs[ref] })
+      /* var vm = this
+
+      var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+      var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+      html2canvas(document.body, {width: w, height: h}).then(function(canvas) {
+        canvas.style.margin = '-' + h / 2 + 'px 0px 0px -' + w / 2 + 'px'
+        document.querySelector('#z-zoomable-layer section').appendChild(canvas)
+        setTimeout(function () {
+          vm.$zircle.toView({to: 'repos', fromSpot: vm.$refs[ref]})
+        }, 4000)
+      }) */
+    },
     toLink (url) {
       return window.open(url, '_blank')
     },
@@ -247,18 +264,63 @@ export default {
 .asteroids {
   pointer-events: none !important;
 }
+.is-previous-view, .is-past-view {
+  opacity: 1 !important
+}
+.is-previous-view section, .is-past-view section {
+  opacity: 1 !important
+}
+
+.is-previous-view section div div .z-label, .is-past-view section div div .z-label {
+  opacity: 0 !important
+}
+
+.is-previous-view section div div section div div div .extra, .is-past-view section div div section div div div .extra {
+  opacity: 0 !important
+}
+
+.is-previous-view section div div section div div .numeral, .is-past-view section div div section div div .numeral {
+  opacity: 0 !important;
+  cursor: default !important;
+}
+.is-current-view section div div section div div .numeral {
+  cursor: default !important;
+}
+.is-previous-view section .z-outer-circle, .is-past-view section .z-outer-circle {
+  opacity: 0 !important
+}
+.is-previous-view {
+filter: blur(2px) opacity(85%) !important;
+}
 .is-past-view {
-  opacity: 0 !important
+filter: blur(2px) opacity(65%) !important;
 }
-.is-previous-view section {
+.is-home.is-current-view section .z-outer-circle {
+  opacity: 0 !important;
+  cursor: default !important;
+}
+.is-current-view section .z-outer-circle {
+  
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: default !important;
+}
+.is-current-view section svg {
+  cursor: default !important;
+}
+/* .is-previous-view section div div, .is-past-view section div div {
   opacity: 1 !important
 }
-.is-previous-view section div .meteors {
+
+.is-previous-view section .z-main-content, .is-past-view section .z-main-content {
   opacity: 0 !important
 }
-.is-previous-view section div .asteroids{
+.is-previous-view section div .stay, .is-past-view section div .stay{
   opacity: 1 !important
 }
+.is-previous-view section div div section div div .stay, .is-past-view section div div section div div .stay{
+  opacity: 1 !important
+} */
+
 .meteors {
   font-weight: 700;
 }
@@ -273,7 +335,7 @@ export default {
   color: inherit !important;
   font-weight: 500 !important;
   background-color: transparent !important;
-  font-size: calc(0.7vw + 0.7vh + 0.7vmin);
+  font-size: calc(1vw + 1vh + 1vmin);
 }
 
 </style>

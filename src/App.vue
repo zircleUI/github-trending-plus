@@ -2,7 +2,7 @@
   <div id="app">
     <span style="z-index:999; position: absolute; top: 10px; right: 10px; font-weight: 500; font-size: 12px" ><span v-if="$zircle.getCurrentViewName() !== 'home--0'">Github trending plus  |  </span> by <a href="https://github.com/zircleui/zircleui" target="_blank"> <img style="vertical-align:middle" src="zircle.png" width="13px"/>  zircle</a> </span>
     <transition name="head">
-      <div v-if="$zircle.getCurrentViewName() === 'home--0'" class="title home">
+      <div  v-if="$zircle.getCurrentViewName() === 'home--0'" class="title home">
         Github trending <span :style="'color:' + sharedState.colorMe.main">plus</span>
         <br>
         <div style="line-height: 0.9em; font-weight: 300; font-size: 20px; color: #8a8f94" ><br><span style="text-transform: capitalize">{{sharedState.since}}</span> repos & devs for {{sharedState.language === '' ? 'all coding languages' : sharedState.language}}</div>
@@ -89,7 +89,8 @@ body {
   z-index: 9999;
   opacity: 1;
   line-height: 1.02em;
-  opacity: 0.7;
+  
+  pointer-events: none !important;
 }
 
 .footer {
@@ -97,6 +98,7 @@ body {
   bottom: 20px;
   width: 100%;
   font-size: 32px;
+  pointer-events: none !important;
 
   z-index: 9999;
   opacity: 1;

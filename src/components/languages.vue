@@ -29,11 +29,12 @@
     <z-spot button
             size='s'
             :angle="45"
-            label="+ languages"
+            :label="!search ? '+ languages' : 'go back'"
             :distance="120"
             @click.native="search = !search"
             >
-            <i class="fas fa-search"></i>
+            <i v-if="!search" class="fas fa-search"></i>
+            <i v-if="search" class="fas fa-undo"></i>
           </z-spot>
           <div v-if="popular.length && !search && $zircle.getCurrentViewName() === 'languages--0'">
      <z-list
@@ -152,7 +153,7 @@ export default {
         .get('https://github-trending-api.now.sh/languages')
         .then(function (response) {
           var res = response.data.popular
-          res.push({ name: 'all code lang.', urlParam: '' })
+          res.push({ name: 'all languages', urlParam: '' })
           vm.popular = res
           vm.other = response.data.all
         })
@@ -164,6 +165,7 @@ export default {
   },
   mounted () {
     this.getLanguages()
+    this.sharedState.clearResults = true
   }
 }
 </script>
