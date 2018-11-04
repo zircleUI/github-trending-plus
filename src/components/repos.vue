@@ -1,5 +1,5 @@
 <template>
-  <z-view  class="is-repos" :style="$zircle.getCurrentViewName() === 'repos--0' ? 'border-width: 7px; background-color: var(--accent-color) !important' : 'border-width: 7px; background-color: var(--accent-color) !important'" slider :progress="progress">
+  <z-view  class="is-repos"  :style="$zircle.getCurrentViewName() === 'repos--0' ? 'border-width: 7px; background-color: white !important' : 'border-width: 7px; background-color: white !important'">
       {{msg}}
       <div v-if="sharedState.axiosError !== ''">
         Oops!! {{sharedState.axiosError}}
@@ -8,18 +8,40 @@
 
       <z-spot v-if="day || !trending"
         button
-        class="filter"
+        class="filter buttons"
         :distance=130
         size='s'
         style="background-color: #D4D7DD;"
         :angle="45"
         label="filter"
-
         to-view="languages">
            <i style="color: hsl(220, 12%, 25%);" class="fas fa-ellipsis-v"></i>
         </z-spot>
 
-    <div v-if="collection.length > 0 && showResults">
+    <z-spot v-if="$zircle.getCurrentPageIndex() <= 3"
+        button
+        class="filter buttons"
+        :distance=115
+        size='xs'
+        style="border-color: var(--accent-color);background-color: var(--accent-color); color: var(--shade-color)"
+        :angle="0"
+        @mouseup.native="$zircle.setCurrentPageIndex($zircle.getCurrentPageIndex() + 1)"
+    >
+           <i class="fas fa-arrow-right"></i>
+        </z-spot>
+
+        <z-spot v-if="$zircle.getCurrentPageIndex() >= 1"
+        button
+        class="filter buttons"
+        :distance=115
+        size='xs'
+        style="border-color: var(--accent-color);background-color: var(--accent-color); color: var(--shade-color)"
+        :angle="180"
+        @mouseup.native="$zircle.setCurrentPageIndex($zircle.getCurrentPageIndex() - 1)">
+        <i style="" class="fas fa-arrow-left"></i>
+        </z-spot>
+
+    <div v-if="collection.length > 0">
 
       <z-list
       class="stay"
@@ -29,10 +51,10 @@
         @touchstart.native="startPos"
         @touchmove.native.prevent
         @touchend.native="endPos"
-        
+
         >
-        
-        <div slot-scope="props"  @mouseenter="showMe(props.index)" >
+
+        <div slot-scope="props" >
 
           <z-spot
 
@@ -60,18 +82,19 @@
             size=m
             :ref="'res-' + props.index"
             style="border-width: 0px; background-color: rgba(0,0,0,0); border-color: var(--shade-color)"
+            :style="$zircle.getCurrentViewName() === 'repos--0' && hideThis ===  'res-' + props.index ? 'opacity: 1' : ''"
             :index="props.index"
-            :label="show === props.index ? props.name : ''"
-            @mouseup.native="hideMe('res-' + props.index)"
+            :label="trimLabels(props.index, props.name)"
+            @click.native="hideMe('res-' + props.index)"
+            @mouseup.native="sendMe('res-' + props.index)"
            >
 
             <div slot="extension" class="extra">
               <z-spot v-if="props.diff > 0 && props.prevPos !== -1"
-
                 size="xs"
                 :angle="0"
                 :distance='100'
-                style="border-color: var(--accent-color);; background-color:#54a74c;">
+                style="border-color: white; background-color:#54a74c;">
                   <i style=" color: white" class="fas fa-arrow-up"></i>
               </z-spot>
 
@@ -79,7 +102,7 @@
                 size="xs"
                 :angle="0"
                 :distance='100'
-                style="font-weight: 700; font-size: 10px; color: hsl(47, 100%, 27%); border-color: var(--accent-color);; background-color:#f2bd00;  ">
+                style="font-weight: 700; font-size: 10px; color: hsl(47, 100%, 27%); border-color: white; background-color:#f2bd00;  ">
                 new
               </z-spot>
 
@@ -87,7 +110,7 @@
                 size="xs"
                 :angle="0"
                 :distance='100'
-                style="border-color: var(--accent-color);  background-color:#da482f;  ">
+                style="border-color: white;  background-color:#da482f;  ">
                   <i style=" color: white" class="fas fa-arrow-down"></i>
               </z-spot>
 
@@ -95,7 +118,7 @@
           </z-spot>
 
         </div>
-       
+
         </z-list>
 
       </div>
@@ -124,6 +147,7 @@ export default {
       day1: false,
       lang: false,
       trending: true,
+      hideThis: '',
       vlang: state.$data.language,
       vsince: state.$data.since,
       colors: ['#da482f', '#54a74c', '#f2bd00', '#5484f8']
@@ -169,45 +193,60 @@ export default {
     }
   },
   methods: {
+    trimLabels (index, name) {
+      if (index === 2 || index === 3) {
+        return name.length > 7 ? name.substring(0, 4) + '…' : name
+      } else {
+        return name.length > 11 ? name.substring(0, 7) + '…' : name
+      }
+    },
     hideMe (ref) {
+      this.hideThis = ref
+      this.$refs[ref].$el.style.opacity = 0
+    },
+    sendMe (ref) {
       this.$zircle.toView({ to: 'repo', fromSpot: this.$refs[ref], params: { data: this.$refs[ref].$attrs.props } })
     },
     startPos (e) {
-      e = e.changedTouches ? e.changedTouches[0] : e
+      if (e.touches.length === 1) {
+        // just one finger touched
+        this.startX = e.touches.item(0).clientX
+      } else {
+        // a second finger hit the screen, abort the touch
+        this.startX = null
+      }
+      /* e = e.changedTouches ? e.changedTouches[0] : e
       this.startX = {
-        pos: e.pageX,
-        time: new Date().getTime() }
+        posX: e.pageX,
+        time: new Date().getTime() } */
     },
     endPos (e) {
-      e = e.changedTouches ? e.changedTouches[0] : e
-      var distX = e.pageX - this.startX.pos
-      var elapsedTime = new Date().getTime() - this.startX.time
-      if (elapsedTime <= 300) {
-        if (Math.abs(distX) >= 50 && distX < 0) {
+      var offset = 60
+      if (this.startX) {
+        // the only finger that hit the screen left it
+        var end = e.changedTouches.item(0).clientX
+
+        if (end < this.startX - offset && this.$zircle.getCurrentPageIndex() <= 3) {
+        // a left -> right swipe
+          this.$zircle.setCurrentPageIndex(this.$zircle.getCurrentPageIndex() + 1)
+        }
+        if (end > this.startX + offset && this.$zircle.getCurrentPageIndex() >= 1) {
+        // a right -> left swipe
+          this.$zircle.setCurrentPageIndex(this.$zircle.getCurrentPageIndex() - 1)
+        }
+      }
+      /* e = e.changedTouches ? e.changedTouches[0] : e
+      var distX = e.pageX - this.startX.posX
+      var elapsedTimeX = new Date().getTime() - this.startX.time
+      if (elapsedTimeX <= 300) {
+        if (Math.abs(distX) >= 50 && distX < 0 && this.$zircle.getCurrentPageIndex() <= 3) {
           this.$zircle.setCurrentPageIndex(this.$zircle.getCurrentPageIndex() + 1)
           this.startX = {}
-        } else if (Math.abs(distX) >= 50 && distX > 0) {
+        } else if (Math.abs(distX) >= 50 && distX > 0 && this.$zircle.getCurrentPageIndex() >= 1) {
           this.$zircle.setCurrentPageIndex(this.$zircle.getCurrentPageIndex() - 1)
           this.startX = {}
         }
-      }
-    },
-    animee2 () {
-      var els = document.querySelectorAll('.test')
-      var els2 = document.querySelectorAll('.z-pagination')
-      var pag = anime({
-        targets: els2,
-        opacity: [0, 1],
-        duration: 0
-      })
-      anime({
-        targets: els,
-        opacity: [0, 1],
-        duration: 0,
-        complete: function () {
-          return pag
-        }
-      })
+      } */
     },
     animee () {
       var els = document.querySelectorAll('.test')
@@ -223,16 +262,19 @@ export default {
         targets: els,
         opacity: [0, 1],
         duration: function (el, i) {
-          return 2000 + (i * 100)
+          return 2000 + (i * 200)
         },
-        delay: function (e, i) { return i * 50 },
+        delay: function (e, i) { return i * 120 },
         complete: function () {
           return pag
         }
       })
     },
     init () {
-      this.progress = 1
+      this.animee()
+      // this.showResults = true
+      this.day = true
+      /* this.progress = 1
       this.msg = 'Fetching data...'
       var vm = this
       var id = setInterval(function () {
@@ -258,10 +300,10 @@ export default {
         } else {
           vm.progress++
         }
-      }, 20)
+      }, 5) */
     },
     init2 () {
-      this.progress = 1
+      /* this.progress = 1
       this.msg = 'Fetching data...'
       var vm = this
       var id = setInterval(function () {
@@ -278,7 +320,7 @@ export default {
         } else {
           vm.progress++
         }
-      }, 0)
+      }, 0) */
     },
     showMe (index) {
       if (this.show === index) {
@@ -307,7 +349,7 @@ export default {
       if (this.sharedState.language === 'css') rankingDB = 'v05qk'
       if (this.sharedState.language === 'shell') rankingDB = '1e213g'
       axios.all([
-        axios.get('https://zircle-github-trending-ranking.now.sh/' + rankingDB, { timeout: 12000 }),
+        axios.get('https://zircle-github-trending-ranking.now.sh/' + rankingDB),
         axios.get('https://github-trending-api.now.sh/repositories?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language), { timeout: 12000 }),
         axios.get('https://github-trending-api.now.sh/developers?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language), { timeout: 12000 })
       ])
@@ -315,6 +357,7 @@ export default {
           vm.sharedState.axiosError = ''
           vm.collection = []
           var full = github.data.map(function (e, index) {
+            var updated = myjson.data[myjson.data.length - 1].timestamp
             var search = myjson.data[myjson.data.length - 1][vm.sharedState.since].repos.find(el => el.name === e.name)
             if (search === undefined) search = { prevPos: -1, diff: 0, stay: 3 }
             var findAvatar = avatars.data.find(function (el) { return el.username === e.author })
@@ -326,6 +369,7 @@ export default {
               findAvatar.avatar = findAvatar.avatar.replace(/s=96/gi, 's=200')
             }
             return {
+              updated: updated,
               position: index,
               author: e.author,
               name: e.name,
@@ -343,7 +387,8 @@ export default {
           })
           if (full.length > 0) {
             vm.collection = full
-            if (vm.check) {
+            vm.init()
+            /* if (vm.check) {
               vm.vlang = vm.sharedState.language
               vm.vsince = vm.sharedState.since
               vm.init()
@@ -352,7 +397,7 @@ export default {
               vm.init()
             } else {
               vm.init2()
-            }
+            } */
           } else {
             vm.trending = false
           }
@@ -374,42 +419,52 @@ export default {
   left: 0 !important;
   bottom: 0 !important;
   right: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
+  width: 100.5% !important;
+  height: 100.5% !important;
 
 }
-.z-pagination {
- // opacity: 0;
-}
+
 .test{
   border: 3px solid var(--shade-color) !important;
-  
+
 }
 .test:hover {
   border: 3px solid var(--shade-color) !important;
-  
+
 }
 a {
   color: white;
 }
 .test>.z-label.bottom{
- 
-  
-  top: 106% !important;
-  
+
+  top: 108% !important;
+
 }
 .is-repos{
   background-color: white !important
 }
 
 .test>.z-label.bottom>.inside {
-  border: 1px solid var(--shade-color) !important;
-  background-color: var(--accent-color) !important;
+  border: none !important;
+  background-color: transparent !important;
   font-size: 13px !important;
-  font-weight: 500;
-  
-  
-  color: var(--shade-color)
+  font-weight: 700;
+  color: var(--accent-color)
+}
+
+.buttons>.z-label.bottom>.inside {
+  color: #454545;
+  font-weight: 400;
+  background-color: transparent !important;
+  font-size: calc(0.7vw + 0.7vh + 0.7vmin);
+}
+
+.butt>.z-label.bottom>.inside {
+
+  color: var(--shade-color) !important;
+  font-weight: 400;
+  background-color: transparent !important;
+  font-size: calc(0.7vw + 0.7vh + 0.7vmin);
 }
 .z-label.right>.inside{
 background-color: transparent !important;
@@ -427,7 +482,7 @@ color: #606368
   font-weight: 700;
   font-size: 16px;
 }
- 
+
 @media (max-width: 450px) {
 }
 

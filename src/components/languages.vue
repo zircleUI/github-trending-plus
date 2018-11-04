@@ -13,24 +13,26 @@
 
       v-for="(language, index) in wt"
       button
+
       :key="'lang' + index"
       :distance="60"
       :angle="-90 + (360 / wt.length * index)"
       size="xs"
-      class="test1 accent"
+      class="test1 accent butt"
       :label="language.name"
       @click.native="sharedState.language = language.urlParam"
       style="border: none"
-      :style="sharedState.language === language.urlParam ? 'background-color: #f2bd00;' : ''"
+     :style="sharedState.language === language.urlParam ? 'background-color:' + sharedState.colorMe.main : 'background-color: transparent; border: 1px solid ' + sharedState.colorMe.main"
 
       >
       </z-spot>
       </div>
     <z-spot button
+      class="buttons"
             size='s'
             :angle="45"
             :label="!search ? '+ languages' : 'go back'"
-            :distance="120"
+            :distance="130"
             @click.native="search = !search"
             >
             <i v-if="!search" class="fas fa-search"></i>
@@ -41,33 +43,31 @@
         :items="popular"
         :per-page="8">
           <z-spot
-           class="test1"
+           class="test1 butt"
             button
             size='xs'
             :distance='60'
             slot-scope="props"
-
             :index="props.index"
             :label="props.name"
-
             @click.native="sharedState.language = props.urlParam"
             style="border: none"
-            :style="sharedState.language === props.urlParam ? 'background-color:#f2bd00;' : ''"
+            :style="sharedState.language === props.urlParam ? 'background-color:' + sharedState.colorMe.main : 'background-color: transparent; border: 1px solid ' + sharedState.colorMe.main"
             >
           </z-spot>
       </z-list>
     </div>
-      <z-spot button size=xs :distance=120 :angle=-45 label="today"
+      <z-spot  class="buttons" button size=xs :distance=125 :angle=-45 label="daily"
       style="border: none; color: white"
       :style="sharedState.since === 'daily' ? 'background-color: #5484f8' : ''"
       @click.native="sharedState.since = 'daily'" >T</z-spot>
 
-      <z-spot button size=xs :distance=120 :angle=-20 label="this week"
+      <z-spot  class="buttons" button size=xs :distance=125 :angle=-20 label="weekly"
       style="border: none; color: white"
       :style="sharedState.since === 'weekly' ? 'background-color: #5484f8' : ''"
       @click.native="sharedState.since = 'weekly'" >W</z-spot>
 
-      <z-spot button size=xs :distance=120 :angle=5 label="this month"
+      <z-spot  class="buttons" button size=xs :distance=125 :angle=5 label="monthly"
       style="border: none; color: white"
       :style="sharedState.since === 'monthly' ? 'background-color: #5484f8' : ''"
       @click.native="sharedState.since = 'monthly'" >M</z-spot>

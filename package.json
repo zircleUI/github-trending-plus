@@ -20,7 +20,7 @@
     "animejs": "^2.2.0",
     "axios": "^0.18.0",
     "vue": "^2.5.17",
-    "zircle": "^1.1.0"
+    "zircle": "^1.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.1",

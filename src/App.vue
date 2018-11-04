@@ -1,11 +1,11 @@
 <template>
-  <div id="app">
+  <div id="app" style="user-select: none;" >
     <span style="z-index:999; position: absolute; top: 10px; right: 10px; font-weight: 500; font-size: 12px" ><span v-if="$zircle.getCurrentViewName() !== 'home--0'">Github trending plus  |  </span> by <a href="https://github.com/zircleui/zircleui" target="_blank"> <img style="vertical-align:middle" src="zircle.png" width="13px"/>  zircle</a> </span>
     <transition name="head">
       <div  v-if="$zircle.getCurrentViewName() === 'home--0'" class="title home">
         Github trending <span :style="'color:' + sharedState.colorMe.main">plus</span>
         <br>
-        <div style="line-height: 0.9em; font-weight: 300; font-size: 20px; color: #8a8f94" ><br><span style="text-transform: capitalize">{{sharedState.since}}</span> repos & devs for {{sharedState.language === '' ? 'all coding languages' : sharedState.language}}</div>
+        <div style="line-height: 0.9em; font-weight: 300; font-size: 20px; color: #8a8f94" ><br><span style="text-transform: capitalize">{{sharedState.since}}</span> repos & devs for <span :style="'color:' + sharedState.colorMe.main">{{sharedState.language === '' ? 'all coding languages' : sharedState.language}}</span></div>
       </div>
     </transition>
     <transition name="head">
@@ -16,13 +16,11 @@
     </transition>
     <transition name="head">
     <div v-if="$zircle.getCurrentViewName() === 'repos--0'" class="title other">
-        <div style="line-height: 0.9em; font-size: 20px;" ><br><span style="text-transform: capitalize">{{sharedState.since}}</span> trending repositories
+        <span style="text-transform: capitalize">{{sharedState.since}}</span> trending repositories
         <br>
-        <div style="line-height: 0.8em; font-weight: 300; font-size: 18px; color: #8a8f94" ><br>{{sharedState.language === '' ? 'all coding languages' : sharedState.language}} </div>
+        <div style="line-height: 0.8em; font-weight: 300; font-size: 20px; color: #8a8f94" ><br>{{sharedState.language === '' ? 'all coding languages' : sharedState.language}} </div>
       </div>
 
-        <!-- <span style="text-transform: capitalize">{{sharedState.since}}</span> trending repositories <br> <span style="font-weight: 300">{{sharedState.language === '' ? 'all code languages' : sharedState.language}}</span> -->
-      </div>
     </transition>
     <transition name="head">
     <div v-if="$zircle.getCurrentViewName() === 'repos--0'" class="footer other">
@@ -40,8 +38,26 @@
           <span style="font-size: 13px" ><b>Tip: </b> use search to find other languages</span>
       </div>
     </transition>
+<transition name="head">
+    <div v-if="$zircle.getCurrentViewName() === 'repo-3-0'" class="title home">
+        <span :style="'color:' + sharedState.colorMe.sec"> {{$zircle.getParams().data.name}} </span>
+        <br>
+        <div style="line-height: 0.9em; font-weight: 300; font-size: 25px;" :style="'color:' + sharedState.colorMe.sec"><br>by {{$zircle.getParams().data.author}}</div>
+      </div>
+    </transition>
+    <transition name="head">
+    <div v-if="$zircle.getCurrentViewName() === 'repo--0'" class="footer">
+          <span style="font-size: 13px" ><b>Tip: </b> use insights to see repo evolution on chart</span>
+      </div>
+    </transition>
 
-    <z-canvas :views="$options.components"></z-canvas>
+    <z-canvas :views="$options.components"
+    @wheel.native="backward"
+    @touchstart.native="startPos"
+    @touchmove.native.prevent
+    @touchend.native="endPos"
+    ></z-canvas>
+
   </div>
 </template>
 
@@ -62,11 +78,50 @@ export default {
   },
   data () {
     return {
-      sharedState: state.$data
+      sharedState: state.$data,
+      startY: {},
+      valid: true,
+      mouse: []
+    }
+  },
+  methods: {
+    startPos (e) {
+      e = e.changedTouches ? e.changedTouches[0] : e
+      this.startY = {
+        posY: e.pageY,
+        time: new Date().getTime() }
+    },
+    endPos (e) {
+      e = e.changedTouches ? e.changedTouches[0] : e
+      var distY = e.pageY - this.startY.posY
+      var elapsedTimeY = new Date().getTime() - this.startY.time
+      if (elapsedTimeY <= 500) {
+        if (Math.abs(distY) >= 200 && distY < 0) {
+          this.$zircle.goBack()
+          this.startY = {}
+        } else if (Math.abs(distY) >= 200 && distY > 0) {
+          // this.$zircle.goBack()
+          this.startY = {}
+        }
+      }
+    },
+    backward (e) {
+      var vm = this
+      this.mouse.push(e.timeStamp)
+      var delta = e.deltaY
+      if (delta > 0 && this.valid === true && (e.timeStamp - this.mouse[0]) > 300) {
+        this.valid = false
+        this.mouse = []
+        this.$zircle.goBack()
+        setTimeout(function () {
+          vm.valid = true
+        }, 1800)
+      }
     }
   },
   mounted () {
     this.$zircle.config({
+      debug: true,
       style: { theme: 'github' }
     })
     this.$zircle.setView('home')
@@ -81,22 +136,23 @@ body {
 
 }
 .title {
+  margin-left: 5%;
   position: absolute;
-  width: 100%;
+  width: 90%;
   color: #454545;
   font-weight: 700;
   font-size: 32px;
   z-index: 9999;
   opacity: 1;
   line-height: 1.02em;
-  
   pointer-events: none !important;
 }
 
 .footer {
+  margin-left: 5%;
   position: absolute;
   bottom: 20px;
-  width: 100%;
+  width: 90%;
   font-size: 32px;
   pointer-events: none !important;
 
@@ -132,20 +188,11 @@ a {
 }
 
 .title > a {
-  // color: #454545;
   text-decoration: none
 
 }
 .z-canvas{
 background-color: white !important;
-/* background: rgba(136,137,138,1);
-background: -moz-radial-gradient(center, circle cover, rgba(136,137,138,1) 0%, rgba(36,41,46,1) 100%);
-background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(136,137,138,1)), color-stop(100%, rgba(36,41,46,1)));
-background: -webkit-radial-gradient(center, circle cover, rgba(136,137,138,1) 0%, rgba(36,41,46,1) 100%);
-background: -o-radial-gradient(center, circle cover, rgba(136,137,138,1) 0%, rgba(36,41,46,1) 100%);
-background: -ms-radial-gradient(center, circle cover, rgba(136,137,138,1) 0%, rgba(36,41,46,1) 100%);
-background: radial-gradient(circle at center, rgba(136,137,138,1) 0%, rgba(36,41,46,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88898a', endColorstr='#24292e', GradientType=1 ); */
 }
 
 /*
@@ -153,15 +200,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88898a', end
   ##Screen = 1281px to higher resolution desktops
 */
 
-@media (min-width: 1281px) {
+@media (min-width: 1281px) and (orientation: landscape) {
 
   .title.other {
     text-align: center;
-    top: calc(10px + 5vh);
+   top: 80px;
     }
   .title.home {
     text-align: center;
     top: 80px;
+  }
+
+}
+@media (min-width: 1281px) and (orientation: portrait) {
+
+  .title.other {
+    text-align: center;
+    top: 380px;
+  }
+  .title.home {
+    text-align: center;
+    top: 380px;
   }
 
 }
@@ -175,7 +234,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88898a', end
 
   .title.other {
     text-align: center;
-    top: calc(10px + 5vh);
+    top: 50px
     }
   .title.home {
     text-align: center;
@@ -193,11 +252,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88898a', end
 
  .title.other {
     text-align: center;
-    top: calc(10px + 5vh);
+    top: 220px
     }
   .title.home {
     text-align: center;
-    top: 50px
+    top: 220px
   }
 
 }
@@ -212,7 +271,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88898a', end
   .title.other {
     text-align: center;
 
-    top: calc(5vh);
+     top: 50px
   }
   .title.home {
     text-align: center;

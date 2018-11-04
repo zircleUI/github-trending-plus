@@ -131,18 +131,19 @@
       :distance="170"
       :angle="-30"
       ref="repos"
-      style="font-size: 40px;color: hsl(220, 12%, 25%); border-color: white; border-width: 3px; background-color: #D4D7DD;"
+      style=" font-size: 40px;color: hsl(220, 12%, 25%); border-color: white; border-width: 3px; background-color: #D4D7DD;"
       @click.native="renderMe('repos')"
-
+      @wheel.native.prevent="forward($event,'repos')"
       label="top repos">
         R
       </z-spot>
       <z-spot
         class="meteors"
         :distance="160"
+        ref="devs"
         :angle="20"
         style="font-size: 40px;color: hsl(220, 12%, 25%);  border-color: white; border-width: 3px; background-color: #D4D7DD;"
-        to-view="devs"
+        @wheel.native="forward($event,'devs')"
         label="top devs">
         D
       </z-spot>
@@ -198,20 +199,14 @@ export default {
     }
   },
   methods: {
+    forward (e, view) {
+      if (e.deltaY < 0 && this.$zircle.getCurrentViewName() === 'home--0') {
+        this.renderMe(view)
+      }
+    },
     renderMe (ref) {
       this.sharedState.initRepos = true
-      this.$zircle.toView({ to: 'repos', fromSpot: this.$refs[ref] })
-      /* var vm = this
-
-      var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-      var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-      html2canvas(document.body, {width: w, height: h}).then(function(canvas) {
-        canvas.style.margin = '-' + h / 2 + 'px 0px 0px -' + w / 2 + 'px'
-        document.querySelector('#z-zoomable-layer section').appendChild(canvas)
-        setTimeout(function () {
-          vm.$zircle.toView({to: 'repos', fromSpot: vm.$refs[ref]})
-        }, 4000)
-      }) */
+      this.$zircle.toView({ to: ref, fromSpot: this.$refs[ref] })
     },
     toLink (url) {
       return window.open(url, '_blank')
@@ -290,18 +285,18 @@ export default {
   opacity: 0 !important
 }
 .is-previous-view {
-filter: blur(2px) opacity(85%) !important;
+filter: blur(4px) opacity(85%) !important;
 }
 .is-past-view {
-filter: blur(2px) opacity(65%) !important;
+filter: blur(4px) opacity(65%) !important;
 }
 .is-home.is-current-view section .z-outer-circle {
   opacity: 0 !important;
   cursor: default !important;
 }
 .is-current-view section .z-outer-circle {
-  
-  background-color: rgba(0, 0, 0, 0.2);
+
+  background-color: rgba(0, 0, 0, 0.01) !important;
   cursor: default !important;
 }
 .is-current-view section svg {
@@ -330,12 +325,21 @@ filter: blur(2px) opacity(65%) !important;
   background-color: transparent !important;
   font-size: calc(0.7vw + 0.7vh + 0.7vmin);
 }
+.side>.z-label {
 
+  text-align: left !important;
+  padding: 0 !important;
+  margin: 0 !important;
+
+}
 .side>.z-label>.inside {
   color: inherit !important;
   font-weight: 500 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  text-align: left !important;
   background-color: transparent !important;
-  font-size: calc(1vw + 1vh + 1vmin);
+  font-size: calc(2vw + 1vh + 1vmin);
 }
 
 </style>
