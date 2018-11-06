@@ -6,7 +6,7 @@
 </p>
 <p align="center">
   <a href="https://github.com/zircleUI/zircleUI"><img alt="zircle" src="https://img.shields.io/badge/zircle-1.x-brightgreen.svg"></a>
-  <img alt="status" src="https://img.shields.io/badge/status-alpha-red.svg">
+  <img alt="status" src="https://img.shields.io/badge/status-beta RC-orange.svg">
 </p>
 
 ## Why?
@@ -23,8 +23,8 @@ For those reasons and because I want to show some uses for [**zircle-ui**](https
 - Most popular languages tracked.
 - No login required.
 
-## Status: 🌱 Alpha 
-Many things could change before reach beta status. If you want to try it just clone this repo.
+## Status: 🌱 Beta R.C
+Many things could change before reach beta status. If you want to try it just clone this repo or **check out the live version** at https://github-trending-plus.now.sh
 
 ## Credits
 This project is based on this awesome API https://github.com/huchenme/github-trending-api
