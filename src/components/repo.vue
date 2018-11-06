@@ -18,26 +18,29 @@
   </center>
    </div>
 
-     <div v-if="!activePage" class="label" :style="'z-index: 10; color:' + sharedState.colorMe.sec">
+     <div v-if="!activePage" :style="'eft: 0; width: 100%; z-index: 10; color:' + sharedState.colorMe.sec">
 
      <center>
-      <div class="sub-label" style="width: 100%; overflow: hidden; font-size: calc(10px + 1vw);">
-        <span style="width: 33%; vertical-align: top"><i v-if="info.diff > 0 && info.prevPos !== -1" class="fas fa-arrow-up" :style="'color:' + sharedState.colorMe.sec"></i>
+      <div class="sub-label" style="padding-top: 30px; line-height: 0.9em; width: 100%; overflow: hidden; font-size: calc(10px + 1vw);">
+        <span v-if="info.prevPos !== -1 && sharedState.languageTracked === false" style="width: 33%; vertical-align: top">
+              <i v-if="info.diff > 0" class="fas fa-arrow-up" :style="'color:' + sharedState.colorMe.sec"></i>
               <i v-if="info.diff < 0" class="fas fa-arrow-down" :style="'color:' + sharedState.colorMe.sec"></i>
               <i v-if="info.diff === 0" class="fas fa-equals" :style="'color:' + sharedState.colorMe.sec"></i><br>
-         <span style="">{{info.diff > 0 ? '+ ' + info.diff : info.diff === 0 ? 'no change in 3h' : info.diff}}</span></span>
-        <span style="width: 33%"><i class="fas fa-star" :style="'color:' + sharedState.colorMe.sec"></i><br>
+         <span style="">{{info.diff > 0 ? '+ ' + info.diff : info.diff === 0 ? 'same pos.' : info.diff}}</span></span>
+
+        <span :style="sharedState.languageTracked === false ? 'width: 33%' : 'width: 100%'"><i class="fas fa-star" :style="'color:' + sharedState.colorMe.sec"></i><br>
         <span style="">{{'+' + (info.periodStars > 999 ? Math.round((info.periodStars / 1000) * 10 ) / 10 + 'k' : ' ' + info.periodStars) + ' ' + (sharedState.since === 'daily' ? 'today' : sharedState.since === 'weekly' ? 'this week' : 'this month')}}</span></span>
-        <span style="width: 33%"><i class="fas fa-clock" :style="'color:' + sharedState.colorMe.sec"></i><br>
+        <span v-if="sharedState.languageTracked === false" style="width: 33%"><i class="fas fa-clock" :style="'color:' + sharedState.colorMe.sec"></i><br>
 <span style="">{{permanency + ' ' + 'on chart'}}</span></span>
       </div>
   </center>
      </div>
 
-   <div v-if="!activePage" style="position: absolute; left: 0; bottom: 0; z-index: 90;font-weight: 300; padding-top: 10px;padding-bottom: 50px;background-color: var(--shade-color); color: var(--accent-color); font-size: 12px; margin: 0; height: 20%; width: 100%;">
+   <div v-if="!activePage" style="position: absolute; left: 0; bottom: 0; z-index: 90;font-weight: 300; padding-top: 10px;padding-bottom: 50px;background-color: var(--shade-color); color: var(--accent-color); font-size: 12px; margin: 0; width: 100%;" :style="sharedState.languageTracked === false ? 'height: 20%' : 'height: 35%'">
   <center>
-      <div class="sub-label" style="overflow: hidden">
-        <span>Updated at {{new Date(info.updated).getHours() + ':' + new Date(info.updated).getMinutes() + '. Next in  ' + ((new Date(info.updated).getHours() + 3 ) - new Date().getHours()) + ' : ' +  ((new Date(info.updated).getMinutes() - new Date().getMinutes() + 60))}}</span>
+      <div class="sub-label" style="overflow: hidden" >
+        <span v-if="sharedState.languageTracked === false">Updated at {{formatTime(info.updated) + '. Next at ' + plus3(info.updated)}}</span>
+        <span v-if="sharedState.languageTracked === true"><b>{{sharedState.language}}</b> is not currently tracked. If you wish to add it open <a style="color: inherit;" href="https://github.com/zircleUI/github-trending-plus" target="_blank">an issue</a></span>
       </div>
   </center>
    </div>
@@ -48,13 +51,13 @@
       button
       class="butt"
       size=s
-      :style="'font-size: 18px; border-width: 4px; background-color:' + sharedState.colorMe.sec"
+      style="font-size: 18px; border-width: 4px; background-color: #D4D7DD;"
       :distance="120"
       :angle="45"
-      label=insights
+      :label= "activePage ? 'insights' : 'return'"
       @click.native="activePage = !activePage">
-       <i v-if="activePage" class="fas fa-chart-line" :style="'color:' + sharedState.colorMe.main"></i>
-       <i v-if="!activePage" class="fas fa-undo" :style="'color:' + sharedState.colorMe.main"></i>
+       <i v-if="activePage" class="fas fa-chart-line" :style="'color:' + sharedState.colorMe.sec"></i>
+       <i v-if="!activePage" class="fas fa-undo" :style="'color:' + sharedState.colorMe.sec"></i>
 
       <z-spot slot=extension v-if="activePage"
       class="emit"
@@ -72,11 +75,11 @@
       class="butt"
       size=s
       label="repo url"
-      :style="'font-size: 14px; border-width: 4px; background-color:' + sharedState.colorMe.sec"
+      style="font-size: 14px; border-width: 4px; background-color: #D4D7DD;"
       :distance="120"
       :angle="135"
       @click.native="toLink($zircle.getParams().data.url)">
-       <i class="fas fa-external-link-alt" :style="'color:' + sharedState.colorMe.main"></i>
+       <i class="fas fa-external-link-alt" :style="'color:' + sharedState.colorMe.sec"></i>
 
       </z-spot>
 
@@ -95,6 +98,9 @@
   </z-view>
 </template>
 <script>
+import moment from 'moment'
+import momentDurationFormatSetup from 'moment-duration-format' // eslint-disable-line
+
 import state from '../store/state'
 export default {
   data () {
@@ -109,6 +115,13 @@ export default {
   methods: {
     toLink (url) {
       return window.open(url, '_blank')
+    },
+    formatTime (time) {
+      return moment(time).format('H:mm')
+    },
+    plus3 (time) {
+      var final = moment(time).add(4, 'hours').diff(moment(), 'minutes')
+      return moment(time).add(4, 'hours').format('H:mm') + ' (in ' + moment.duration(final, 'minutes').format('H:mm') + ')'
     }
   },
   computed: {
@@ -144,6 +157,7 @@ export default {
     }
   },
   mounted () {
+
   }
 }
 </script>
@@ -171,14 +185,14 @@ export default {
  position: absolute;
  top: 32%;
  display: flex;
- align-items: center;
+ align-items: bottom;
  justify-content: center;
  left: 0;
  padding-top: 30px;
  margin-left: 10%;
  word-break: break-word;
  width: 80%;
- height: 40%;
+ height: 41%;
  font-size: calc(12px + 1vw);
  overflow: hidden
 }

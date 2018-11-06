@@ -4,6 +4,9 @@
       <div v-if="sharedState.axiosError !== ''">
         Oops!! {{sharedState.axiosError}}
       </div>
+      <div v-if="collection.length === 0">
+        <i class="fas fa-spinner fa-spin fa-2x"></i>
+      </div>
     <div slot="extension" v-if="trending">
 
       <z-spot v-if="day || !trending"
@@ -215,10 +218,6 @@ export default {
         // a second finger hit the screen, abort the touch
         this.startX = null
       }
-      /* e = e.changedTouches ? e.changedTouches[0] : e
-      this.startX = {
-        posX: e.pageX,
-        time: new Date().getTime() } */
     },
     endPos (e) {
       var offset = 60
@@ -235,18 +234,6 @@ export default {
           this.$zircle.setCurrentPageIndex(this.$zircle.getCurrentPageIndex() - 1)
         }
       }
-      /* e = e.changedTouches ? e.changedTouches[0] : e
-      var distX = e.pageX - this.startX.posX
-      var elapsedTimeX = new Date().getTime() - this.startX.time
-      if (elapsedTimeX <= 300) {
-        if (Math.abs(distX) >= 50 && distX < 0 && this.$zircle.getCurrentPageIndex() <= 3) {
-          this.$zircle.setCurrentPageIndex(this.$zircle.getCurrentPageIndex() + 1)
-          this.startX = {}
-        } else if (Math.abs(distX) >= 50 && distX > 0 && this.$zircle.getCurrentPageIndex() >= 1) {
-          this.$zircle.setCurrentPageIndex(this.$zircle.getCurrentPageIndex() - 1)
-          this.startX = {}
-        }
-      } */
     },
     animee () {
       var els = document.querySelectorAll('.test')
@@ -272,55 +259,9 @@ export default {
     },
     init () {
       this.animee()
-      // this.showResults = true
       this.day = true
-      /* this.progress = 1
-      this.msg = 'Fetching data...'
-      var vm = this
-      var id = setInterval(function () {
-        if (vm.progress >= 100) {
-          clearInterval(id)
-          vm.progress = 0
-          vm.msg = ''
-          vm.showResults = true
-          vm.animee()
-        } else if (vm.progress === 18) {
-          vm.day0 = true
-          vm.progress++
-        } else if (vm.progress === 22) {
-          vm.day1 = true
-          vm.progress++
-        } else if (vm.progress === 70) {
-          vm.day = true
-          vm.progress++
-        } else if (vm.progress === 80) {
-          vm.msg = ''
-          vm.lang = true
-          vm.progress++
-        } else {
-          vm.progress++
-        }
-      }, 5) */
     },
     init2 () {
-      /* this.progress = 1
-      this.msg = 'Fetching data...'
-      var vm = this
-      var id = setInterval(function () {
-        if (vm.progress >= 1) {
-          clearInterval(id)
-          vm.progress = 0
-          vm.msg = ''
-          vm.showResults = true
-          vm.animee2()
-          vm.day = true
-          vm.day1 = true
-          vm.day0 = true
-          vm.lang = true
-        } else {
-          vm.progress++
-        }
-      }, 0) */
     },
     showMe (index) {
       if (this.show === index) {
@@ -332,26 +273,74 @@ export default {
     getRepos () {
       var vm = this
       var rankingDB = '8d2zo'
-      if (this.sharedState.language === 'vue') rankingDB = '9dv7w'
-      if (this.sharedState.language === '') rankingDB = '8d2zo'
-      if (this.sharedState.language === 'vue') rankingDB = '9dv7w'
-      if (this.sharedState.language === 'html') rankingDB = 'oxbng'
-      if (this.sharedState.language === 'java') rankingDB = '1eiynw'
-      if (this.sharedState.language === 'javascript') rankingDB = 'j14rg'
-      if (this.sharedState.language === 'php') rankingDB = 'jmkd8'
-      if (this.sharedState.language === 'python') rankingDB = '181c64'
-      if (this.sharedState.language === 'ruby') rankingDB = '139vbw'
-      if (this.sharedState.language === 'c++') rankingDB = '1frz18'
-      if (this.sharedState.language === 'typescript') rankingDB = 'sk2fw'
-      if (this.sharedState.language === 'rust') rankingDB = '1b0i70'
-      if (this.sharedState.language === 'go') rankingDB = 'zrmks'
-      if (this.sharedState.language === 'swift') rankingDB = '6ldxo'
-      if (this.sharedState.language === 'css') rankingDB = 'v05qk'
-      if (this.sharedState.language === 'shell') rankingDB = '1e213g'
+      switch (this.sharedState.language) {
+        case '':
+          rankingDB = '8d2zo'
+          this.sharedState.languageTracked = false
+          break
+        case 'vue':
+          rankingDB = '9dv7w'
+          this.sharedState.languageTracked = false
+          break
+        case 'html':
+          rankingDB = 'oxbng'
+          this.sharedState.languageTracked = false
+          break
+        case 'java':
+          rankingDB = '1eiynw'
+          this.sharedState.languageTracked = false
+          break
+        case 'javascript':
+          rankingDB = 'j14rg'
+          this.sharedState.languageTracked = false
+          break
+        case 'php':
+          rankingDB = 'jmkd8'
+          this.sharedState.languageTracked = false
+          break
+        case 'python':
+          rankingDB = '181c64'
+          this.sharedState.languageTracked = false
+          break
+        case 'ruby':
+          rankingDB = '139vbw'
+          this.sharedState.languageTracked = false
+          break
+        case 'c++':
+          rankingDB = '1frz18'
+          this.sharedState.languageTracked = false
+          break
+        case 'typescript':
+          rankingDB = 'sk2fw'
+          this.sharedState.languageTracked = false
+          break
+        case 'rust':
+          rankingDB = '1b0i70'
+          this.sharedState.languageTracked = false
+          break
+        case 'go':
+          rankingDB = 'zrmks'
+          this.sharedState.languageTracked = false
+          break
+        case 'swift':
+          rankingDB = '6ldxo'
+          this.sharedState.languageTracked = false
+          break
+        case 'css':
+          rankingDB = 'v05qk'
+          this.sharedState.languageTracked = false
+          break
+        case 'shell':
+          rankingDB = '1e213g'
+          this.sharedState.languageTracked = false
+          break
+        default:
+          this.sharedState.languageTracked = true
+      }
       axios.all([
         axios.get('https://zircle-github-trending-ranking.now.sh/' + rankingDB),
-        axios.get('https://github-trending-api.now.sh/repositories?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language), { timeout: 12000 }),
-        axios.get('https://github-trending-api.now.sh/developers?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language), { timeout: 12000 })
+        axios.get('https://github-trending-api.now.sh/repositories?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language)),
+        axios.get('https://github-trending-api.now.sh/developers?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language))
       ])
         .then(axios.spread((myjson, github, avatars) => {
           vm.sharedState.axiosError = ''
@@ -359,7 +348,7 @@ export default {
           var full = github.data.map(function (e, index) {
             var updated = myjson.data[myjson.data.length - 1].timestamp
             var search = myjson.data[myjson.data.length - 1][vm.sharedState.since].repos.find(el => el.name === e.name)
-            if (search === undefined) search = { prevPos: -1, diff: 0, stay: 3 }
+            if (search === undefined || vm.sharedState.languageTracked === true) search = { prevPos: -1, diff: 0, stay: 3 }
             var findAvatar = avatars.data.find(function (el) { return el.username === e.author })
             if (findAvatar === undefined) {
               findAvatar = {}
@@ -388,16 +377,6 @@ export default {
           if (full.length > 0) {
             vm.collection = full
             vm.init()
-            /* if (vm.check) {
-              vm.vlang = vm.sharedState.language
-              vm.vsince = vm.sharedState.since
-              vm.init()
-            } else if (!vm.check && vm.sharedState.initRepos) {
-              vm.sharedState.initRepos = false
-              vm.init()
-            } else {
-              vm.init2()
-            } */
           } else {
             vm.trending = false
           }
@@ -409,6 +388,7 @@ export default {
     }
   },
   mounted () {
+    this.sharedState.axiosError = ''
     if (this.collection.length === 0) this.getRepos()
   }
 }
