@@ -1,193 +1,175 @@
 <template>
-  <z-view>
-    <div slot="extension">
-    <z-spot
+  <z-view  class="is-repos"  :style="$zircle.getCurrentViewName() === 'devs--0' ? 'border-width: 7px; background-color: white !important' : 'border-width: 7px; background-color: white !important'">
+      {{msg}}
+      <div v-if="sharedState.axiosError !== ''">
+        Oops!! {{sharedState.axiosError}}
+      </div>
+      <div v-if="collection.length === 0 && sharedState.axiosError === ''">
+        <i class="fas fa-spinner fa-spin fa-2x"></i>
+      </div>
+    <div slot="extension" v-if="trending">
 
+      <z-spot v-if="day || !trending"
         button
-        size="xxs"
-        :distance="100"
-        :angle="225"
-        label="trending devs"
-        label-pos="left"
-        >
+        class="filter buttons"
+        :distance=130
+        size='s'
+        style="background-color: #D4D7DD;"
+        :angle="45"
+        label="filter"
+        to-view="languages">
+           <i style="color: hsl(220, 12%, 25%);" class="fas fa-ellipsis-v"></i>
         </z-spot>
 
-        <z-spot
+    <z-spot v-if="$zircle.getCurrentPageIndex() <= 3"
         button
-        size="xxs"
-        :distance="100"
-        :angle="205"
-        :label="sharedState.since"
-        label-pos="left"
-        >
+        class="filter buttons"
+        :distance=115
+        size='xs'
+        style="border-color: var(--accent-color);background-color: var(--accent-color); color: var(--shade-color)"
+        :angle="0"
+        @mouseup.native="$zircle.setCurrentPageIndex($zircle.getCurrentPageIndex() + 1)"
+    >
+           <i class="fas fa-arrow-right"></i>
         </z-spot>
 
-        <z-spot
+        <z-spot v-if="$zircle.getCurrentPageIndex() >= 1"
         button
-        size="xxs"
-        :distance="100"
-        :angle="185"
-        :label="sharedState.language === '' ? 'all languages' : sharedState.language"
-        label-pos="left"
-        >
+        class="filter buttons"
+        :distance=115
+        size='xs'
+        style="border-color: var(--accent-color);background-color: var(--accent-color); color: var(--shade-color)"
+        :angle="180"
+        @mouseup.native="$zircle.setCurrentPageIndex($zircle.getCurrentPageIndex() - 1)">
+        <i style="" class="fas fa-arrow-left"></i>
         </z-spot>
-     <z-list v-if="collection.length > 1"
+
+    <div v-if="collection.length > 0">
+
+      <z-list
+      class="stay"
+      style=""
         :items="collection"
-        :per-page="5">
+        :per-page="5"
+        @touchstart.native="startPos"
+        @touchmove.native.prevent
+        @touchend.native="endPos"
+
+        >
+
+        <div slot-scope="props" >
+
           <z-spot
-            :distance='60'
-            slot-scope="props"
+
+            class=" pos numeral"
+            size="xs"
             :index="props.index"
-            :label="props.username"
+            :distance='110'
+
+            style="background-color: transparent; border: none;">
+            {{props.position + 1}}˚
+          </z-spot>
+          <z-spot
+          class=" numeral"
+            size="xxs"
+            :index="props.index"
+            :distance='99'
+            style="background-color: var(--shade-color); border-color: var(--shade-color)">
+          </z-spot>
+
+          <z-spot
             :image-path="props.avatar"
-            @click.native="showMe(props.index)"
-            >
-            <div slot=extension >
-              <div v-show="show === props.index && props.index >= 0 && props.index < 3" style="position: absolute;
-                opacity: 1;
-                width: 1px;
-                line-height: 1.7;
+            class="test"
+            :distance='55'
+            :props="props"
+            size=m
+            :ref="'dev-' + props.index"
+            style="border-width: 0px; background-color: rgba(0,0,0,0); border-color: var(--shade-color)"
+            :style="$zircle.getCurrentViewName() === 'devs--0' && hideThis ===  'dev-' + props.index ? 'opacity: 1' : ''"
+            :index="props.index"
+            :label="trimLabels(props.index, props.name)"
+            @click.native="hideMe('dev-' + props.index)"
+            @mouseup.native="sendMe('dev-' + props.index)"
+           >
 
-                border-left: 1px dashed gray;
-                margin: 50% 0 0 50%;
-                font-size: 13px;
-                transform-origin: 0 0;"
-                :style="{
-                  height: '60px',
-                  transform: 'rotate(225deg) translate(0px, ' + $zircle.getComponentWidth('m') / 2 + 'px)'
-                }"
-                >
-                  <div style="position: absolute;
-                  opacity: 1;
-                  width: 200px;
-                  min-height: 20px;
-                  border-left: 2px solid red;
-                  margin: 50% 0 0 50%;
-                  border-radius: 5px;
-                  padding: 9px;
-                  background-color: rgba(0,0,0, 0.6);
-
-                  text-align: left;
-                  transform-origin: 0 0;"
-                  :style="{transform: 'rotate(135deg) translate(' + $zircle.getComponentWidth('m') / 2 + 'px, -50px)'}">
-                   <b>Url: </b> <a :href="props.url" target="_blank">{{props.url}}</a> <br>
-                  <b>Username:</b> {{props.username}}
-                  </div>
-                </div>
-                <div v-show="show === props.index && props.index >= 3" style="position: absolute;
-                opacity: 1;
-                width: 1px;
-                border-left: 1px dashed gray;
-                margin: 50% 0 0 50%;
-                font-size: 13px;
-                line-height: 1.7;
-                transform-origin: 0 0;"
-                :style="{
-                  height: '60px',
-                  transform: 'rotate(135deg) translate(0px, ' + $zircle.getComponentWidth('m') / 2 + 'px)'
-                }"
-                >
-                  <div style="position: absolute;
-                  opacity: 1;
-                  width: 200px;
-                  min-height: 20px;
-                  border-right: 2px solid red;
-                  margin: 50% 0 0 50%;
-                  border-radius: 5px;
-                  padding: 9px;
-                  background-color: rgba(0,0,0, 0.6);
-                  text-align: right;
-                  transform-origin: 0 0;"
-                  :style="{transform: 'rotate(225deg) translate(-245px, -50px)'}">
-                  <b>Url: </b> <a :href="props.url" target="_blank">{{props.url}}</a> <br>
-                  <b>Username:</b> {{props.username}}
-                  </div>
-                </div>
-              <z-spot
-              size="xs"
-              :angle="135"
-              style="border: none; background-color: black;">
-                <i :class="props.position === 0 ? 'fas fa-trophy' : props.position > 0 &&  props.position < 3 ? 'fas fa-medal' : 'fas fa-award'" :style="props.position === 0 ? 'color: gold' : props.position === 1 ? 'color: silver' : props.position === 2 ? 'color: peru' : 'color: green'"></i>
-              </z-spot>
-
+            <div slot="extension" class="extra">
               <z-spot v-if="props.diff > 0 && props.prevPos !== -1"
-              size="xs"
-              :angle="0"
-              style="font-size: 12px; border: none; background-color: black;  color:green;">
-                <i class="fas fa-caret-up" style="font-size: 10px; color:green;"></i><br>
-                {{props.diff}}
-                <z-spot
-                  slot="extension"
-                  size="xxs"
-                  :angle="-100"
-                  :distance='props.position === 0 ? 100 : 100'
-                  style="font-size: 12px; border: none; background-color: black;">
-                  {{ (props.position + 1) }}
-                  </z-spot>
+                size="xs"
+                :angle="0"
+                :distance='100'
+                style="border-color: white; background-color:#54a74c;">
+                  <i style=" color: white" class="fas fa-arrow-up"></i>
               </z-spot>
+
               <z-spot v-if="props.diff > 0 && props.prevPos === -1"
-              size="xs"
-              :angle="0"
-              style="font-size: 12px; border: none; background-color: black;  color:yellow;">
-                <i class="fas fa-smile" style="font-size: 10px; color:yellow;"></i><br>
-               new
-               <z-spot
-                  slot="extension"
-                  size="xxs"
-                  :angle="-100"
-                  :distance='props.position === 0 ? 100 : 100'
-                  style="font-size: 12px; border: none; background-color: black;">
-                  {{ (props.position + 1) }}
-                  </z-spot>
+                size="xs"
+                :angle="0"
+                :distance='100'
+                style="font-weight: 700; font-size: 10px; color: hsl(47, 100%, 27%); border-color: white; background-color:#f2bd00;  ">
+                new
               </z-spot>
-              <z-spot v-if="props.diff === 0"
-              size="xs"
-              :angle="0"
-              style="font-size: 12px; border: none; background-color: black;  color:orange;">
-                <i class="fas fa-equals" style="font-size: 10px; color:orange;"></i><br>
-                <z-spot
-                  slot="extension"
-                  size="xxs"
-                  :angle="-100"
-                  :distance='props.position === 0 ? 100 : 100'
-                  style="font-size: 12px; border: none; background-color: black;">
-                  {{ (props.position + 1) }}
-                  </z-spot>
-              </z-spot>
+
               <z-spot v-if="props.diff < 0"
-              size="xs"
-              :angle="0"
-              style="font-size: 12px; border: none; background-color: black;  color:red;">
-                {{props.diff}}
-                <i class="fas fa-caret-down" style="font-size: 10px; color:red;"></i><br>
-                <z-spot
-                  slot="extension"
-                  size="xxs"
-                  :angle="-100"
-                  :distance='props.position === 0 ? 100 : 100'
-                  style="font-size: 12px; border: none; background-color: black;">
-                  {{ (props.position + 1) }}
-                  </z-spot>
+                size="xs"
+                :angle="0"
+                :distance='100'
+                style="border-color: white;  background-color:#da482f;  ">
+                  <i style=" color: white" class="fas fa-arrow-down"></i>
               </z-spot>
+
             </div>
           </z-spot>
-      </z-list>
+
+        </div>
+
+        </z-list>
+
+      </div>
+
     </div>
   </z-view>
 </template>
 <script>
 import state from '../store/state'
 import axios from 'axios'
+import anime from 'animejs'
+// import html2canvas from 'html2canvas'
 export default {
   data () {
     return {
       time: false,
       collection: [],
+      show: 99,
       sharedState: state.$data,
-      show: 99
+      showResults: false,
+      msg: '',
+      startX: {},
+      progress: 0,
+      day: false,
+      day0: false,
+      day1: false,
+      lang: false,
+      trending: true,
+      hideThis: '',
+      vlang: state.$data.language,
+      vsince: state.$data.since,
+      colors: ['#da482f', '#54a74c', '#f2bd00', '#5484f8']
     }
   },
   computed: {
+    check () {
+      if (this.vlang !== this.sharedState.language || this.vsince !== this.sharedState.since) {
+        return true
+      } else {
+        return false
+      }
+    },
+    viewn () {
+      return this.$zircle.getCurrentViewName()
+    },
+    page () {
+      return this.$zircle.getCurrentPageIndex()
+    },
     line1 () {
       if (this.$refs.line1) {
         var tt = this.$refs.line1.$el.getBoundingClientRect()
@@ -201,7 +183,86 @@ export default {
       }
     }
   },
+  watch: {
+    page: function () {
+      this.animee()
+    },
+    viewn: function () {
+      if (this.$zircle.getCurrentViewName() === 'devs--0' && this.sharedState.clearResults) {
+        this.collection = []
+        this.getDevs()
+        this.sharedState.clearResults = false
+      }
+    }
+  },
   methods: {
+    trimLabels (index, name) {
+      if (index === 2 || index === 3) {
+        return name.length > 7 ? name.substring(0, 4) + '…' : name
+      } else {
+        return name.length > 11 ? name.substring(0, 7) + '…' : name
+      }
+    },
+    hideMe (ref) {
+      this.hideThis = ref
+      this.$refs[ref].$el.style.opacity = 0
+    },
+    sendMe (ref) {
+      this.$zircle.toView({ to: 'dev', fromSpot: this.$refs[ref], params: { data: this.$refs[ref].$attrs.props } })
+    },
+    startPos (e) {
+      if (e.touches.length === 1) {
+        // just one finger touched
+        this.startX = e.touches.item(0).clientX
+      } else {
+        // a second finger hit the screen, abort the touch
+        this.startX = null
+      }
+    },
+    endPos (e) {
+      var offset = 60
+      if (this.startX) {
+        // the only finger that hit the screen left it
+        var end = e.changedTouches.item(0).clientX
+
+        if (end < this.startX - offset && this.$zircle.getCurrentPageIndex() <= 3) {
+        // a left -> right swipe
+          this.$zircle.setCurrentPageIndex(this.$zircle.getCurrentPageIndex() + 1)
+        }
+        if (end > this.startX + offset && this.$zircle.getCurrentPageIndex() >= 1) {
+        // a right -> left swipe
+          this.$zircle.setCurrentPageIndex(this.$zircle.getCurrentPageIndex() - 1)
+        }
+      }
+    },
+    animee () {
+      var els = document.querySelectorAll('.test')
+      var els2 = document.querySelectorAll('.z-pagination')
+      var pag = anime({
+        targets: els2,
+        opacity: [0, 1],
+        duration: function (el, i) {
+          return 500 + (i * 200)
+        }
+      })
+      anime({
+        targets: els,
+        opacity: [0, 1],
+        duration: function (el, i) {
+          return 2000 + (i * 200)
+        },
+        delay: function (e, i) { return i * 120 },
+        complete: function () {
+          return pag
+        }
+      })
+    },
+    init () {
+      this.animee()
+      this.day = true
+    },
+    init2 () {
+    },
     showMe (index) {
       if (this.show === index) {
         this.show = 99
@@ -210,46 +271,113 @@ export default {
       }
     },
     getDevs () {
-      // axios
-      // .get('https://github-trending-api.now.sh/developers')
-      // .then(response => (this.collection = response.data))
       var vm = this
+      var rankingDB = '8d2zo'
+      switch (this.sharedState.language) {
+        case '':
+          rankingDB = '8d2zo'
+          this.sharedState.languageTracked = false
+          break
+        case 'vue':
+          rankingDB = '9dv7w'
+          this.sharedState.languageTracked = false
+          break
+        case 'html':
+          rankingDB = 'oxbng'
+          this.sharedState.languageTracked = false
+          break
+        case 'java':
+          rankingDB = '1eiynw'
+          this.sharedState.languageTracked = false
+          break
+        case 'javascript':
+          rankingDB = 'j14rg'
+          this.sharedState.languageTracked = false
+          break
+        case 'php':
+          rankingDB = 'jmkd8'
+          this.sharedState.languageTracked = false
+          break
+        case 'python':
+          rankingDB = '181c64'
+          this.sharedState.languageTracked = false
+          break
+        case 'ruby':
+          rankingDB = '139vbw'
+          this.sharedState.languageTracked = false
+          break
+        case 'c++':
+          rankingDB = '1frz18'
+          this.sharedState.languageTracked = false
+          break
+        case 'typescript':
+          rankingDB = 'sk2fw'
+          this.sharedState.languageTracked = false
+          break
+        case 'rust':
+          rankingDB = '1b0i70'
+          this.sharedState.languageTracked = false
+          break
+        case 'go':
+          rankingDB = 'zrmks'
+          this.sharedState.languageTracked = false
+          break
+        case 'swift':
+          rankingDB = '6ldxo'
+          this.sharedState.languageTracked = false
+          break
+        case 'css':
+          rankingDB = 'v05qk'
+          this.sharedState.languageTracked = false
+          break
+        case 'shell':
+          rankingDB = '1e213g'
+          this.sharedState.languageTracked = false
+          break
+        default:
+          this.sharedState.languageTracked = true
+      }
       axios.all([
-        axios.get('https://zircle-github-trending-ranking.now.sh/8d2zo'),
-        axios.get('https://github-trending-api.now.sh/developers?since=' + this.sharedState.since + '&language=' + this.sharedState.language)
+        axios.get('https://zircle-github-trending-ranking.now.sh/' + rankingDB),
+        axios.get('https://github-trending-api.now.sh/developers?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language))
       ])
         .then(axios.spread((myjson, github) => {
-          if (vm.sharedState.language === '') {
-          // all languages
-            var full = github.data.map(function (e, index) {
-            // var diff = myjson.data[myjson.data.length -1].daily.repos[index].diff
-              var search = myjson.data[myjson.data.length - 1][vm.sharedState.since].devs.find(el => el.username === e.username)
-              // var suma = myjson.data[myjson.data.length -1].daily.devs.concat(myjson.data[myjson.data.length -1].weekly.devs).concat(myjson.data[myjson.data.length -1].monthly.devs)
-              // var avatar = suma.find(el => el.username === e.author)
-              if (search === undefined) search = { prevPos: -1, diff: 0 }
-              // console.log(e.author, e.name)
-              return {
-                position: index,
-                username: e.username,
-                name: e.name,
-                url: e.url,
-                avatar: e.avatar,
-                prevPos: search.prevPos,
-                diff: search.diff
-              }
-            })
-            vm.collection = full
-          } else {
-            vm.collection = github.data
-            for (var i = 0; i < vm.collection.length; i++) {
-              vm.collection[i].position = i
+          vm.sharedState.axiosError = ''
+          vm.collection = []
+          var full = github.data.map(function (e, index) {
+            var updated = myjson.data[myjson.data.length - 1].timestamp
+            var search = myjson.data[myjson.data.length - 1][vm.sharedState.since].devs.find(el => el.username === e.username)
+            if (search === undefined || vm.sharedState.languageTracked === true) search = { prevPos: -1, diff: 0, stay: 3 }
+            e.avatar = e.avatar.replace(/s=96/gi, 's=200')
+            return {
+              updated: updated,
+              position: index,
+              username: e.username,
+              name: e.username,
+              url: e.url,
+              avatar: e.avatar,
+              prevPos: search.prevPos,
+              diff: search.diff,
+              stay: search.stay
             }
+          })
+          if (full.length > 0) {
+            vm.collection = full
+            vm.init()
+          } else {
+            vm.day = true
+            vm.sharedState.axiosError = 'No trending developers for ' + vm.sharedState.language + '. Try another languaje/time'
           }
         }))
+        .catch((err) => {
+          console.log(err)
+          vm.sharedState.axiosError = err.message
+        })
     }
   },
   mounted () {
-    this.getDevs()
+    this.sharedState.axiosError = ''
+    if (this.collection.length === 0) this.getDevs()
   }
 }
 </script>
