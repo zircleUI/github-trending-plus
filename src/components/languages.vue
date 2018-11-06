@@ -8,7 +8,7 @@
       @input="searchLanguages($event.target.value)">
     </div>
     <div slot="extension">
-      <div v-if="results.length && search && $zircle.getCurrentViewName() === 'languages--0'">
+      <div v-if="wt.length && wt[0].name !== '' && search && $zircle.getCurrentViewName() === 'languages--0'">
       <z-spot
 
       v-for="(language, index) in wt"
@@ -22,18 +22,34 @@
       :label="language.name"
       @click.native="sharedState.language = language.urlParam"
       style="border: none"
-     :style="sharedState.language === language.urlParam ? 'background-color:' + sharedState.colorMe.main : 'background-color: transparent; border: 1px solid ' + sharedState.colorMe.main"
+     :style="sharedState.language === language.urlParam ? 'background-color:' + sharedState.colorMe.main : 'background-color: #454545; border: 1px solid ' + sharedState.colorMe.main"
 
       >
       </z-spot>
       </div>
+      <div v-if="wt.length && wt[0].name === ''">
+      <z-spot
+      button
+      :distance="60"
+      :angle="-90"
+      size="xs"
+      class="test1 accent butt"
+      label="No results. Try other time period"
+      style="border: none"
+     :style="sharedState.language === language.urlParam ? 'background-color:' + sharedState.colorMe.main : 'background-color: #454545; border: 1px solid ' + sharedState.colorMe.main"
+
+      >
+      </z-spot>
+      </div>
+
     <z-spot button
       class="buttons"
             size='s'
             :angle="45"
             :label="!search ? '+ languages' : 'go back'"
             :distance="130"
-            @click.native="search = !search"
+            @click.native="getLanguages()"
+            @mouseup.native="search = !search"
             >
             <i v-if="!search" class="fas fa-search"></i>
             <i v-if="search" class="fas fa-undo"></i>
@@ -78,9 +94,9 @@
 // :angle="(180 - (180 - ($zircle.getNumberOfPages() * 10))) / $zircle.getNumberOfPages() * ($zircle.getNumberOfPages() - index) + ((180 - (180 - (180 - ($zircle.getNumberOfPages() * 10)))) - ((180 - (180 - ($zircle.getNumberOfPages() * 10))) / $zircle.getNumberOfPages())) / 2"
 import state from '../store/state'
 import axios from 'axios'
-function fetchGalleries (results, stateError) {
+function fetchGalleries (results, since, stateError) {
   return Promise.all(results.map(record => {
-    return axios.get('https://github-trending-api.now.sh/repositories?language=' + encodeURIComponent(record.urlParam))
+    return axios.get('https://github-trending-api.now.sh/repositories?since=' + since + '&language=' + encodeURIComponent(record.urlParam))
       .catch((err) => {
         console.log(err)
         stateError = err.message
@@ -131,8 +147,8 @@ export default {
           var data = el.name.toLowerCase()
           return data.indexOf(input) > -1
         }).slice(-8)
-        var papa = fetchGalleries(vm.results, vm.sharedState.axiosError)
-        papa.then(result => {
+        var pap = fetchGalleries(vm.results, vm.sharedState.since, vm.sharedState.axiosError)
+        pap.then(result => {
           vm.wt = result.map(a => {
             var url = a.replace(/\s+/g, '-').toLowerCase()
             return {
@@ -149,12 +165,24 @@ export default {
     },
     getLanguages () {
       var vm = this
+      this.popular = []
+      this.query = ''
+      this.results = []
       axios
         .get('https://github-trending-api.now.sh/languages')
         .then(function (response) {
           var res = response.data.popular
           res.push({ name: 'all languages', urlParam: '' })
-          vm.popular = res
+          var lang = ''
+          vm.sharedState.language === '' ? lang = 'all languages' : lang = vm.sharedState.language
+          var checkLangSelected = res.filter(e => e.name.toLowerCase() === lang.toLowerCase())
+          console.log(checkLangSelected)
+          if (checkLangSelected.length) {
+            vm.popular = res
+          } else {
+            res.push({ name: vm.sharedState.language, urlParam: vm.sharedState.language.replace(/\s+/g, '-').toLowerCase() })
+            vm.popular = res.slice(-8)
+          }
           vm.other = response.data.all
         })
         .catch((err) => {
@@ -164,6 +192,7 @@ export default {
     }
   },
   mounted () {
+    this.sharedState.axiosError = ''
     this.getLanguages()
     this.sharedState.clearResults = true
   }
