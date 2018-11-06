@@ -15,39 +15,42 @@
       </div>
     </transition>
     <transition name="head">
-    <div v-if="$zircle.getCurrentViewName() === 'repos--0'" class="title other">
+      <div v-if="$zircle.getCurrentViewName() === 'repos--0'" class="title other">
         <span style="text-transform: capitalize">{{sharedState.since}}</span> trending repositories
         <br>
         <div style="line-height: 0.8em; font-weight: 300; font-size: 20px; color: #8a8f94" ><br>{{sharedState.language === '' ? 'all coding languages' : sharedState.language}} </div>
       </div>
-
     </transition>
     <transition name="head">
-    <div v-if="$zircle.getCurrentViewName() === 'repos--0'" class="footer other">
+      <div v-if="$zircle.getCurrentViewName() === 'repos--0'" class="footer other">
           <span style="font-size: 13px" ><b>Tip: </b> use filter to change coding language & time period</span>
       </div>
     </transition>
-
+    <transition name="head">
+      <div v-if="$zircle.getCurrentViewName() === 'repo--0'" class="footer">
+          <span style="font-size: 13px" ><b>Tip: </b> use insights to see repo evolution on chart</span>
+      </div>
+    </transition>
+    <transition name="head">
+      <div v-if="$zircle.getCurrentViewName() === 'devs--0'" class="title other">
+        <span style="text-transform: capitalize">{{sharedState.since}}</span> trending developers
+        <br>
+        <div style="line-height: 0.8em; font-weight: 300; font-size: 20px; color: #8a8f94" ><br>{{sharedState.language === '' ? 'all coding languages' : sharedState.language}} </div>
+      </div>
+    </transition>
+    <transition name="head">
+      <div v-if="$zircle.getCurrentViewName() === 'devs--0'" class="footer other">
+          <span style="font-size: 13px" ><b>Tip: </b> use filter to change coding language & time period</span>
+      </div>
+    </transition>
      <transition name="head">
-    <div v-if="$zircle.getCurrentViewName() === 'languages--0'" class="title other">
+      <div v-if="$zircle.getCurrentViewName() === 'languages--0'" class="title other">
         Select a coding language and a time period
       </div>
     </transition>
     <transition name="head">
     <div v-if="$zircle.getCurrentViewName() === 'languages--0'" class="footer">
           <span style="font-size: 13px" ><b>Tip: </b> use search to find other languages</span>
-      </div>
-    </transition>
-<transition name="head">
-    <div v-if="$zircle.getCurrentViewName() === 'repo-3-0'" class="title home">
-        <span :style="'color:' + sharedState.colorMe.sec"> {{$zircle.getParams().data.name}} </span>
-        <br>
-        <div style="line-height: 0.9em; font-weight: 300; font-size: 25px;" :style="'color:' + sharedState.colorMe.sec"><br>by {{$zircle.getParams().data.author}}</div>
-      </div>
-    </transition>
-    <transition name="head">
-    <div v-if="$zircle.getCurrentViewName() === 'repo--0'" class="footer">
-          <span style="font-size: 13px" ><b>Tip: </b> use insights to see repo evolution on chart</span>
       </div>
     </transition>
 
@@ -67,6 +70,8 @@ import repos from './components/repos'
 import devs from './components/devs'
 import languages from './components/languages'
 import repo from './components/repo'
+import dev from './components/dev'
+import about from './components/about'
 import state from './store/state'
 export default {
   components: {
@@ -74,7 +79,9 @@ export default {
     repos,
     devs,
     languages,
-    repo
+    repo,
+    about,
+    dev
   },
   data () {
     return {
@@ -121,7 +128,6 @@ export default {
   },
   mounted () {
     this.$zircle.config({
-      debug: true,
       style: { theme: 'github' }
     })
     this.$zircle.setView('home')

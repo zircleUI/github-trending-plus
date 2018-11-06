@@ -111,30 +111,30 @@
        <z-spot
        class="asteroids"
         style='border-width:3px; opacity: 0.15; border-color:white'
-      size=xs
-      :distance=190
-      :angle="-160"
+        size=xs
+        :distance=190
+        :angle="-160"
       >
       </z-spot>
 
       <z-spot
-      class="asteroids"
-       style='border-width: 3px; opacity: 0.15; border-color:white'
-      size=xs
-      :distance=190
-      :angle="angle + 130"
+        class="asteroids"
+        style='border-width: 3px; opacity: 0.15; border-color:white'
+        size=xs
+        :distance=190
+        :angle="angle + 130"
       >
       </z-spot>
 
       <z-spot
-      class="meteors"
-      :distance="170"
-      :angle="-30"
-      ref="repos"
-      style=" font-size: 40px;color: hsl(220, 12%, 25%); border-color: white; border-width: 3px; background-color: #D4D7DD;"
-      @click.native="renderMe('repos')"
-      @wheel.native.prevent="forward($event,'repos')"
-      label="top repos">
+        class="meteors"
+        :distance="170"
+        :angle="-30"
+        ref="repos"
+        style=" font-size: 40px;color: hsl(220, 12%, 25%); border-color: white; border-width: 3px; background-color: #D4D7DD;"
+        @mouseup.native="renderMe('repos')"
+        @wheel.native.prevent="forward($event,'repos')"
+        label="top repos">
         R
       </z-spot>
       <z-spot
@@ -143,6 +143,7 @@
         ref="devs"
         :angle="20"
         style="font-size: 40px;color: hsl(220, 12%, 25%);  border-color: white; border-width: 3px; background-color: #D4D7DD;"
+        @mouseup.native="renderMe('devs')"
         @wheel.native="forward($event,'devs')"
         label="top devs">
         D
@@ -153,19 +154,22 @@
         :distance="160"
         :angle="182"
         size=s
+        ref="about"
         style="font-size: 30px;color: hsl(220, 12%, 25%);  border-color: white; border-width: 0px; background-color: #D4D7DD;"
         label="about"
-        @click.native="toLink('#')">i
+        @mouseup.native="renderMe('about')"
+        @wheel.native="forward($event,'about')">i
       </z-spot>
       <z-spot
-      class="meteors"
-
+        class="meteors"
         :distance=180
         size='s'
         style="background-color: #D4D7DD;"
         :angle="55"
         label="filter"
-        to-view="languages">
+        ref="languages"
+        @mouseup.native="renderMe('languages')"
+        @wheel.native="forward($event,'languages')">
            <i style="color: hsl(220, 12%, 25%);" class="fas fa-ellipsis-v"></i>
         </z-spot>
     </div>

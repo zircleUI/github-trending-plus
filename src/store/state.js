@@ -7,7 +7,8 @@ const state = new Vue({
     initRepos: false,
     colorMe: {},
     axiosError: '',
-    clearResults: false
+    clearResults: false,
+    languageTracked: false
   }
 })
 
