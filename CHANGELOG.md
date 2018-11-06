@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/zircleui/github-trending-plus/compare/v0.3.0...v0.4.0) (2018-11-06)
+
+
+### Bug Fixes
+
+* 🐛 clear network error message ([ec00d1f](https://github.com/zircleui/github-trending-plus/commit/ec00d1f))
+* 🐛 UI style ([338ede4](https://github.com/zircleui/github-trending-plus/commit/338ede4))
+
+
+### Features
+
+* 🎸 add about section ([d2ba47e](https://github.com/zircleui/github-trending-plus/commit/d2ba47e))
+* 🎸 add developer section ([e107b38](https://github.com/zircleui/github-trending-plus/commit/e107b38))
+* 🎸 add developers section ([27525ae](https://github.com/zircleui/github-trending-plus/commit/27525ae))
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/zircleui/github-trending-plus/compare/v0.2.0...v0.3.0) (2018-11-04)
 
