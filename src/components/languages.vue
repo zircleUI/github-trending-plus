@@ -8,10 +8,10 @@
       @input="searchLanguages($event.target.value)">
     </div>
     <div slot="extension">
-      <div v-if="wt.length && wt[0].name !== '' && search && $zircle.getCurrentViewName() === 'languages--0'">
+      <div v-if="query !== '' && search && $zircle.getCurrentViewName() === 'languages--0'">
       <z-spot
 
-      v-for="(language, index) in wt"
+      v-for="(lang, index) in wt"
       button
 
       :key="'lang' + index"
@@ -19,22 +19,22 @@
       :angle="-90 + (360 / wt.length * index)"
       size="xs"
       class="test1 accent butt"
-      :label="language.name"
-      @click.native="sharedState.language = language.urlParam"
+      :label="lang.name"
+      @click.native="sharedState.language = lang.urlParam"
       style="border: none"
-     :style="sharedState.language === language.urlParam ? 'background-color:' + sharedState.colorMe.main : 'background-color: #454545; border: 1px solid ' + sharedState.colorMe.main"
+     :style="sharedState.language === lang.urlParam ? 'background-color:' + sharedState.colorMe.main : 'background-color: #454545; border: 1px solid ' + sharedState.colorMe.main"
 
       >
       </z-spot>
       </div>
-      <div v-if="wt.length && wt[0].name === ''">
+      <div v-if="wt.length === 0 && search && searchActive">
       <z-spot
       button
       :distance="60"
       :angle="-90"
       size="xs"
       class="test1 accent butt"
-      label="No results. Try other time period"
+      label="😕 try another term"
       style="border: none"
      :style="sharedState.language === language.urlParam ? 'background-color:' + sharedState.colorMe.main : 'background-color: #454545; border: 1px solid ' + sharedState.colorMe.main"
 
@@ -105,7 +105,6 @@ function fetchGalleries (results, since, stateError) {
     var papa = gal.filter(function (el) {
       return el.data.length > 0
     })
-    console.log(papa.map(a => a.data[0].language))
     return papa.map(a => a.data[0].language)
   })
 }
@@ -119,7 +118,8 @@ export default {
       query: '',
       wt: [],
       search: false,
-      sharedState: state.$data
+      sharedState: state.$data,
+      searchActive: false
     }
   },
   computed: {
@@ -143,10 +143,14 @@ export default {
       var vm = this
       if (e !== '') {
         var input = e.toLowerCase()
-        this.results = this.other.filter(function (el) {
+        var preResults = this.other.filter(function (el) {
           var data = el.name.toLowerCase()
           return data.indexOf(input) > -1
-        }).slice(-8)
+        })
+        var sorted = preResults.sort(function (a, b) {
+          return a.name.length - b.name.length
+        })
+        this.results = sorted.slice(0, 7)
         var pap = fetchGalleries(vm.results, vm.sharedState.since, vm.sharedState.axiosError)
         pap.then(result => {
           vm.wt = result.map(a => {
@@ -156,11 +160,14 @@ export default {
               urlParam: url
             }
           })
+          vm.searchActive = true
         })
         this.query = e
       } else {
+        this.searchActive = false
         this.query = ''
         this.results = []
+        this.wt = []
       }
     },
     getLanguages () {
@@ -176,7 +183,6 @@ export default {
           var lang = ''
           vm.sharedState.language === '' ? lang = 'all languages' : lang = vm.sharedState.language
           var checkLangSelected = res.filter(e => e.name.toLowerCase() === lang.toLowerCase())
-          console.log(checkLangSelected)
           if (checkLangSelected.length) {
             vm.popular = res
           } else {
