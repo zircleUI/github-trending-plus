@@ -127,10 +127,15 @@ export default {
     }
   },
   mounted () {
+    var vm = this
     this.$zircle.config({
       style: { theme: 'github' }
     })
     this.$zircle.setView('home')
+    document.body.addEventListener('keyup', function (e) {
+      if (e.code === 'Escape') return vm.$zircle.goBack()
+    }
+    )
   }
 }
 </script>
