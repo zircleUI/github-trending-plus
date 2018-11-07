@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/zircleui/github-trending-plus/compare/v0.4.0...v0.5.0) (2018-11-07)
+
+
+### Features
+
+* 🎸 allow go back pressing escape key ([2f87d41](https://github.com/zircleui/github-trending-plus/commit/2f87d41)), closes [#1](https://github.com/zircleui/github-trending-plus/issues/1)
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/zircleui/github-trending-plus/compare/v0.3.0...v0.4.0) (2018-11-06)
 
