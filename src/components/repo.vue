@@ -49,11 +49,12 @@
 
       <z-spot
       button
-      class="butt"
+      class="butt2"
       size=s
       style="font-size: 18px; border-width: 4px; background-color: #D4D7DD;"
+      :style="'color:' + sharedState.colorMe.sec"
       :distance="120"
-      :angle="45"
+      :angle="135"
       :label= "activePage ? 'insights' : 'return'"
       @click.native="activePage = !activePage">
        <i v-if="activePage" class="fas fa-chart-line" :style="'color:' + sharedState.colorMe.sec"></i>
@@ -62,7 +63,7 @@
       <z-spot slot=extension v-if="activePage"
       class="emit"
       :distance=135
-      :angle=-45
+      :angle=-135
       size=xxs
       :style="'border: none; background-color:rgb(218, 72, 47)'"
       >
@@ -72,14 +73,15 @@
       <z-spot
 
       button
-      class="butt"
+      class="butt2"
       size=s
-      label="repo url"
-      style="font-size: 14px; border-width: 4px; background-color: #D4D7DD;"
+      label="☝️ star it"
+      style="font-size: 25px; border-width: 4px; background-color: #D4D7DD;"
+      :style="'color:' + sharedState.colorMe.sec"
       :distance="120"
-      :angle="135"
+      :angle="45"
       @click.native="toLink($zircle.getParams().data.url)">
-       <i class="fas fa-external-link-alt" :style="'color:' + sharedState.colorMe.sec"></i>
+       <i class="fas fa-star" :style="'color:' + sharedState.colorMe.sec"></i>
 
       </z-spot>
 

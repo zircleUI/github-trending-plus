@@ -446,6 +446,14 @@ a {
   background-color: transparent !important;
   font-size: calc(0.7vw + 0.7vh + 0.7vmin);
 }
+
+.butt2>.z-label.bottom>.inside {
+
+  color: var(--accent-color) !important;
+  font-weight: 400;
+  background-color: transparent !important;
+  font-size: calc(0.7vw + 0.7vh + 0.7vmin);
+}
 .z-label.right>.inside{
 background-color: transparent !important;
 color: #606368

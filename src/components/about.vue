@@ -22,9 +22,9 @@
 
     <z-spot
       button
-      class="butt"
+      class="butt2"
       size=s
-      style="font-size: 14px; border-width: 4px; background-color: #D4D7DD;"
+      style="font-size: 25px; border-width: 4px; background-color: #D4D7DD;"
       label="source files"
       :distance="120"
       :angle="135"
@@ -34,9 +34,9 @@
 
     <z-spot
       button
-      class="butt"
+      class="butt2"
       size=s
-      style="font-size: 14px; border-width: 4px; background-color: #D4D7DD;"
+      style="font-size: 25px; border-width: 4px; background-color: #D4D7DD;"
       label="follow zircle"
       :distance="120"
       :angle="90"
@@ -46,9 +46,9 @@
 
     <z-spot
       button
-      class="butt"
+      class="butt2"
       size=s
-      style="font-size: 14px; border-width: 4px; background-color: #D4D7DD;"
+      style="font-size: 25px; border-width: 4px; background-color: #D4D7DD;"
       label="medium (soon)"
       :distance="120"
       :angle="45"
