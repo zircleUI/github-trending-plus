@@ -2,7 +2,7 @@
   "name": "github-trending-plus",
   "description": "Alternative Github trending UI with some cool extra features",
   "author": "Juan Martín Muda <juan.martin.muda@gmail.com>",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -19,6 +19,7 @@
   "dependencies": {
     "animejs": "^2.2.0",
     "axios": "^0.18.0",
+    "js-search": "^1.4.2",
     "moment": "^2.22.2",
     "moment-duration-format": "^2.2.2",
     "vue": "^2.5.17",
