@@ -170,7 +170,6 @@ color: #454545;
   z-index: 9999;
   opacity: 1;
   text-align: center;
-  line-height: 0.5em;
 }
 .title.home {
   text-align: center;
@@ -207,6 +206,11 @@ a {
 background-color: white !important;
 }
 
+#app {
+  position: fixed;
+  width: 100%;
+    height: 100%
+}
 /*
   ##Device = Desktops landscape
   ##Screen = 1281px to higher resolution desktops
@@ -221,6 +225,9 @@ background-color: white !important;
   .title.home {
     text-align: center;
     top: 80px;
+  }
+    .footer {
+    line-height: 1.5em;
   }
 
 }
@@ -252,6 +259,9 @@ background-color: white !important;
     text-align: center;
     top: 50px
   }
+    .footer {
+    line-height: 1.5em;
+  }
 
 }
 /*
@@ -269,6 +279,10 @@ background-color: white !important;
   .title.home {
     text-align: center;
     top: 40px
+  }
+
+  .footer {
+    line-height: 0.5em;
   }
 
 }
@@ -305,6 +319,9 @@ background-color: white !important;
     text-align: center;
     top: 50px
   }
+    .footer {
+    line-height: 1.5em;
+  }
 
 }
 
@@ -329,6 +346,7 @@ background-color: white !important;
     margin-left: 20px;
     font-size: 15px;
     width: 30%;
+    line-height: 1.5em;
   }
 
 }
@@ -353,6 +371,9 @@ background-color: white !important;
     margin-left: 20px;
     font-size: 15px;
     width: 30%;
+
+    line-height: 1.5em;
+
   }
 
 }
@@ -383,6 +404,7 @@ background-color: white !important;
     margin-left: 20px;
     font-size: 15px;
     width: 30%;
+    line-height: 1.5em;
   }
 
 }
@@ -400,6 +422,9 @@ background-color: white !important;
   }
   .title.home {
     top: 40px;
+  }
+    .footer {
+    line-height: 0.5em;
   }
 
 }
