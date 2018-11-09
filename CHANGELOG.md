@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.3"></a>
+## [0.5.3](https://github.com/zircleui/github-trending-plus/compare/v0.5.2...v0.5.3) (2018-11-09)
+
+
+### Bug Fixes
+
+* 🐛 unable to go back after insights ([cd18830](https://github.com/zircleui/github-trending-plus/commit/cd18830)), closes [#3](https://github.com/zircleui/github-trending-plus/issues/3)
+
+
+
 <a name="0.5.2"></a>
 ## [0.5.2](https://github.com/zircleui/github-trending-plus/compare/v0.5.1...v0.5.2) (2018-11-07)
 
