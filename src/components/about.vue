@@ -39,21 +39,9 @@
       style="font-size: 25px; border-width: 4px; background-color: #D4D7DD;"
       label="follow zircle"
       :distance="120"
-      :angle="90"
+      :angle="45"
       @click.native="toLink('https://twitter.com/zircle_ui')">
        <i class="fab fa-twitter" :style="'color:' + sharedState.colorMe.sec"></i>
-    </z-spot>
-
-    <z-spot
-      button
-      class="butt2"
-      size=s
-      style="font-size: 25px; border-width: 4px; background-color: #D4D7DD;"
-      label="medium (soon)"
-      :distance="120"
-      :angle="45"
-      @click.native="toLink('https://medium.com')">
-       <i class="fab fa-medium-m" :style="'color:' + sharedState.colorMe.sec"></i>
     </z-spot>
 
     </div>
