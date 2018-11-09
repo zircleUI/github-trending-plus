@@ -3,12 +3,12 @@
     <div v-if="sharedState.axiosError !== ''">
         Oops!! {{sharedState.axiosError}}
       </div>
-    <div v-if="search">
+    <div v-if="sharedState.isSearch">
       <input type="text" placeholder="type a language ..." :value="language"
       @input="searchLanguages($event.target.value)">
     </div>
     <div slot="extension">
-      <div v-if="query !== '' && search && $zircle.getCurrentViewName() === 'languages--0'">
+      <div v-if="query !== '' && sharedState.isSearch && $zircle.getCurrentViewName() === 'languages--0'">
       <z-spot
 
       v-for="(lang, index) in wt"
@@ -27,7 +27,7 @@
       >
       </z-spot>
       </div>
-      <div v-if="wt.length === 0 && search && searchActive">
+      <div v-if="wt.length === 0 && sharedState.isSearch && searchActive">
       <z-spot
       button
       :distance="60"
@@ -35,9 +35,7 @@
       size="xs"
       class="test1 accent butt"
       label="😕 try another term"
-      style="border: none"
-     :style="sharedState.language === language.urlParam ? 'background-color:' + sharedState.colorMe.main : 'background-color: #454545; border: 1px solid ' + sharedState.colorMe.main"
-
+      style="border: none; background-color: transparent"
       >
       </z-spot>
       </div>
@@ -46,15 +44,15 @@
       class="buttons"
             size='s'
             :angle="45"
-            :label="!search ? '+ languages' : 'go back'"
+            :label="!sharedState.isSearch ? '+ languages' : 'go back'"
             :distance="130"
             @click.native="getLanguages()"
-            @mouseup.native="search = !search"
+            @mouseup.native="sharedState.isSearch = !sharedState.isSearch"
             >
-            <i v-if="!search" class="fas fa-search"></i>
-            <i v-if="search" class="fas fa-undo"></i>
+            <i v-if="!sharedState.isSearch" class="fas fa-search"></i>
+            <i v-if="sharedState.isSearch" class="fas fa-undo"></i>
           </z-spot>
-          <div v-if="popular.length && !search && $zircle.getCurrentViewName() === 'languages--0'">
+          <div v-if="popular.length && !sharedState.isSearch && $zircle.getCurrentViewName() === 'languages--0'">
      <z-list
         :items="popular"
         :per-page="8">
@@ -76,17 +74,17 @@
       <z-spot  class="buttons" button size=xs :distance=125 :angle=-45 label="daily"
       style="border: none; color: white"
       :style="sharedState.since === 'daily' ? 'background-color: #5484f8' : ''"
-      @click.native="sharedState.since = 'daily'" >T</z-spot>
+      @click.native="changeTime('daily')" >T</z-spot>
 
       <z-spot  class="buttons" button size=xs :distance=125 :angle=-20 label="weekly"
       style="border: none; color: white"
       :style="sharedState.since === 'weekly' ? 'background-color: #5484f8' : ''"
-      @click.native="sharedState.since = 'weekly'" >W</z-spot>
+      @click.native="changeTime('weekly')" >W</z-spot>
 
       <z-spot  class="buttons" button size=xs :distance=125 :angle=5 label="monthly"
       style="border: none; color: white"
       :style="sharedState.since === 'monthly' ? 'background-color: #5484f8' : ''"
-      @click.native="sharedState.since = 'monthly'" >M</z-spot>
+      @click.native="changeTime('monthly')" >M</z-spot>
     </div>
   </z-view>
 </template>
@@ -117,7 +115,6 @@ export default {
       results: [],
       query: '',
       wt: [],
-      search: false,
       sharedState: state.$data,
       searchActive: false
     }
@@ -139,6 +136,13 @@ export default {
     }
   },
   methods: {
+    changeTime (time) {
+      this.searchActive = false
+      this.query = ''
+      this.results = []
+      this.wt = []
+      this.sharedState.since = time
+    },
     searchLanguages (e) {
       var vm = this
       if (e !== '') {

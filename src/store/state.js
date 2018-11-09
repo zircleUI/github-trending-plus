@@ -8,7 +8,8 @@ const state = new Vue({
     colorMe: {},
     axiosError: '',
     clearResults: false,
-    languageTracked: false
+    languageTracked: false,
+    isSearch: false
   }
 })
 
