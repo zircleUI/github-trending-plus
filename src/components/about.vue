@@ -25,7 +25,7 @@
       class="butt2"
       size=s
       style="font-size: 25px; border-width: 4px; background-color: #D4D7DD;"
-      label="source files"
+      label="source code"
       :distance="120"
       :angle="135"
       @click.native="toLink(info.url)">

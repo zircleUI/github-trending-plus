@@ -39,19 +39,19 @@
       button
       class="butt"
       size=s
-      label="profile url"
+      label="profile"
       style="font-size: 14px; border-width: 4px; background-color: #D4D7DD;"
       :distance="120"
       :angle="45"
       @click.native="toLink('https://github.com/' + info.name)">
-       <i class="fas fa-external-link-alt" :style="'color:' + sharedState.colorMe.sec"></i>
+       <i class="fab fa-github-alt" :style="'color:' + sharedState.colorMe.sec"></i>
 
       </z-spot>
 
       <z-spot
          :angle="-45"
          :distance="100"
-         :label="info.position + 1 + '˚'"
+          :label="getOrdinal(info.position + 1)"
          label-pos="right"
          size="s"
          class="side"
@@ -78,6 +78,11 @@ export default {
     }
   },
   methods: {
+    getOrdinal (n) {
+      var s = ['th', 'st', 'nd', 'rd']
+      var v = n % 100
+      return n + (s[(v - 20) % 10] || s[v] || s[0])
+    },
     toLink (url) {
       return window.open(url, '_blank')
     },

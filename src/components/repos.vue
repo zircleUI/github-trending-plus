@@ -64,7 +64,6 @@
             size="xs"
             :index="props.index"
             :distance='116'
-
             style="background-color: transparent; border: none;">
             <span slot=extension>{{getOrdinal(props.position + 1)}}</span>
           </z-spot>

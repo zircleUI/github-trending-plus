@@ -5,7 +5,7 @@
 
       <z-spot
         class="asteroids"
-        style='border-width: 3px; opacity: 0.3; border-color:white '
+        style='background-color: #D4D7DD; border-width: 3px; opacity: 0.4; border-color:white '
         size=s
         :distance="150"
         :angle="-65"
@@ -13,7 +13,7 @@
       </z-spot>
       <z-spot
         class="asteroids"
-        style='border-width: 3px; opacity: 0.3; border-color:white '
+        style='background-color: #D4D7DD; border-width: 3px; opacity: 0.4; border-color:white '
         size=s
         :distance="160"
         :angle="-130"
@@ -21,7 +21,7 @@
       </z-spot>
       <z-spot
         class="asteroids"
-        style='border-width: 3px; opacity: 0.3; border-color:white '
+        style='background-color: #D4D7DD; border-width: 3px; opacity: 0.4; border-color:white '
         size=s
         :distance="150"
         :angle="140"
@@ -29,10 +29,10 @@
       </z-spot>
       <z-spot
         class="asteroids"
-        style='border-width: 5px; opacity: 1; background-color: #da482f; border-color:white '
+        style='border-width: 9px; opacity: 1; background-color: #da482f; border-color:white '
         size=s
-        :distance="130"
-        :angle="75"
+        :distance="135"
+        :angle="60"
       />
       <z-spot
         class="asteroids stay"
@@ -45,8 +45,8 @@
         class="asteroids"
         style='border-width: 4px; opacity: 1; background-color: #54a74c; border-color:white '
         size=xs
-        :distance="190"
-        :angle="155"
+        :distance="170"
+        :angle="160"
       ></z-spot>
       <z-spot
         class="asteroids"
@@ -57,7 +57,7 @@
       />
       <z-spot
         class="asteroids"
-        style='border-width: 3px; opacity: 0.3; border-color:white '
+        style='background-color: #D4D7DD; border-width: 3px; opacity: 0.4; border-color:white '
         size=s
         :distance="180"
         :angle="94"
@@ -66,7 +66,7 @@
 
       <z-spot
       class="asteroids"
-       style='border-width: 3px; opacity: 0.15; border-color:white '
+       style='background-color: #D4D7DD;border-width: 3px; opacity: 0.15; border-color:white '
       size=xs
       :distance="148"
       :angle="0"
@@ -74,7 +74,7 @@
       </z-spot>
       <z-spot
       class="asteroids"
-       style='border-width: 3px; opacity: 0.15; border-color:white'
+       style='background-color: #D4D7DD;border-width: 3px; opacity: 0.15; border-color:white'
       size=xs
       :distance=160
       :angle="110"
@@ -82,35 +82,35 @@
       </z-spot>
       <z-spot
         class="asteroids"
-        style='border-width: 1px; opacity: 0.15; border-color:white'
+        style='background-color: #D4D7DD;border-width: 1px; opacity: 0.15; border-color:white'
         size=xxs
         :distance=148
         :angle="43"
       />
       <z-spot
         class="asteroids"
-        style='border-width: 1px; opacity: 0.15; border-color:white'
+        style='background-color: #D4D7DD;border-width: 1px; opacity: 0.15; border-color:white'
         size=xxs
         :distance=122
         :angle="113"
       />
       <z-spot
         class="asteroids"
-        style='border-width: 1px; opacity: 0.15; border-color:white'
+        style='background-color: #D4D7DD;border-width: 1px; opacity: 0.15; border-color:white'
         size=xxs
         :distance=132
         :angle="210"
       />
       <z-spot
         class="asteroids"
-        style='border-width: 1px; opacity: 0.15; border-color:white'
+        style='background-color: #D4D7DD;border-width: 1px; opacity: 0.15; border-color:white'
         size=xxs
         :distance=132
         :angle="-82"
       />
        <z-spot
        class="asteroids"
-        style='border-width:3px; opacity: 0.15; border-color:white'
+        style='background-color: #D4D7DD; border-width:3px; opacity: 0.15; border-color:white'
         size=xs
         :distance=190
         :angle="-160"
@@ -119,7 +119,7 @@
 
       <z-spot
         class="asteroids"
-        style='border-width: 3px; opacity: 0.15; border-color:white'
+        style='background-color: #D4D7DD;border-width: 3px; opacity: 0.15; border-color:white'
         size=xs
         :distance=190
         :angle="angle + 130"

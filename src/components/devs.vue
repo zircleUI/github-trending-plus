@@ -57,7 +57,7 @@
 
         >
 
-        <div slot-scope="props" >
+        <div slot-scope="props" @mouseenter="showMe(props.index)">
 
           <z-spot
 
@@ -65,9 +65,8 @@
             size="xs"
             :index="props.index"
             :distance='110'
-
             style="background-color: transparent; border: none;">
-            {{props.position + 1}}˚
+            <span slot=extension>{{getOrdinal(props.position + 1)}}</span>
           </z-spot>
           <z-spot
           class=" numeral"
@@ -87,7 +86,7 @@
             style="border-width: 0px; background-color: rgba(0,0,0,0); border-color: var(--shade-color)"
             :style="$zircle.getCurrentViewName() === 'devs--0' && hideThis ===  'dev-' + props.index ? 'opacity: 1' : ''"
             :index="props.index"
-            :label="trimLabels(props.index, props.name)"
+            :label="show === props.index ? props.name : trimLabels(props.index, props.name)"
             @click.native="hideMe('dev-' + props.index)"
             @mouseup.native="sendMe('dev-' + props.index)"
            >
@@ -196,6 +195,11 @@ export default {
     }
   },
   methods: {
+    getOrdinal (n) {
+      var s = ['th', 'st', 'nd', 'rd']
+      var v = n % 100
+      return n + (s[(v - 20) % 10] || s[v] || s[0])
+    },
     trimLabels (index, name) {
       if (index === 2 || index === 3) {
         return name.length > 7 ? name.substring(0, 4) + '…' : name
