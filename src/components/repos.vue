@@ -12,7 +12,7 @@
       <z-spot v-if="day || !trending"
         button
         class="filter buttons"
-        :distance=130
+        :distance=135
         size='s'
         style="background-color: #D4D7DD;"
         :angle="45"
@@ -52,22 +52,21 @@
         :items="collection"
         :per-page="5"
         @touchstart.native="startPos"
-        @touchmove.native.prevent
         @touchend.native="endPos"
 
         >
 
-        <div slot-scope="props" >
+        <div slot-scope="props"  @mouseenter="showMe(props.index)">
 
           <z-spot
 
             class=" pos numeral"
             size="xs"
             :index="props.index"
-            :distance='110'
+            :distance='116'
 
             style="background-color: transparent; border: none;">
-            {{props.position + 1}}˚
+            <span slot=extension>{{getOrdinal(props.position + 1)}}</span>
           </z-spot>
           <z-spot
           class=" numeral"
@@ -87,7 +86,7 @@
             style="border-width: 0px; background-color: rgba(0,0,0,0); border-color: var(--shade-color)"
             :style="$zircle.getCurrentViewName() === 'repos--0' && hideThis ===  'res-' + props.index ? 'opacity: 1' : ''"
             :index="props.index"
-            :label="trimLabels(props.index, props.name)"
+            :label="show === props.index ? props.name : trimLabels(props.index, props.name)"
             @click.native="hideMe('res-' + props.index)"
             @mouseup.native="sendMe('res-' + props.index)"
            >
@@ -196,6 +195,11 @@ export default {
     }
   },
   methods: {
+    getOrdinal (n) {
+      var s = ['th', 'st', 'nd', 'rd']
+      var v = n % 100
+      return n + (s[(v - 20) % 10] || s[v] || s[0])
+    },
     trimLabels (index, name) {
       if (index === 2 || index === 3) {
         return name.length > 7 ? name.substring(0, 4) + '…' : name
@@ -211,7 +215,7 @@ export default {
       this.$zircle.toView({ to: 'repo', fromSpot: this.$refs[ref], params: { data: this.$refs[ref].$attrs.props } })
     },
     startPos (e) {
-      if (e.touches.length === 1) {
+      if (e.touches.length === 1 && this.$zircle.getCurrentViewName() === 'repos--0') {
         // just one finger touched
         this.startX = e.touches.item(0).clientX
       } else {
@@ -221,7 +225,7 @@ export default {
     },
     endPos (e) {
       var offset = 60
-      if (this.startX) {
+      if (this.startX && this.$zircle.getCurrentViewName() === 'repos--0') {
         // the only finger that hit the screen left it
         var end = e.changedTouches.item(0).clientX
 
@@ -426,7 +430,7 @@ a {
 
 .test>.z-label.bottom>.inside {
   border: none !important;
-  background-color: transparent !important;
+  background-color: white !important;
   font-size: 13px !important;
   font-weight: 700;
   color: var(--accent-color)
@@ -467,7 +471,7 @@ color: #606368
 }
 .pos{
 
-  font-weight: 700;
+  font-weight: 500;
   font-size: 16px;
 }
 
