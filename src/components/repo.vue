@@ -18,7 +18,7 @@
   </center>
    </div>
 
-     <div v-if="!activePage" :style="'eft: 0; width: 100%; z-index: 10; color:' + sharedState.colorMe.sec">
+     <div v-if="!activePage" :style="'left: 0; width: 100%; z-index: 10; color:' + sharedState.colorMe.sec">
 
      <center>
       <div class="sub-label" style="padding-top: 30px; line-height: 0.9em; width: 100%; overflow: hidden; font-size: calc(10px + 1vw);">
@@ -54,16 +54,16 @@
       style="font-size: 18px; border-width: 4px; background-color: #D4D7DD;"
       :style="'color:' + sharedState.colorMe.sec"
       :distance="120"
-      :angle="135"
+      :angle="45"
       :label= "activePage ? 'insights' : 'return'"
-      @click.native="activePage = !activePage">
+      @click.native="toggle">
        <i v-if="activePage" class="fas fa-chart-line" :style="'color:' + sharedState.colorMe.sec"></i>
        <i v-if="!activePage" class="fas fa-undo" :style="'color:' + sharedState.colorMe.sec"></i>
 
       <z-spot slot=extension v-if="activePage"
       class="emit"
       :distance=135
-      :angle=-135
+      :angle=-45
       size=xxs
       :style="'border: none; background-color:rgb(218, 72, 47)'"
       >
@@ -79,8 +79,8 @@
       style="font-size: 25px; border-width: 4px; background-color: #D4D7DD;"
       :style="'color:' + sharedState.colorMe.sec"
       :distance="120"
-      :angle="45"
-      @click.native="toLink($zircle.getParams().data.url)">
+      :angle="135"
+      @mouseup.native="toLink($zircle.getParams().data.url)">
        <i class="fas fa-star" :style="'color:' + sharedState.colorMe.sec"></i>
 
       </z-spot>
@@ -88,7 +88,7 @@
       <z-spot
          :angle="-45"
          :distance="100"
-         :label="info.position + 1 + '˚'"
+         :label="getOrdinal(info.position + 1)"
          label-pos="right"
          size="s"
          class="side"
@@ -115,6 +115,14 @@ export default {
     }
   },
   methods: {
+    toggle () {
+      this.activePage = !this.activePage
+    },
+    getOrdinal (n) {
+      var s = ['th', 'st', 'nd', 'rd']
+      var v = n % 100
+      return n + (s[(v - 20) % 10] || s[v] || s[0])
+    },
     toLink (url) {
       return window.open(url, '_blank')
     },
