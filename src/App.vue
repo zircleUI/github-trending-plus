@@ -1,6 +1,6 @@
 <template>
   <div id="app" style="user-select: none;" >
-    <span style="z-index:999; position: absolute; top: 10px; right: 10px; font-weight: 500; font-size: 12px" ><span v-if="$zircle.getCurrentViewName() !== 'home--0'">Github trending plus  |  </span> by <a href="https://github.com/zircleui/zircleui" target="_blank"> <img style="vertical-align:middle" src="zircle.png" width="13px"/>  zircle</a> </span>
+    <span style="z-index:999; position: absolute; top: 10px; right: 10px; font-weight: 500; font-size: 12px" ><span v-if="$zircle.getCurrentViewName() !== 'home--0'">Github trending plus  </span> by <a href="https://github.com/zircleui/zircleui" target="_blank"> <img style="vertical-align:middle" src="zircle.png" width="13px"/>  zircle</a> </span>
     <transition name="head">
       <div  v-if="$zircle.getCurrentViewName() === 'home--0'" class="title home">
         Github trending <span :style="'color:' + sharedState.colorMe.main">plus</span>
@@ -45,19 +45,19 @@
     </transition>
      <transition name="head">
       <div v-if="$zircle.getCurrentViewName() === 'languages--0'" class="title other">
-        Select a coding language and a time period
+        Coding languages & time period
       </div>
     </transition>
     <transition name="head">
     <div v-if="$zircle.getCurrentViewName() === 'languages--0'" class="footer">
-          <span style="font-size: 13px" ><b>Tip: </b> use search to find other languages</span>
+          <span v-if="!sharedState.isSearch" style="font-size: 13px" ><b>Tip: </b> <b>+ languages</b> to find other languages</span>
+          <span v-if="sharedState.isSearch" style="font-size: 13px" ><b>Tip: </b> Only coding languages with trending results are shown. Your query may have results trying other time period.</span>
       </div>
     </transition>
 
     <z-canvas :views="$options.components"
     @wheel.native="backward"
     @touchstart.native="startPos"
-    @touchmove.native.prevent
     @touchend.native="endPos"
     ></z-canvas>
 
@@ -166,10 +166,11 @@ body {
   width: 90%;
   font-size: 32px;
   pointer-events: none !important;
-
+color: #454545;
   z-index: 9999;
   opacity: 1;
   text-align: center;
+  line-height: 0.5em;
 }
 .title.home {
   text-align: center;
@@ -253,7 +254,24 @@ background-color: white !important;
   }
 
 }
+/*
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
 
+@media (width: 375px) and (orientation: portrait){
+
+ .title.other {
+    text-align: center;
+    top: 40px;
+    font-size: 25px;
+    }
+  .title.home {
+    text-align: center;
+    top: 40px
+  }
+
+}
 /*
   ##Device = Tablets, Ipads (portrait)
   ##Screen = B/w 768px to 1024px
@@ -281,7 +299,6 @@ background-color: white !important;
 
   .title.other {
     text-align: center;
-
      top: 50px
   }
   .title.home {
@@ -290,6 +307,7 @@ background-color: white !important;
   }
 
 }
+
 /* iphone x */
 @media (width: 812px) and (height: 375px) {
 
@@ -348,7 +366,7 @@ background-color: white !important;
   .title.other {
     text-align: left;
     margin-left: 30px;
-    font-size: 18px;
+      font-size: 25px;
     width: 30%;
     top: calc(5vh);
 
@@ -356,8 +374,9 @@ background-color: white !important;
   .title.home {
     text-align: left;
     margin-left: 18px;
+      font-size: 25px;
     top: calc(5vh);
-    width: 45%;
+    width: 40%;
   }
   .footer {
     text-align: left;
