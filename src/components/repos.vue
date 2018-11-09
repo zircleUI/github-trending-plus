@@ -21,7 +21,7 @@
            <i style="color: hsl(220, 12%, 25%);" class="fas fa-ellipsis-v"></i>
         </z-spot>
 
-    <z-spot v-if="$zircle.getCurrentPageIndex() <= 3"
+    <z-spot v-if="$zircle.getCurrentPageIndex() <= 3 && collection.length > 0"
         button
         class="filter buttons"
         :distance=115
