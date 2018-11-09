@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.3"></a>
+## [0.6.3](https://github.com/zircleui/github-trending-plus/compare/v0.6.2...v0.6.3) (2018-11-09)
+
+
+
 <a name="0.6.2"></a>
 ## [0.6.2](https://github.com/zircleui/github-trending-plus/compare/v0.6.1...v0.6.2) (2018-11-09)
 
