@@ -1,132 +1,50 @@
 <template>
-  <z-view  class="is-repos"  :style="$zircle.getCurrentViewName() === 'repos--0' ? 'border-width: 7px; background-color: white !important' : 'border-width: 7px; background-color: white !important'">
-      {{msg}}
-      <div v-if="sharedState.axiosError !== ''">
+<z-view class="is-repos" :style="$zircle.getCurrentViewName() === 'repos--0' ? 'border-width: 7px; background-color: white !important' : 'border-width: 7px; background-color: white !important'">
+    {{msg}}
+    <div v-if="sharedState.axiosError !== ''">
         Oops!! {{sharedState.axiosError}}
-      </div>
-      <div v-if="collection.length === 0">
-        <i class="fas fa-spinner fa-spin fa-2x"></i>
-      </div>
-    <div slot="extension" v-if="trending">
-
-      <z-spot v-if="day || !trending"
-        button
-        class="filter buttons"
-        :distance=135
-        size='s'
-        style="background-color: #D4D7DD;"
-        :angle="45"
-        label="filter"
-        to-view="languages">
-           <i style="color: hsl(220, 12%, 25%);" class="fas fa-ellipsis-v"></i>
-        </z-spot>
-
-    <z-spot v-if="$zircle.getCurrentPageIndex() <= 3 && collection.length > 0"
-        button
-        class="filter buttons"
-        :distance=115
-        size='xs'
-        style="border-color: var(--accent-color);background-color: var(--accent-color); color: var(--shade-color)"
-        :angle="0"
-        @mouseup.native="$zircle.setCurrentPageIndex($zircle.getCurrentPageIndex() + 1)"
-    >
-           <i class="fas fa-arrow-right"></i>
-        </z-spot>
-
-        <z-spot v-if="$zircle.getCurrentPageIndex() >= 1"
-        button
-        class="filter buttons"
-        :distance=115
-        size='xs'
-        style="border-color: var(--accent-color);background-color: var(--accent-color); color: var(--shade-color)"
-        :angle="180"
-        @mouseup.native="$zircle.setCurrentPageIndex($zircle.getCurrentPageIndex() - 1)">
-        <i style="" class="fas fa-arrow-left"></i>
-        </z-spot>
-
-    <div v-if="collection.length > 0">
-
-      <z-list
-      class="stay"
-      style=""
-        :items="collection"
-        :per-page="5"
-        @touchstart.native="startPos"
-        @touchend.native="endPos"
-
-        >
-
-        <div slot-scope="props"  @mouseenter="showMe(props.index)">
-
-          <z-spot
-
-            class=" pos numeral"
-            size="xs"
-            :index="props.index"
-            :distance='116'
-            style="background-color: transparent; border: none;">
-            <span slot=extension>{{getOrdinal(props.position + 1)}}</span>
-          </z-spot>
-          <z-spot
-          class=" numeral"
-            size="xxs"
-            :index="props.index"
-            :distance='99'
-            style="background-color: var(--shade-color); border-color: var(--shade-color)">
-          </z-spot>
-
-          <z-spot
-            :image-path="props.avatar"
-            class="test"
-            :distance='55'
-            :props="props"
-            size=m
-            :ref="'res-' + props.index"
-            style="border-width: 0px; background-color: rgba(0,0,0,0); border-color: var(--shade-color)"
-            :style="$zircle.getCurrentViewName() === 'repos--0' && hideThis ===  'res-' + props.index ? 'opacity: 1' : ''"
-            :index="props.index"
-            :label="show === props.index ? props.name : trimLabels(props.index, props.name)"
-            @click.native="hideMe('res-' + props.index)"
-            @mouseup.native="sendMe('res-' + props.index)"
-           >
-
-            <div slot="extension" class="extra">
-              <z-spot v-if="props.diff > 0 && props.prevPos !== -1"
-                size="xs"
-                :angle="0"
-                :distance='100'
-                style="border-color: white; background-color:#54a74c;">
-                  <i style=" color: white" class="fas fa-arrow-up"></i>
-              </z-spot>
-
-              <z-spot v-if="props.diff > 0 && props.prevPos === -1"
-                size="xs"
-                :angle="0"
-                :distance='100'
-                style="font-weight: 700; font-size: 10px; color: hsl(47, 100%, 27%); border-color: white; background-color:#f2bd00;  ">
-                new
-              </z-spot>
-
-              <z-spot v-if="props.diff < 0"
-                size="xs"
-                :angle="0"
-                :distance='100'
-                style="border-color: white;  background-color:#da482f;  ">
-                  <i style=" color: white" class="fas fa-arrow-down"></i>
-              </z-spot>
-
-            </div>
-          </z-spot>
-
-        </div>
-
-        </z-list>
-
-      </div>
-
     </div>
-  </z-view>
+    <div v-if="collection.length === 0">
+        <i class="fas fa-spinner fa-spin fa-2x"></i>
+    </div>
+    <div slot="extension" v-if="trending">
+        <z-spot v-if="day || !trending" button class="filter buttons" :distance=135 size='s' style="background-color: #D4D7DD;" :angle="45" label="filter" to-view="languages">
+            <i style="color: hsl(220, 12%, 25%);" class="fas fa-ellipsis-v"></i>
+        </z-spot>
+        <z-spot v-if="$zircle.getCurrentPageIndex() <= 3 && collection.length > 0" button class="filter buttons" :distance=115 size='xs' style="border-color: var(--accent-color);background-color: var(--accent-color); color: var(--shade-color)" :angle="0" @mouseup.native="$zircle.setCurrentPageIndex($zircle.getCurrentPageIndex() + 1)">
+            <i class="fas fa-arrow-right"></i>
+        </z-spot>
+        <z-spot v-if="$zircle.getCurrentPageIndex() >= 1" button class="filter buttons" :distance=115 size='xs' style="border-color: var(--accent-color);background-color: var(--accent-color); color: var(--shade-color)" :angle="180" @mouseup.native="$zircle.setCurrentPageIndex($zircle.getCurrentPageIndex() - 1)">
+            <i style="" class="fas fa-arrow-left"></i>
+        </z-spot>
+        <div v-if="collection.length > 0">
+            <z-list class="stay" style="" :items="collection" :per-page="5" @touchstart.native="startPos" @touchend.native="endPos">
+                <div slot-scope="props" @mouseenter="showMe(props.index)">
+                    <z-spot class=" pos numeral" size="xs" :index="props.index" :distance='116' style="background-color: transparent; border: none;">
+                        <span slot=extension>{{getOrdinal(props.position + 1)}}</span>
+                    </z-spot>
+                    <z-spot class=" numeral" size="xxs" :index="props.index" :distance='99' style="background-color: var(--shade-color); border-color: var(--shade-color)">
+                    </z-spot>
+                    <z-spot :image-path="props.avatar" class="test" :distance='55' :props="props" size=m :ref="'res-' + props.index" style="border-width: 0px; background-color: rgba(0,0,0,0); border-color: var(--shade-color)" :style="$zircle.getCurrentViewName() === 'repos--0' && hideThis ===  'res-' + props.index ? 'opacity: 1' : ''" :index="props.index" :label="show === props.index ? props.name : trimLabels(props.index, props.name)" @click.native="hideMe('res-' + props.index)" @mouseup.native="sendMe('res-' + props.index)">
+                        <div slot="extension" class="extra">
+                            <z-spot v-if="props.diff > 0 && props.prevPos !== -1" size="xs" :angle="0" :distance='100' style="border-color: white; background-color:#54a74c;">
+                                <i style=" color: white" class="fas fa-arrow-up"></i>
+                            </z-spot>
+                            <z-spot v-if="props.diff > 0 && props.prevPos === -1" size="xs" :angle="0" :distance='100' style="font-weight: 700; font-size: 10px; color: hsl(47, 100%, 27%); border-color: white; background-color:#f2bd00;  ">
+                                new
+                            </z-spot>
+                            <z-spot v-if="props.diff < 0" size="xs" :angle="0" :distance='100' style="border-color: white;  background-color:#da482f;  ">
+                                <i style=" color: white" class="fas fa-arrow-down"></i>
+                            </z-spot>
+                        </div>
+                    </z-spot>
+                </div>
+            </z-list>
+        </div>
+    </div>
+</z-view>
 </template>
+
 <script>
 import state from '../store/state'
 import axios from 'axios'
@@ -211,7 +129,13 @@ export default {
       this.$refs[ref].$el.style.opacity = 0
     },
     sendMe (ref) {
-      this.$zircle.toView({ to: 'repo', fromSpot: this.$refs[ref], params: { data: this.$refs[ref].$attrs.props } })
+      this.$zircle.toView({
+        to: 'repo',
+        fromSpot: this.$refs[ref],
+        params: {
+          data: this.$refs[ref].$attrs.props
+        }
+      })
     },
     startPos (e) {
       if (e.touches.length === 1 && this.$zircle.getCurrentViewName() === 'repos--0') {
@@ -229,11 +153,11 @@ export default {
         var end = e.changedTouches.item(0).clientX
 
         if (end < this.startX - offset && this.$zircle.getCurrentPageIndex() <= 3) {
-        // a left -> right swipe
+          // a left -> right swipe
           this.$zircle.setCurrentPageIndex(this.$zircle.getCurrentPageIndex() + 1)
         }
         if (end > this.startX + offset && this.$zircle.getCurrentPageIndex() >= 1) {
-        // a right -> left swipe
+          // a right -> left swipe
           this.$zircle.setCurrentPageIndex(this.$zircle.getCurrentPageIndex() - 1)
         }
       }
@@ -254,7 +178,9 @@ export default {
         duration: function (el, i) {
           return 2000 + (i * 200)
         },
-        delay: function (e, i) { return i * 120 },
+        delay: function (e, i) {
+          return i * 120
+        },
         complete: function () {
           return pag
         }
@@ -264,8 +190,7 @@ export default {
       this.animee()
       this.day = true
     },
-    init2 () {
-    },
+    init2 () {},
     showMe (index) {
       if (this.show === index) {
         this.show = 99
@@ -351,8 +276,16 @@ export default {
           var full = github.data.map(function (e, index) {
             var updated = myjson.data[myjson.data.length - 1].timestamp
             var search = myjson.data[myjson.data.length - 1][vm.sharedState.since].repos.find(el => el.name === e.name)
-            if (search === undefined || vm.sharedState.languageTracked === true) search = { prevPos: -1, diff: 0, stay: 3 }
-            var findAvatar = avatars.data.find(function (el) { return el.username === e.author })
+            if (search === undefined || vm.sharedState.languageTracked === true) {
+              search = {
+                prevPos: -1,
+                diff: 0,
+                stay: 3
+              }
+            }
+            var findAvatar = avatars.data.find(function (el) {
+              return el.username === e.author
+            })
             if (findAvatar === undefined) {
               findAvatar = {}
               e.builtBy.length > 0 ? findAvatar['avatar'] = e.builtBy[0]['avatar'] : findAvatar['avatar'] = 'https://avatars1.githubusercontent.com/u/29514947?s=40&v=4'
@@ -396,85 +329,91 @@ export default {
   }
 }
 </script>
+
 <style>
 .z-content {
-  top: 0 !important;
-  left: 0 !important;
-  bottom: 0 !important;
-  right: 0 !important;
-  width: 100.5% !important;
-  height: 100.5% !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    width: 100.5% !important;
+    height: 100.5% !important;
 
 }
 
-.test{
-  border: 3px solid var(--shade-color) !important;
+.test {
+    border: 3px solid var(--shade-color) !important;
 
 }
+
 .test:hover {
-  border: 3px solid var(--shade-color) !important;
+    border: 3px solid var(--shade-color) !important;
 
 }
+
 a {
-  color: white;
+    color: white;
 }
-.test>.z-label.bottom{
 
-  top: 108% !important;
+.test>.z-label.bottom {
+
+    top: 108% !important;
 
 }
-.is-repos{
-  background-color: white !important
+
+.is-repos {
+    background-color: white !important
 }
 
 .test>.z-label.bottom>.inside {
-  border: none !important;
-  background-color: white !important;
-  font-size: 13px !important;
-  font-weight: 700;
-  color: var(--accent-color)
+    border: none !important;
+    background-color: white !important;
+    font-size: 13px !important;
+    font-weight: 700;
+    color: var(--accent-color)
 }
 
 .buttons>.z-label.bottom>.inside {
-  color: #454545;
-  font-weight: 400;
-  background-color: transparent !important;
-  font-size: calc(0.7vw + 0.7vh + 0.7vmin);
+    color: #454545;
+    font-weight: 400;
+    background-color: transparent !important;
+    font-size: calc(0.7vw + 0.7vh + 0.7vmin);
 }
 
 .butt>.z-label.bottom>.inside {
 
-  color: var(--shade-color) !important;
-  font-weight: 400;
-  background-color: transparent !important;
-  font-size: calc(0.7vw + 0.7vh + 0.7vmin);
+    color: var(--shade-color) !important;
+    font-weight: 400;
+    background-color: transparent !important;
+    font-size: calc(0.7vw + 0.7vh + 0.7vmin);
 }
 
 .butt2>.z-label.bottom>.inside {
 
-  color: var(--accent-color) !important;
-  font-weight: 400;
-  background-color: transparent !important;
-  font-size: calc(0.7vw + 0.7vh + 0.7vmin);
+    color: var(--accent-color) !important;
+    font-weight: 400;
+    background-color: transparent !important;
+    font-size: calc(0.7vw + 0.7vh + 0.7vmin);
 }
-.z-label.right>.inside{
-background-color: transparent !important;
-color: #606368
+
+.z-label.right>.inside {
+    background-color: transparent !important;
+    color: #606368
 }
+
 .z-label.right {
 
-  background-color: transparent;
-  font-size: 15px !important;
-  background-color: rgba(0,0,0,0) !important;
+    background-color: transparent;
+    font-size: 15px !important;
+    background-color: rgba(0, 0, 0, 0) !important;
 
 }
-.pos{
 
-  font-weight: 500;
-  font-size: 16px;
+.pos {
+
+    font-weight: 500;
+    font-size: 16px;
 }
 
-@media (max-width: 450px) {
-}
-
+@media (max-width: 450px) {}
 </style>

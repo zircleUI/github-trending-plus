@@ -1,97 +1,43 @@
 <template>
-  <z-view style="border-width: 7px;">
+<z-view style="border-width: 7px;">
     <div v-if="sharedState.axiosError !== ''">
         Oops!! {{sharedState.axiosError}}
-      </div>
+    </div>
     <div v-if="sharedState.isSearch">
-      <input type="text" placeholder="type a language ..." :value="language"
+        <input type="text" placeholder="type a language ..." :value="language"
       @input="searchLanguages($event.target.value)">
     </div>
-    <div slot="extension">
-      <div v-if="query !== '' && sharedState.isSearch && $zircle.getCurrentViewName() === 'languages--0'">
-      <z-spot
-
-      v-for="(lang, index) in wt"
-      button
-
-      :key="'lang' + index"
-      :distance="60"
-      :angle="-90 + (360 / wt.length * index)"
-      size="xs"
-      class="test1 accent butt"
-      :label="lang.name"
-      @click.native="sharedState.language = lang.urlParam"
-      style="border: none"
-     :style="sharedState.language === lang.urlParam ? 'background-color:' + sharedState.colorMe.main : 'background-color: #454545; border: 1px solid ' + sharedState.colorMe.main"
-
-      >
-      </z-spot>
-      </div>
-      <div v-if="wt.length === 0 && sharedState.isSearch && searchActive">
-      <z-spot
-      button
-      :distance="60"
-      :angle="-90"
-      size="xs"
-      class="test1 accent butt"
-      label="😕 try another term"
-      style="border: none; background-color: transparent"
-      >
-      </z-spot>
-      </div>
-
-    <z-spot button
-      class="buttons"
-            size='s'
-            :angle="45"
-            :label="!sharedState.isSearch ? '+ languages' : 'go back'"
-            :distance="130"
-            @click.native="getLanguages()"
-            @mouseup.native="sharedState.isSearch = !sharedState.isSearch"
-            >
-            <i v-if="!sharedState.isSearch" class="fas fa-search"></i>
-            <i v-if="sharedState.isSearch" class="fas fa-undo"></i>
-          </z-spot>
-          <div v-if="popular.length && !sharedState.isSearch && $zircle.getCurrentViewName() === 'languages--0'">
-     <z-list
-        :items="popular"
-        :per-page="8">
-          <z-spot
-           class="test1 butt"
-            button
-            size='xs'
-            :distance='60'
-            slot-scope="props"
-            :index="props.index"
-            :label="props.name"
-            @click.native="sharedState.language = props.urlParam"
-            style="border: none"
-            :style="sharedState.language === props.urlParam ? 'background-color:' + sharedState.colorMe.main : 'background-color: transparent; border: 1px solid ' + sharedState.colorMe.main"
-            >
-          </z-spot>
-      </z-list>
-    </div>
-      <z-spot  class="buttons" button size=xs :distance=125 :angle=-45 label="daily"
-      style="border: none; color: white"
-      :style="sharedState.since === 'daily' ? 'background-color: #5484f8' : ''"
-      @click.native="changeTime('daily')" >T</z-spot>
-
-      <z-spot  class="buttons" button size=xs :distance=125 :angle=-20 label="weekly"
-      style="border: none; color: white"
-      :style="sharedState.since === 'weekly' ? 'background-color: #5484f8' : ''"
-      @click.native="changeTime('weekly')" >W</z-spot>
-
-      <z-spot  class="buttons" button size=xs :distance=125 :angle=5 label="monthly"
-      style="border: none; color: white"
-      :style="sharedState.since === 'monthly' ? 'background-color: #5484f8' : ''"
-      @click.native="changeTime('monthly')" >M</z-spot>
-    </div>
-  </z-view>
+        <div slot="extension">
+            <div v-if="query !== '' && sharedState.isSearch && $zircle.getCurrentViewName() === 'languages--0'">
+                <z-spot v-for="(lang, index) in wt" button :key="'lang' + index" :distance="60" :angle="-90 + (360 / wt.length * index)" size="xs" class="test1 accent butt" :label="lang.name" @click.native="sharedState.language = lang.urlParam" style="border: none" :style="sharedState.language === lang.urlParam ? 'background-color:' + sharedState.colorMe.main : 'background-color: #454545; border: 1px solid ' + sharedState.colorMe.main">
+                </z-spot>
+            </div>
+            <div v-if="wt.length === 0 && sharedState.isSearch && searchActive">
+                <z-spot button :distance="60" :angle="-90" size="xs" class="test1 accent butt" label="😕 try another term" style="border: none; background-color: transparent">
+                </z-spot>
+            </div>
+            <z-spot button class="buttons" size='s' :angle="45" :label="!sharedState.isSearch ? '+ languages' : 'go back'" :distance="130" @click.native="getLanguages()" @mouseup.native="sharedState.isSearch = !sharedState.isSearch">
+                <i v-if="!sharedState.isSearch" class="fas fa-search"></i>
+                <i v-if="sharedState.isSearch" class="fas fa-undo"></i>
+            </z-spot>
+            <div v-if="popular.length && !sharedState.isSearch && $zircle.getCurrentViewName() === 'languages--0'">
+                <z-list :items="popular" :per-page="8">
+                    <z-spot class="test1 butt" button size='xs' :distance='60' slot-scope="props" :index="props.index" :label="props.name" @click.native="sharedState.language = props.urlParam" style="border: none" :style="sharedState.language === props.urlParam ? 'background-color:' + sharedState.colorMe.main : 'background-color: transparent; border: 1px solid ' + sharedState.colorMe.main">
+                    </z-spot>
+                </z-list>
+            </div>
+            <z-spot class="buttons" button size=xs :distance=125 :angle=-45 label="daily" style="border: none; color: white" :style="sharedState.since === 'daily' ? 'background-color: #5484f8' : ''" @click.native="changeTime('daily')">T</z-spot>
+            <z-spot class="buttons" button size=xs :distance=125 :angle=-20 label="weekly" style="border: none; color: white" :style="sharedState.since === 'weekly' ? 'background-color: #5484f8' : ''" @click.native="changeTime('weekly')">W</z-spot>
+            <z-spot class="buttons" button size=xs :distance=125 :angle=5 label="monthly" style="border: none; color: white" :style="sharedState.since === 'monthly' ? 'background-color: #5484f8' : ''" @click.native="changeTime('monthly')">M</z-spot>
+        </div>
+</z-view>
 </template>
+
 <script>
 // :angle="(180 - (180 - ($zircle.getNumberOfPages() * 10))) / $zircle.getNumberOfPages() * ($zircle.getNumberOfPages() - index) + ((180 - (180 - (180 - ($zircle.getNumberOfPages() * 10)))) - ((180 - (180 - ($zircle.getNumberOfPages() * 10))) / $zircle.getNumberOfPages())) / 2"
 import state from '../store/state'
 import axios from 'axios'
+
 function fetchGalleries (results, since, stateError) {
   return Promise.all(results.map(record => {
     return axios.get('https://github-trending-api.now.sh/repositories?since=' + since + '&language=' + encodeURIComponent(record.urlParam))
@@ -183,14 +129,20 @@ export default {
         .get('https://github-trending-api.now.sh/languages')
         .then(function (response) {
           var res = response.data.popular
-          res.push({ name: 'all languages', urlParam: '' })
+          res.push({
+            name: 'all languages',
+            urlParam: ''
+          })
           var lang = ''
           vm.sharedState.language === '' ? lang = 'all languages' : lang = vm.sharedState.language
           var checkLangSelected = res.filter(e => e.name.toLowerCase() === lang.toLowerCase())
           if (checkLangSelected.length) {
             vm.popular = res
           } else {
-            res.push({ name: vm.sharedState.language, urlParam: vm.sharedState.language.replace(/\s+/g, '-').toLowerCase() })
+            res.push({
+              name: vm.sharedState.language,
+              urlParam: vm.sharedState.language.replace(/\s+/g, '-').toLowerCase()
+            })
             vm.popular = res.slice(-8)
           }
           vm.other = response.data.all
@@ -208,11 +160,12 @@ export default {
   }
 }
 </script>
+
 <style>
 .test1>.z-label.bottom>.inside {
-  background-color: transparent;
-  font-size: 13px !important;
-  top: 105% !important;
-  color: white
+    background-color: transparent;
+    font-size: 13px !important;
+    top: 105% !important;
+    color: white
 }
 </style>
