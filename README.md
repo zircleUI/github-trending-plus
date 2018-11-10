@@ -12,7 +12,7 @@
 ## Why?
 Using Github / trending you can find the repositories and developers most appealing for the community. You can filter them by selecting your preferred coding language or time frequency. It’s pretty good for having an idea of what the community is most excited about. This proposal also includes two extra features: permanence of repositories & developers on trending chart and their relative gain / loss positions.
 
-This concept is being made with  with [**zircle-ui**](https://github.com/zircleUI/zircleUI) for experimental purposes.
+This concept is being made with [**zircle-ui**](https://github.com/zircleUI/zircleUI) for experimental purposes.
 
 ## Features
 - Relative gain/loss positions.
