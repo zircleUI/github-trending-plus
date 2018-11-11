@@ -1,5 +1,5 @@
 <template>
-<z-view class="is-repos" :style="$zircle.getCurrentViewName() === 'repos--0' ? 'border-width: 7px; background-color: white !important' : 'border-width: 7px; background-color: white !important'">
+<z-view class="is-repos" :style="$zircle.getCurrentViewName() === 'repos--0' ? 'border-width: 7px; background-color: white' : 'border-width: 7px; background-color: white'">
     {{msg}}
     <div v-if="sharedState.axiosError !== ''">
         Oops!! {{sharedState.axiosError}}
@@ -20,13 +20,11 @@
         <div v-if="collection.length > 0">
             <z-list class="stay" style="" :items="collection" :per-page="5" @touchstart.native="startPos" @touchend.native="endPos">
                 <div slot-scope="props" @mouseenter="showMe(props.index)">
-                    <z-spot class=" pos numeral" size="xs" :index="props.index" :distance='116' style="background-color: transparent; border: none;">
-                        <span slot=extension>{{getOrdinal(props.position + 1)}}</span>
-                    </z-spot>
-                    <z-spot class=" numeral" size="xxs" :index="props.index" :distance='99' style="background-color: var(--shade-color); border-color: var(--shade-color)">
-                    </z-spot>
-                    <z-spot :image-path="props.avatar" class="test" :distance='55' :props="props" size=m :ref="'res-' + props.index" style="border-width: 0px; background-color: rgba(0,0,0,0); border-color: var(--shade-color)" :style="$zircle.getCurrentViewName() === 'repos--0' && hideThis ===  'res-' + props.index ? 'opacity: 1' : ''" :index="props.index" :label="show === props.index ? props.name : trimLabels(props.index, props.name)" @click.native="hideMe('res-' + props.index)" @mouseup.native="sendMe('res-' + props.index)">
+                    <z-spot :image-path="props.avatar" class="test" :distance='61' :props="props" size=m :ref="'res-' + props.index" style="border-width: 0px; background-color: white; border-color: var(--shade-color)" :style="$zircle.getCurrentViewName() === 'repos--0' && hideThis ===  'res-' + props.index ? 'opacity: 1' : ''" :index="props.index" :label="show === props.index ? props.name : trimLabels(props.index, props.name)" @click.native="hideMe('res-' + props.index)" @mouseup.native="sendMe('res-' + props.index)">
                         <div slot="extension" class="extra">
+                          <z-spot class="pos numeral" size="xs" :index="props.index" :distance="props.index === 2 ? 135 : props.index === 3 ? 135 : 115" :angle="props.index === 2 ? -25 : props.index === 3 ? -155 : -90" style="background-color: transparent; border: none;">
+                              <span slot=extension>{{getOrdinal(props.position + 1)}}</span>
+                          </z-spot>
                             <z-spot v-if="props.diff > 0 && props.prevPos !== -1" size="xs" :angle="0" :distance='100' style="border-color: white; background-color:#54a74c;">
                                 <i style=" color: white" class="fas fa-arrow-up"></i>
                             </z-spot>
@@ -119,7 +117,7 @@ export default {
     },
     trimLabels (index, name) {
       if (index === 2 || index === 3) {
-        return name.length > 7 ? name.substring(0, 4) + '…' : name
+        return name.length > 9 ? name.substring(0, 5) + '…' : name
       } else {
         return name.length > 11 ? name.substring(0, 7) + '…' : name
       }
@@ -342,12 +340,14 @@ export default {
 }
 
 .test {
-    border: 3px solid var(--shade-color) !important;
+    border: none !important;
+    transition: box-shadow 0.2s linear !important;
+    box-shadow: 0px 0px 0px 0.3px var(--shade-color)
 
 }
 
 .test:hover {
-    border: 3px solid var(--shade-color) !important;
+    box-shadow: 0px 0px 0px 5px var(--shade-color)
 
 }
 

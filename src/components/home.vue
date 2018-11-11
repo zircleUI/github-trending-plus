@@ -2,30 +2,35 @@
 <z-view class="is-home" style="color: white;border-width: 7px;" size="xl">
     <i class="fab fa-github fa-4x"></i>
     <div slot="extension">
-        <z-spot class="asteroids" style='background-color: #D4D7DD; border-width: 3px; opacity: 0.4; border-color:white ' size=s :distance="150" :angle="-65">
+
+        <z-spot class="asteroids" style='border-width: 3px; opacity: 0.3; border-color:white ' size=s :distance="150" :angle="-65">
         </z-spot>
-        <z-spot class="asteroids" style='background-color: #D4D7DD; border-width: 3px; opacity: 0.4; border-color:white ' size=s :distance="160" :angle="-130">
+        <z-spot class="asteroids" style='border-width: 3px; opacity: 0.3; border-color:white ' size=s :distance="160" :angle="-130">
         </z-spot>
-        <z-spot class="asteroids" style='background-color: #D4D7DD; border-width: 3px; opacity: 0.4; border-color:white ' size=s :distance="150" :angle="140">
+        <z-spot class="asteroids" style='border-width: 3px; opacity: 0.3; border-color:white ' size=s :distance="150" :angle="140">
         </z-spot>
-        <z-spot class="asteroids" style='border-width: 9px; opacity: 1; background-color: #da482f; border-color:white ' size=s :distance="135" :angle="60" />
+        <z-spot class="asteroids" style='border-width: 15px; opacity: 1; background-color: #da482f; border-color:white ' size=s :distance="130" :angle="75" />
         <z-spot class="asteroids stay" style='border-width: 6px; opacity: 1; background-color: #5484f8; border-color:white ' size=xs :distance="160" :angle="-47" />
-        <z-spot class="asteroids" style='border-width: 4px; opacity: 1; background-color: #54a74c; border-color:white ' size=xs :distance="170" :angle="160"></z-spot>
+        <z-spot class="asteroids" style='border-width: 7px; opacity: 1; background-color: #54a74c; border-color:white ' size=xs :distance="185" :angle="160"></z-spot>
         <z-spot class="asteroids" style='border-width: 9px; opacity: 1; background-color: #f2bd00; border-color:white ' size=s :distance="130" :angle="-110" />
-        <z-spot class="asteroids" style='background-color: #D4D7DD; border-width: 3px; opacity: 0.4; border-color:white ' size=s :distance="180" :angle="94">
+
+        <z-spot class="asteroids" style='border-width: 3px; opacity: 0.3; border-color:white ' size=s :distance="180" :angle="94">
         </z-spot>
-        <z-spot class="asteroids" style='background-color: #D4D7DD;border-width: 3px; opacity: 0.15; border-color:white ' size=xs :distance="148" :angle="0">
+
+        <z-spot class="asteroids" style='border-width: 3px; opacity: 0.15; border-color:white ' size=xs :distance="148" :angle="0">
         </z-spot>
-        <z-spot class="asteroids" style='background-color: #D4D7DD;border-width: 3px; opacity: 0.15; border-color:white' size=xs :distance=160 :angle="110">
+        <z-spot class="asteroids" style='border-width: 3px; opacity: 0.15; border-color:white' size=xs :distance=160 :angle="110">
         </z-spot>
-        <z-spot class="asteroids" style='background-color: #D4D7DD;border-width: 1px; opacity: 0.15; border-color:white' size=xxs :distance=148 :angle="43" />
-        <z-spot class="asteroids" style='background-color: #D4D7DD;border-width: 1px; opacity: 0.15; border-color:white' size=xxs :distance=122 :angle="113" />
-        <z-spot class="asteroids" style='background-color: #D4D7DD;border-width: 1px; opacity: 0.15; border-color:white' size=xxs :distance=132 :angle="210" />
-        <z-spot class="asteroids" style='background-color: #D4D7DD;border-width: 1px; opacity: 0.15; border-color:white' size=xxs :distance=132 :angle="-82" />
-        <z-spot class="asteroids" style='background-color: #D4D7DD; border-width:3px; opacity: 0.15; border-color:white' size=xs :distance=190 :angle="-160">
+        <z-spot class="asteroids" style='border-width: 1px; opacity: 0.15; border-color:white' size=xxs :distance=148 :angle="43" />
+        <z-spot class="asteroids" style='border-width: 1px; opacity: 0.15; border-color:white' size=xxs :distance=122 :angle="113" />
+        <z-spot class="asteroids" style='border-width: 1px; opacity: 0.15; border-color:white' size=xxs :distance=132 :angle="210" />
+        <z-spot class="asteroids" style='border-width: 1px; opacity: 0.15; border-color:white' size=xxs :distance=132 :angle="-82" />
+        <z-spot class="asteroids" style='border-width:3px; opacity: 0.15; border-color:white' size=xs :distance=190 :angle="-160">
         </z-spot>
-        <z-spot class="asteroids" style='background-color: #D4D7DD;border-width: 3px; opacity: 0.15; border-color:white' size=xs :distance=190 :angle="angle + 130">
+
+        <z-spot class="asteroids" style='border-width: 3px; opacity: 0.15; border-color:white' size=xs :distance=190 :angle="angle + 130">
         </z-spot>
+
         <z-spot class="meteors" :distance="170" :angle="-30" ref="repos" style=" font-size: 40px;color: hsl(220, 12%, 25%); border-color: white; border-width: 3px; background-color: #D4D7DD;" @mouseup.native="renderMe('repos')" @wheel.native.prevent="forward($event,'repos')" label="top repos">
             R
         </z-spot>
