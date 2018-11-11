@@ -10,17 +10,15 @@
 </p>
 
 ## Why?
-Github offers the possibility of see the repositories and developers that are more appealing for the community daily, weekly and monthly. Also you can filter them by selecting your preferred coding language. It’s pretty good for having an idea of what the community is most excited about.
+Using [Github trending](https://github.com/trending) you can find the repositories and developers that are most appealing for the community. You can filter them by selecting your preferred coding language or time frequency. It’s pretty good for having an idea of what the community is most excited about. This proposal includes two extra features: permanence of repositories & developers on trending chart and their relative gain / loss positions.
 
-However, I wanted to add some features. For example, the ability to know how much time the repo/dev is on the spot and its relative gain/loss positions during its permanency on the trending chart.
-
-For those reasons and because I want to experiment with [**zircle-ui**](https://github.com/zircleUI/zircleUI) is that I'm making this alternative approach. 
+This concept is being made with [**zircle-ui**](https://github.com/zircleUI/zircleUI) for experimental purposes.
 
 ## Features
-- Relative gain/loss positions for repositories and developers.
-- Permancy on trending chart for repositories and developers.
+- Relative gain/loss positions.
+- Permanence on trending chart.
 - Filtering coding languages with trending results.
-- Most popular languages tracked (you can add more by open an issue)
+- Most popular languages tracked (you can add more by opening an issue)
 - No github login required.
 
 ## Status: 🌱 Beta
