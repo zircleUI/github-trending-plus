@@ -22,7 +22,7 @@ This concept is being made with [**zircle-ui**](https://github.com/zircleUI/zirc
 - No github login required.
 
 ## Status: 🌱 Beta
-If you want to try this example just clone this repo or **check out the live version** at https://github-trending-plus.now.sh
+If you want to try this example just clone this repo or **check out the live version** at https://github-trending-plus.surge.sh
 
 ## Credits
 This project is based on this awesome API https://github.com/huchenme/github-trending-api
