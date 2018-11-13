@@ -1,49 +1,51 @@
 <template>
-<z-view class="is-home" style="color: white;border-width: 7px;" size="xl">
-    <i class="fab fa-github fa-4x"></i>
+<z-view class="is-home" style="color: white; background-color: #454545; border-color:var(--shade-color);border-width: 7px;" size="xl">
+    <i  class="fab fa-github fa-4x"></i>
     <div slot="extension">
 
-        <z-spot class="asteroids" style='border-width: 3px; opacity: 0.3; border-color:white ' size=s :distance="150" :angle="-65">
+                <z-spot class="asteroids" style='background-color: var(--shade-color);border-width: 3px;  border-color:white ' size=s :distance="150" :angle="-65">
         </z-spot>
-        <z-spot class="asteroids" style='border-width: 3px; opacity: 0.3; border-color:white ' size=s :distance="160" :angle="-130">
+        <z-spot class="asteroids" style='background-color: var(--shade-color);border-width: 3px;  border-color:white ' size=s :distance="160" :angle="-130">
         </z-spot>
-        <z-spot class="asteroids" style='border-width: 3px; opacity: 0.3; border-color:white ' size=s :distance="150" :angle="140">
+        <z-spot class="asteroids" style='background-color: var(--shade-color);border-width: 3px;  border-color:white ' size=s :distance="150" :angle="140">
         </z-spot>
-        <z-spot class="asteroids" style='border-width: 15px; opacity: 1; background-color: #da482f; border-color:white ' size=s :distance="130" :angle="75" />
-        <z-spot class="asteroids stay" style='border-width: 6px; opacity: 1; background-color: #5484f8; border-color:white ' size=xs :distance="160" :angle="-47" />
-        <z-spot class="asteroids" style='border-width: 7px; opacity: 1; background-color: #54a74c; border-color:white ' size=xs :distance="185" :angle="160"></z-spot>
-        <z-spot class="asteroids" style='border-width: 9px; opacity: 1; background-color: #f2bd00; border-color:white ' size=s :distance="130" :angle="-110" />
+        <z-spot class="asteroids" style='background-color: var(--shade-color);border-width: 15px;  border-color:white ' size=s :distance="130" :angle="75" />
+        <z-spot class="asteroids stay" style='background-color: var(--shade-color);border-width: 6px;  border-color:white ' size=xs :distance="160" :angle="-47" />
+        <z-spot class="asteroids" style='background-color: var(--shade-color);border-width: 7px;  border-color:white ' size=xs :distance="185" :angle="160"></z-spot>
+        <z-spot class="asteroids" style='background-color: var(--shade-color);border-width: 9px;  border-color:white ' size=s :distance="130" :angle="-110" />
 
-        <z-spot class="asteroids" style='border-width: 3px; opacity: 0.3; border-color:white ' size=s :distance="180" :angle="94">
-        </z-spot>
-
-        <z-spot class="asteroids" style='border-width: 3px; opacity: 0.15; border-color:white ' size=xs :distance="148" :angle="0">
-        </z-spot>
-        <z-spot class="asteroids" style='border-width: 3px; opacity: 0.15; border-color:white' size=xs :distance=160 :angle="110">
-        </z-spot>
-        <z-spot class="asteroids" style='border-width: 1px; opacity: 0.15; border-color:white' size=xxs :distance=148 :angle="43" />
-        <z-spot class="asteroids" style='border-width: 1px; opacity: 0.15; border-color:white' size=xxs :distance=122 :angle="113" />
-        <z-spot class="asteroids" style='border-width: 1px; opacity: 0.15; border-color:white' size=xxs :distance=132 :angle="210" />
-        <z-spot class="asteroids" style='border-width: 1px; opacity: 0.15; border-color:white' size=xxs :distance=132 :angle="-82" />
-        <z-spot class="asteroids" style='border-width:3px; opacity: 0.15; border-color:white' size=xs :distance=190 :angle="-160">
+        <z-spot class="asteroids" style='background-color: var(--shade-color);border-width: 3px;  border-color:white ' size=s :distance="180" :angle="94">
         </z-spot>
 
-        <z-spot class="asteroids" style='border-width: 3px; opacity: 0.15; border-color:white' size=xs :distance=190 :angle="angle + 130">
+        <z-spot class="asteroids" style='background-color: var(--shade-color);border-width: 3px;  border-color:white ' size=xs :distance="148" :angle="0">
+        </z-spot>
+        <z-spot class="asteroids" style='background-color: var(--shade-color);border-width: 3px;  border-color:white' size=xs :distance=160 :angle="110">
+        </z-spot>
+        <z-spot class="asteroids" style='background-color: var(--shade-color);border-width: 1px;  border-color:white' size=xxs :distance=148 :angle="43" />
+        <z-spot class="asteroids" style='background-color: var(--shade-color);border-width: 1px;  border-color:white' size=xxs :distance=122 :angle="113" />
+        <z-spot class="asteroids" style='background-color: var(--shade-color);border-width: 1px;  border-color:white' size=xxs :distance=132 :angle="210" />
+        <z-spot class="asteroids" style='background-color: var(--shade-color);border-width: 1px;  border-color:white' size=xxs :distance=132 :angle="-82" />
+        <z-spot class="asteroids" style='background-color: var(--shade-color);border-width:3px;  border-color:white' size=xs :distance=190 :angle="-160">
         </z-spot>
 
-        <z-spot class="meteors" :distance="170" :angle="-30" ref="repos" style=" font-size: 40px;color: hsl(220, 12%, 25%); border-color: white; border-width: 3px; background-color: #D4D7DD;" @mouseup.native="renderMe('repos')" @wheel.native.prevent="forward($event,'repos')" label="top repos">
+        <z-spot class="asteroids" style='background-color: var(--shade-color);border-width: 3px;  border-color:white' size=xs :distance=190 :angle="angle + 130">
+        </z-spot>
+
+        <z-spot class="meteors" :distance="170" :angle="-30" ref="repos" style="color: white;  font-size: 40px; border-color: white; border-width: 3px; background-color: var(--shade-color);" @mouseup.native="renderMe('repos')" @wheel.native.prevent="forward($event,'repos')" label="top repos">
             R
         </z-spot>
-        <z-spot class="meteors" :distance="160" ref="devs" :angle="20" style="font-size: 40px;color: hsl(220, 12%, 25%);  border-color: white; border-width: 3px; background-color: #D4D7DD;" @mouseup.native="renderMe('devs')" @wheel.native="forward($event,'devs')" label="top devs">
+        <z-spot class="meteors" :distance="160" ref="devs" :angle="20" style="color: white; font-size: 40px;  border-color: white; border-width: 3px; background-color: var(--shade-color);" @mouseup.native="renderMe('devs')" @wheel.native="forward($event,'devs')" label="top devs">
             D
         </z-spot>
-        <z-spot button class="meteors" :distance="160" :angle="182" size=s ref="about" style="font-size: 30px;color: hsl(220, 12%, 25%);  border-color: white; border-width: 0px; background-color: #D4D7DD;" label="about" @mouseup.native="renderMe('about')" @wheel.native="forward($event,'about')">i
+        <z-spot button class="meteors" :distance="160" :angle="-180" size=s ref="about" style="color:white; font-size: 25px;  border-color: white; border-width: 0px; background-color: var(--shade-color);" label="about" @mouseup.native="renderMe('about')" @wheel.native="forward($event,'about')"><i class="fas fa-question"></i>
         </z-spot>
-        <z-spot class="meteors" :distance=180 size='s' style="background-color: #D4D7DD;" :angle="55" label="filter" ref="languages" @mouseup.native="renderMe('languages')" @wheel.native="forward($event,'languages')">
-            <i style="color: hsl(220, 12%, 25%);" class="fas fa-ellipsis-v"></i>
+        <z-spot class="meteors" :distance=180 size='s' style="color: white; border-color: white;background-color: var(--shade-color);" :angle="55" label="filter" ref="languages" @mouseup.native="renderMe('languages')" @wheel.native="forward($event,'languages')">
+            <i class="fas fa-ellipsis-v"></i>
         </z-spot>
+
     </div>
 </z-view>
+
 </template>
 
 <script>
@@ -60,19 +62,12 @@ export default {
       devs1: [],
       angle1: 0,
       ani: {},
+      hideThis: '',
       colors: [{
-        main: '#8a8f94',
-        sec: '#454545'
-      }, {
-        main: '#54a74c',
-        sec: 'hsl(115, 37%, 18%)'
-      }, {
-        main: '#f2bd00',
-        sec: 'hsl(47, 100%, 17%)'
-      }, {
         main: '#5484f8',
         sec: 'hsl(222, 92%, 25%)'
-      }]
+      }
+      ]
     }
   },
   computed: {
@@ -86,6 +81,10 @@ export default {
     }
   },
   methods: {
+    hideMe (ref) {
+      this.hideThis = ref
+      this.$refs[ref].$el.style.opacity = 0
+    },
     forward (e, view) {
       if (e.deltaY < 0 && this.$zircle.getCurrentViewName() === 'home--0') {
         this.renderMe(view)
@@ -145,7 +144,10 @@ export default {
     // this.meteors()
     // this.getAvatars()
     // this.setinit()
-    this.callRandomColors()
+    var vm = this
+    setTimeout(function () {
+      vm.callRandomColors()
+    }, 1000)
   }
 }
 </script>
@@ -153,6 +155,12 @@ export default {
 <style>
 .asteroids {
     pointer-events: none !important;
+    filter: blur(1px) opacity(0.45);
+    //opacity: 0 !important;
+}
+
+.is-past-view section div .asteroids {
+    opacity: 0 !important
 }
 
 .is-previous-view,
@@ -173,16 +181,6 @@ export default {
 .is-previous-view section div div section div div div .extra,
 .is-past-view section div div section div div div .extra {
     opacity: 0 !important
-}
-
-.is-previous-view section div div section div div .numeral,
-.is-past-view section div div section div div .numeral {
-    opacity: 0 !important;
-    cursor: default !important;
-}
-
-.is-current-view section div div section div div .numeral {
-    cursor: default !important;
 }
 
 .is-previous-view section .z-outer-circle,
@@ -231,11 +229,15 @@ export default {
     font-weight: 700;
 }
 
-.meteors>.z-label.bottom>.inside {
-    color: #454545;
+.meteors>.z-label>.inside {
+    color: var(--accent-color) !important;
     font-weight: 400;
-    background-color: transparent !important;
-    font-size: calc(0.7vw + 0.7vh + 0.7vmin);
+    background-color: white !important;
+    font-size: calc(0.6vw + 0.6vh + 0.6vmin);
+}
+
+.meteors.sub {
+    font-size: calc(0.6vw + 0.6vh + 0.6vmin);
 }
 
 .side>.z-label {
@@ -247,7 +249,7 @@ export default {
 }
 
 .side>.z-label>.inside {
-    color: inherit !important;
+    color: var(--accent-color) !important;
     font-weight: 500 !important;
     padding: 0 !important;
     margin: 0 !important;

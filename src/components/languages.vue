@@ -1,5 +1,5 @@
 <template>
-<z-view style="border-width: 7px;">
+<z-view style="border-width: 3px; background-color: white">
     <div v-if="sharedState.axiosError !== ''">
         Oops!! {{sharedState.axiosError}}
     </div>
@@ -9,14 +9,14 @@
     </div>
         <div slot="extension">
             <div v-if="query !== '' && sharedState.isSearch && $zircle.getCurrentViewName() === 'languages--0'">
-                <z-spot v-for="(lang, index) in wt" button :key="'lang' + index" :distance="60" :angle="-90 + (360 / wt.length * index)" size="xs" class="test1 accent butt" :label="lang.name" @click.native="sharedState.language = lang.urlParam" style="border: none" :style="sharedState.language === lang.urlParam ? 'background-color:' + sharedState.colorMe.main : 'background-color: #454545; border: 1px solid ' + sharedState.colorMe.main">
+                <z-spot v-for="(lang, index) in wt" button :key="'lang' + index" :distance="60" :angle="-90 + (360 / wt.length * index)" size="xs" class="test1 butt" :label="lang.name" @click.native="sharedState.language = lang.urlParam" style="border: none" :style="sharedState.language === lang.urlParam ? 'background-color:' + sharedState.colorMe.main : 'background-color: transparent; border: 1px solid ' + sharedState.colorMe.main">
                 </z-spot>
             </div>
             <div v-if="wt.length === 0 && sharedState.isSearch && searchActive">
-                <z-spot button :distance="60" :angle="-90" size="xs" class="test1 accent butt" label="😕 try another term" style="border: none; background-color: transparent">
+                <z-spot button :distance="60" :angle="-90" size="xs" class="test1 butt" label="😕 try another term" style="border: none; background-color: transparent">
                 </z-spot>
             </div>
-            <z-spot button class="buttons" size='s' :angle="45" :label="!sharedState.isSearch ? '+ languages' : 'go back'" :distance="130" @click.native="getLanguages()" @mouseup.native="sharedState.isSearch = !sharedState.isSearch">
+            <z-spot button class="buttons" size=s style="color: white; border-color: white; border-width: 0px;background-color: var(--shade-color);"  :angle="45" :label="!sharedState.isSearch ? '+ languages' : 'go back'" :distance="130" @click.native="getLanguages()" @mouseup.native="sharedState.isSearch = !sharedState.isSearch">
                 <i v-if="!sharedState.isSearch" class="fas fa-search"></i>
                 <i v-if="sharedState.isSearch" class="fas fa-undo"></i>
             </z-spot>
@@ -26,9 +26,9 @@
                     </z-spot>
                 </z-list>
             </div>
-            <z-spot class="buttons" button size=xs :distance=125 :angle=-45 label="daily" style="border: none; color: white" :style="sharedState.since === 'daily' ? 'background-color: #5484f8' : ''" @click.native="changeTime('daily')">T</z-spot>
-            <z-spot class="buttons" button size=xs :distance=125 :angle=-20 label="weekly" style="border: none; color: white" :style="sharedState.since === 'weekly' ? 'background-color: #5484f8' : ''" @click.native="changeTime('weekly')">W</z-spot>
-            <z-spot class="buttons" button size=xs :distance=125 :angle=5 label="monthly" style="border: none; color: white" :style="sharedState.since === 'monthly' ? 'background-color: #5484f8' : ''" @click.native="changeTime('monthly')">M</z-spot>
+            <z-spot class="buttons" button size=xs :distance=125 :angle=-45 label="daily" style="border: none; color: white" :style="sharedState.since === 'daily' ? 'background-color: var(--shade-color)' : 'background-color: var(--accent-color)'" @click.native="changeTime('daily')">T</z-spot>
+            <z-spot class="buttons" button size=xs :distance=125 :angle=-20 label="weekly" style="border: none; color: white" :style="sharedState.since === 'weekly' ? 'background-color: var(--shade-color)' : 'background-color: var(--accent-color)'" @click.native="changeTime('weekly')">W</z-spot>
+            <z-spot class="buttons" button size=xs :distance=125 :angle=5 label="monthly" style="border: none; color: white" :style="sharedState.since === 'monthly' ? 'background-color: var(--shade-color)' : 'background-color: var(--accent-color)'" @click.native="changeTime('monthly')">M</z-spot>
         </div>
 </z-view>
 </template>
@@ -166,6 +166,10 @@ export default {
     background-color: transparent;
     font-size: 13px !important;
     top: 105% !important;
-    color: white
+    color: var(--accent-color) !important
 }
+.test1 {
+border-color: var(--accent-color) !important;
+}
+
 </style>

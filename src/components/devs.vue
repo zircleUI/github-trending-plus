@@ -1,5 +1,5 @@
 <template>
-<z-view class="is-repos" :style="$zircle.getCurrentViewName() === 'devs--0' ? 'border-width: 7px; background-color: white !important' : 'border-width: 7px; background-color: white !important'">
+<z-view class="is-repos" :style="$zircle.getCurrentViewName() === 'devs--0' ? 'border-width: 3px; background-color: white !important' : 'border-width: 3px; background-color: white !important'">
     {{msg}}
     <div v-if="sharedState.axiosError !== ''">
         Oops!! {{sharedState.axiosError}}
@@ -8,29 +8,27 @@
         <i class="fas fa-spinner fa-spin fa-2x"></i>
     </div>
     <div slot="extension" v-if="trending">
-        <z-spot v-if="day || !trending" button class="filter buttons" :distance=130 size='s' style="background-color: #D4D7DD;" :angle="45" label="filter" to-view="languages">
-            <i style="color: hsl(220, 12%, 25%);" class="fas fa-ellipsis-v"></i>
+        <z-spot v-if="day || !trending" class="meteors" :distance=120 size=s style="color: white; border-color: white; border-width: 0px;background-color: var(--shade-color);" :angle="45" to-view="languages">
+            <i style="" class="fas fa-ellipsis-v"></i>
         </z-spot>
-        <z-spot v-if="$zircle.getCurrentPageIndex() <= 3 && collection.length > 0" button class="filter buttons" :distance=115 size='xs' style="border-color: var(--accent-color);background-color: var(--accent-color); color: var(--shade-color)" :angle="0" @mouseup.native="$zircle.setCurrentPageIndex($zircle.getCurrentPageIndex() + 1)">
+        <z-spot v-if="$zircle.getCurrentPageIndex() <= 3 && collection.length > 0" button class="filter buttons" :distance=115 size='xs' style="color: white; border-color: white; border-width: 0px;background-color: var(--shade-color);"  :angle="0" @mouseup.native="$zircle.setCurrentPageIndex($zircle.getCurrentPageIndex() + 1)">
             <i class="fas fa-arrow-right"></i>
         </z-spot>
-        <z-spot v-if="$zircle.getCurrentPageIndex() >= 1" button class="filter buttons" :distance=115 size='xs' style="border-color: var(--accent-color);background-color: var(--accent-color); color: var(--shade-color)" :angle="180" @mouseup.native="$zircle.setCurrentPageIndex($zircle.getCurrentPageIndex() - 1)">
+        <z-spot v-if="$zircle.getCurrentPageIndex() >= 1" button class="filter buttons" :distance=115 size='xs' style="color: white; border-color: white; border-width: 0px;background-color: var(--shade-color);"  :angle="180" @mouseup.native="$zircle.setCurrentPageIndex($zircle.getCurrentPageIndex() - 1)">
             <i style="" class="fas fa-arrow-left"></i>
         </z-spot>
         <div v-if="collection.length > 0">
-            <z-list class="stay" style="" :items="collection" :per-page="5" @touchstart.native="startPos" @touchmove.native.prevent @touchend.native="endPos">
+            <z-list class="stay" style="" :items="collection" :per-page="5" @touchstart.native="startPos" @touchend.native="endPos">
                 <div slot-scope="props" @mouseenter="showMe(props.index)">
-                    <z-spot class=" pos numeral" size="xs" :index="props.index" :distance='110' style="background-color: transparent; border: none;">
-                        <span slot=extension>{{getOrdinal(props.position + 1)}}</span>
-                    </z-spot>
-                    <z-spot class=" numeral" size="xxs" :index="props.index" :distance='99' style="background-color: var(--shade-color); border-color: var(--shade-color)">
-                    </z-spot>
-                    <z-spot :image-path="props.avatar" class="test" :distance='55' :props="props" size=m :ref="'dev-' + props.index" style="border-width: 0px; background-color: rgba(0,0,0,0); border-color: var(--shade-color)" :style="$zircle.getCurrentViewName() === 'devs--0' && hideThis ===  'dev-' + props.index ? 'opacity: 1' : ''" :index="props.index" :label="show === props.index ? props.name : trimLabels(props.index, props.name)" @click.native="hideMe('dev-' + props.index)" @mouseup.native="sendMe('dev-' + props.index)">
+                    <z-spot :image-path="props.avatar" class="test" :distance='61' :props="props" size=m :ref="'dev-' + props.index" style="border-color: var(--shade-color); border-width: 3px; background-color: white;" :style="$zircle.getCurrentViewName() === 'devs--0' && hideThis ===  'dev-' + props.index ? 'opacity: 1' : ''" :index="props.index" :label="show === props.index ? props.name : trimLabels(props.index, props.name)" @click.native="hideMe('dev-' + props.index)" @mouseup.native="sendMe('dev-' + props.index)">
                         <div slot="extension" class="extra">
+                            <z-spot class="pos numeral" size="xs" :index="props.index" :distance="100" :angle="-135" style="">
+                              <span >{{$zircle.getComponentWidth('xxl') > 260 ? getOrdinal(props.position + 1) : props.position + 1}}</span>
+                          </z-spot>
                             <z-spot v-if="props.diff > 0 && props.prevPos !== -1" size="xs" :angle="0" :distance='100' style="border-color: white; background-color:#54a74c;">
                                 <i style=" color: white" class="fas fa-arrow-up"></i>
                             </z-spot>
-                            <z-spot v-if="props.diff > 0 && props.prevPos === -1" size="xs" :angle="0" :distance='100' style="font-weight: 700; font-size: 10px; color: hsl(47, 100%, 27%); border-color: white; background-color:#f2bd00;  ">
+                            <z-spot v-if="props.diff > 0 && props.prevPos === -1" size="xs" :angle="0" :distance='100' style="font-weight: 700; color: hsl(47, 100%, 27%); border-color: white; background-color:#f2bd00;  ">
                                 new
                             </z-spot>
                             <z-spot v-if="props.diff < 0" size="xs" :angle="0" :distance='100' style="border-color: white;  background-color:#da482f;  ">

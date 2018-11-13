@@ -189,9 +189,9 @@ body {
 @import url('https://use.fontawesome.com/releases/v5.1.0/css/all.css');
 
 .theme-github {
-    --shade-color: #d1d5da;
+    --shade-color: #8a8f94;
     --primary-color: #454545;
-    --accent-color: #d1d5da;
+    --accent-color: #454545;
 }
 
 a {
@@ -306,12 +306,17 @@ a {
 
     .title.other {
         text-align: center;
-        top: 220px
+        top: 220px;
+        font-size: 13px !important;
     }
 
     .title.home {
         text-align: center;
-        top: 220px
+        top: 220px;
+        font-size: 13px !important;
+    }
+    .z-label .inside, .pos {
+        font-size: 13px !important;
     }
 
 }
@@ -325,16 +330,22 @@ a {
 
     .title.other {
         text-align: center;
-        top: 50px
+        top: 50px;
+        font-size: 13px !important;
     }
 
     .title.home {
         text-align: center;
-        top: 50px
+        top: 50px;
+        font-size: 13px !important;
     }
 
     .footer {
         line-height: 1.5em;
+        font-size: 13px !important;
+    }
+    .z-label .inside, .pos {
+        font-size: 13px !important;
     }
 
 }
@@ -428,6 +439,9 @@ a {
         width: 30%;
         line-height: 1.5em;
     }
+    .z-label .inside, .pos {
+        font-size: 13px !important;
+    }
 
 }
 
@@ -449,6 +463,10 @@ a {
 
     .footer {
         line-height: 0.5em;
+    }
+
+    .z-label .inside, .pos {
+        font-size: 13px !important;
     }
 
 }

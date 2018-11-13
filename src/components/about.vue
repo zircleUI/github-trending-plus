@@ -7,7 +7,7 @@
     <div v-if="activePage" class="label" :style="'z-index: 10; color:' + sharedState.colorMe.sec">
         {{info.description}}
     </div>
-    <div v-if="activePage" style="position: absolute; left: 0; bottom: 0; z-index: 90;font-weight: 300; padding-top: 10px;padding-bottom: 50px;background-color: var(--shade-color); color: var(--accent-color); font-size: 12px; margin: 0; height: 20%; width: 100%;">
+    <div v-if="activePage" style="position: absolute; left: 0; bottom: 0; z-index: 90;font-weight: 300; padding-top: 10px;padding-bottom: 50px;background-color: var(--shade-color); color: var(--accent-color); margin: 0; height: 20%; width: 100%;">
         <center>
             <div class="sub-label" style="overflow: hidden">
                 <span style="width: 33%; vertical-align: top"><i class="fas fa-star"></i> {{info.stars > 999 ? Math.round((info.stars / 1000) * 10 ) / 10 + 'k' : ' ' + info.stars}}</span>
@@ -17,11 +17,11 @@
         </center>
     </div>
     <div slot="extension">
-        <z-spot button class="butt2" size=s style="font-size: 25px; border-width: 4px; background-color: #D4D7DD;" label="source code" :distance="120" :angle="135" @click.native="toLink(info.url)">
-            <i class="fab fa-github-alt" :style="'color:' + sharedState.colorMe.sec"></i>
+        <z-spot button class="butt2" size=s style="font-size: 25px;color: white; border-color:var(--shade-color);background-color: var(--shade-color);" label="source code" :distance="120" :angle="135" @click.native="toLink(info.url)">
+            <i class="fab fa-github-alt"></i>
         </z-spot>
-        <z-spot button class="butt2" size=s style="font-size: 25px; border-width: 4px; background-color: #D4D7DD;" label="follow zircle" :distance="120" :angle="45" @click.native="toLink('https://twitter.com/zircle_ui')">
-            <i class="fab fa-twitter" :style="'color:' + sharedState.colorMe.sec"></i>
+        <z-spot button class="butt2" size=s style="font-size: 25px;color: white; border-color:var(--shade-color);background-color: var(--shade-color);" label="follow zircle" :distance="120" :angle="45" @click.native="toLink('https://twitter.com/zircle_ui')">
+            <i class="fab fa-twitter"></i>
         </z-spot>
     </div>
 </z-view>
@@ -81,7 +81,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .emit {
     opacity: 0;
     animation: emit-pulse 2000ms ease-out;
@@ -123,7 +123,7 @@ export default {
     display: flex;
     align-items: top;
     justify-content: center;
-    font-size: calc(6px + 1vw);
+    font-size: calc(7px + 1vw);
 
 }
 

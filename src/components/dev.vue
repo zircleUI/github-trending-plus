@@ -28,11 +28,11 @@
         </center>
     </div>
     <div slot="extension">
-        <z-spot button class="butt" size=s label="profile" style="font-size: 14px; border-width: 4px; background-color: #D4D7DD;" :distance="120" :angle="45" @click.native="toLink('https://github.com/' + info.name)">
-            <i class="fab fa-github-alt" :style="'color:' + sharedState.colorMe.sec"></i>
+        <z-spot button class="butt2" size=s label="profile" style="font-size: 25px;color: white; border-color:var(--shade-color);background-color: var(--shade-color);" :distance="120" :angle="45" @click.native="toLink('https://github.com/' + info.name)">
+            <i class="fab fa-github-alt"></i>
         </z-spot>
-        <z-spot :angle="-45" :distance="100" :label="getOrdinal(info.position + 1)" label-pos="right" size="s" class="side" :style="'color:' + sharedState.colorMe.sec + '; border-width: 4px; background-color:' + sharedState.colorMe.main + '; border-color:' + sharedState.colorMe.main">
-            <i class="fas fa-award" :style="'color:' + sharedState.colorMe.sec"></i>
+        <z-spot :angle="-135" :distance="100" :label="getOrdinal(info.position + 1)" label-pos="left" size="s" class="side" style="font-size: 25px;color: white; border-color:var(--shade-color);background-color: var(--shade-color);">
+            <i class="fas fa-award"></i>
         </z-spot>
     </div>
 </z-view>
@@ -111,71 +111,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.emit {
-    opacity: 0;
-    animation: emit-pulse 2000ms ease-out;
-    animation-iteration-count: 5;
-}
-
-@keyframes emit-pulse {
-    0% {
-        opacity: 0;
-
-    }
-
-    100% {
-        opacity: 1;
-    }
-
-}
-
-.label {
-    font-weight: 500;
-    position: absolute;
-    top: 32%;
-    display: flex;
-    align-items: bottom;
-    justify-content: center;
-    left: 0;
-    padding-top: 30px;
-    margin-left: 10%;
-    word-break: break-word;
-    width: 80%;
-    height: 41%;
-    font-size: calc(12px + 1vw);
-    overflow: hidden
-}
-
-.sub-label {
-    width: 55%;
-    font-weight: 400;
-    display: flex;
-    align-items: top;
-    justify-content: center;
-    font-size: calc(6px + 1vw);
-
-}
-
-.super-label {
-    font-weight: 700;
-    position: absolute;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    left: 0;
-    padding: 10px;
-    padding-top: 30%;
-    margin-left: 10%;
-    word-break: break-all;
-    width: 80%;
-    height: 30%;
-    font-size: calc(17px + 1vw);
-}
-
-.icons {
-    font-size: calc(1.2vw + 1.2vh + 1.2vmin);
-}
-</style>
