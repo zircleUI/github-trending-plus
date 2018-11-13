@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/screen-logo.png" width="300">
+    <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/trending-logo.png" width="300">
 </p>
 <p align="center">
   An experimental <a href="https://github.com/trending">Github trending</a> UI.
