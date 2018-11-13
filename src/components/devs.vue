@@ -28,7 +28,7 @@
                             <z-spot v-if="props.diff > 0 && props.prevPos !== -1" size="xs" :angle="0" :distance='100' style="border-color: white; background-color:#54a74c;">
                                 <i style=" color: white" class="fas fa-arrow-up"></i>
                             </z-spot>
-                            <z-spot v-if="props.diff > 0 && props.prevPos === -1" size="xs" :angle="0" :distance='100' style="font-weight: 700; color: hsl(47, 100%, 27%); border-color: white; background-color:#f2bd00;  ">
+                            <z-spot v-if="props.diff > 0 && props.prevPos === -1" size="xs" :angle="0" :distance='100' style="font-weight: 700; font-size: 10px; color: hsl(47, 100%, 27%); border-color: white; background-color:#f2bd00;  ">
                                 new
                             </z-spot>
                             <z-spot v-if="props.diff < 0" size="xs" :angle="0" :distance='100' style="border-color: white;  background-color:#da482f;  ">
