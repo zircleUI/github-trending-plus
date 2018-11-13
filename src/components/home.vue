@@ -140,14 +140,10 @@ export default {
     }
   },
   mounted () {
-    // this.asteroids()
-    // this.meteors()
-    // this.getAvatars()
-    // this.setinit()
     var vm = this
     setTimeout(function () {
       vm.callRandomColors()
-    }, 1000)
+    }, 1500)
   }
 }
 </script>

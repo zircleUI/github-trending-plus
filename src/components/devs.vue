@@ -19,10 +19,10 @@
         </z-spot>
         <div v-if="collection.length > 0">
             <z-list class="stay" style="" :items="collection" :per-page="5" @touchstart.native="startPos" @touchend.native="endPos">
-                <div slot-scope="props" @mouseenter="showMe(props.index)">
-                    <z-spot :image-path="props.avatar" class="test" :distance='61' :props="props" size=m :ref="'dev-' + props.index" style="border-color: var(--shade-color); border-width: 3px; background-color: white;" :style="$zircle.getCurrentViewName() === 'devs--0' && hideThis ===  'dev-' + props.index ? 'opacity: 1' : ''" :index="props.index" :label="show === props.index ? props.name : trimLabels(props.index, props.name)" @click.native="hideMe('dev-' + props.index)" @mouseup.native="sendMe('dev-' + props.index)">
+                <div slot-scope="props" @mouseenter="showMe(props.position)">
+                    <z-spot :image-path="props.avatar" class="test" :distance='61' :props="props" size=m :ref="'dev-' + props.position" style="border-color: var(--shade-color); border-width: 3px; background-color: white;" :style="$zircle.getCurrentViewName() === 'devs--0' && hideThis ===  'dev-' + props.position ? 'opacity: 1' : ''" :index="props.position" :label="show === props.position ? props.name : trimLabels(props.position, props.name)" @click.native="hideMe('dev-' + props.position)" @mouseup.native="sendMe('dev-' + props.position)">
                         <div slot="extension" class="extra">
-                            <z-spot class="pos numeral" size="xs" :index="props.index" :distance="100" :angle="-135" style="">
+                            <z-spot class="pos numeral" size="xs" :index="props.position" :distance="100" :angle="-135" style="">
                               <span >{{$zircle.getComponentWidth('xxl') > 260 ? getOrdinal(props.position + 1) : props.position + 1}}</span>
                           </z-spot>
                             <z-spot v-if="props.diff > 0 && props.prevPos !== -1" size="xs" :angle="0" :distance='100' style="border-color: white; background-color:#54a74c;">
@@ -65,6 +65,7 @@ export default {
       lang: false,
       trending: true,
       hideThis: '',
+      prevPage: 0,
       vlang: state.$data.language,
       vsince: state.$data.since,
       colors: ['#da482f', '#54a74c', '#f2bd00', '#5484f8']
@@ -99,7 +100,8 @@ export default {
   },
   watch: {
     page: function () {
-      this.animee()
+      if (this.prevPage < this.page) this.animee()
+      this.prevPage = this.page
     },
     viewn: function () {
       if (this.$zircle.getCurrentViewName() === 'devs--0' && this.sharedState.clearResults) {
@@ -188,7 +190,6 @@ export default {
       this.animee()
       this.day = true
     },
-    init2 () {},
     showMe (index) {
       if (this.show === index) {
         this.show = 99

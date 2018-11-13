@@ -21,9 +21,9 @@
         <div v-if="collection.length > 0">
             <z-list class="stay" style="" :items="collection" :per-page="5" @touchstart.native="startPos" @touchend.native="endPos">
                 <div slot-scope="props" @mouseenter="showMe(props.index)">
-                    <z-spot :image-path="props.avatar" class="test" :distance='61' :props="props" size=m :ref="'res-' + props.index" style="border-color: var(--shade-color); border-width: 3px; background-color: white;" :style="$zircle.getCurrentViewName() === 'repos--0' && hideThis ===  'res-' + props.index ? 'opacity: 1' : ''" :index="props.index" :label="show === props.index ? props.name : trimLabels(props.index, props.name)" @click.native="hideMe('res-' + props.index)" @mouseup.native="sendMe('res-' + props.index)">
+                    <z-spot :image-path="props.avatar" class="test" :distance='61' :props="props" size=m :ref="'res-' + props.position" style="border-color: var(--shade-color); border-width: 3px; background-color: white;" :style="$zircle.getCurrentViewName() === 'repos--0' && hideThis ===  'res-' + props.position ? 'opacity: 1' : ''" :index="props.position" :label="show === props.position ? props.name : trimLabels(props.position, props.name)" @click.native="hideMe('res-' + props.position)" @mouseup.native="sendMe('res-' + props.position)">
                         <div slot="extension" class="extra">
-                          <z-spot class="pos numeral" size="xs" :index="props.index" :distance="100" :angle="-135" style="">
+                          <z-spot class="pos numeral" size="xs" :index="props.position" :distance="100" :angle="-135" style="">
                               <span >{{$zircle.getComponentWidth('xxl') > 260 ? getOrdinal(props.position + 1) : props.position + 1}}</span>
                           </z-spot>
                             <z-spot v-if="props.diff > 0 && props.prevPos !== -1" size="xs" :angle="45" :distance='100' style="border-color: white; background-color:#54a74c;">
@@ -65,6 +65,7 @@ export default {
       day1: false,
       lang: false,
       trending: true,
+      prevPage: 0,
       hideThis: '',
       vlang: state.$data.language,
       vsince: state.$data.since,
@@ -100,7 +101,8 @@ export default {
   },
   watch: {
     page: function () {
-      this.animee()
+      if (this.prevPage < this.page) this.animee()
+      this.prevPage = this.page
     },
     viewn: function () {
       if (this.$zircle.getCurrentViewName() === 'repos--0' && this.sharedState.clearResults) {
@@ -189,7 +191,6 @@ export default {
       this.animee()
       this.day = true
     },
-    init2 () {},
     showMe (index) {
       if (this.show === index) {
         this.show = 99

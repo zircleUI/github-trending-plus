@@ -7,7 +7,7 @@
     <div v-if="activePage" class="label" :style="'z-index: 10; color:' + sharedState.colorMe.sec">
         {{info.description.length > 80 ? info.description.substring(0,80) + '…' : info.description.length === 0 ? 'No description provided' : info.description}}
     </div>
-    <div v-if="activePage" style="position: absolute; left: 0; bottom: 0; z-index: 90;font-weight: 300; padding-top: 10px;padding-bottom: 50px;background-color: var(--shade-color); color: var(--accent-color); font-size: 12px; margin: 0; height: 20%; width: 100%;">
+    <div v-if="activePage" style="position: absolute; left: 0; bottom: 0; z-index: 90;font-weight: 300; padding-top: 10px;padding-bottom: 50px;background-color: var(--shade-color); color: var(--accent-color); font-size: 11px; margin: 0; height: 20%; width: 100%;">
         <center>
             <div class="sub-label" style="overflow: hidden">
                 <span style="width: 30%; vertical-align: top"><i class="fas fa-star"></i> {{info.stars > 999 ? Math.round((info.stars / 1000) * 10 ) / 10 + 'k' : ' ' + info.stars}}</span>
