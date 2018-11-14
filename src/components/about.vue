@@ -113,8 +113,9 @@ export default {
     word-break: break-word;
     width: 80%;
     height: 40%;
-    font-size: calc(12px + 1vw);
-    overflow: hidden
+    font-size: calc(10px + 0.8vw);
+    overflow: hidden;
+    max-lines: 3
 }
 
 .sub-label {
@@ -123,7 +124,7 @@ export default {
     display: flex;
     align-items: top;
     justify-content: center;
-    font-size: calc(7px + 1vw);
+    font-size: calc(7px + 0.8vw);
 
 }
 
@@ -141,10 +142,10 @@ export default {
     word-break: break-all;
     width: 80%;
     height: 30%;
-    font-size: calc(17px + 1vw);
+    font-size: calc(15px + 0.8vw);
 }
 
 .icons {
-    font-size: calc(1.2vw + 1.2vh + 1.2vmin);
+    font-size: calc(1vw + 1.2vh + 1.2vmin);
 }
 </style>

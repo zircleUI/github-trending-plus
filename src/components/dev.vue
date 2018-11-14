@@ -85,9 +85,9 @@ export default {
         return 'new!'
       } else if (this.info.stay > 3 && this.info.stay < 24) {
         return this.info.stay + ' h.'
-      } else if (this.info.stay > 24 && this.info.stay < 48) {
+      } else if (this.info.stay > 25 && this.info.stay < 48) {
         return 'a day'
-      } else if (this.info.stay > 48) {
+      } else if (this.info.stay > 49) {
         return Math.floor((this.info.stay) / 24) + ' days'
       }
     }
