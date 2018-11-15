@@ -151,8 +151,7 @@ export default {
 <style>
 .asteroids {
     pointer-events: none !important;
-    filter: blur(1px) opacity(0.45);
-    //opacity: 0 !important;
+    opacity: 0.30;
 }
 
 .is-past-view section div .asteroids {
