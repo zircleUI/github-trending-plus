@@ -40,7 +40,7 @@ import axios from 'axios'
 
 function fetchGalleries (results, since, stateError) {
   return Promise.all(results.map(record => {
-    return axios.get('https://github-trending-api.now.sh/repositories?since=' + since + '&language=' + encodeURIComponent(record.urlParam))
+    return axios.get('https://github-trending-api.now.sh/repositories?since=' + since + '&language=' + (record.urlParam === 'c%23' ? record.urlParam : encodeURIComponent(record.urlParam)))
       .catch((err) => {
         console.log(err)
         stateError = err.message
