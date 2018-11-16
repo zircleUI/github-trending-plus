@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.11"></a>
+## [0.6.11](https://github.com/zircleui/github-trending-plus/compare/v0.6.10...v0.6.11) (2018-11-16)
+
+
+### Bug Fixes
+
+* 🐛 the C# bug ([39c871a](https://github.com/zircleui/github-trending-plus/commit/39c871a))
+
+
+
 <a name="0.6.10"></a>
 ## [0.6.10](https://github.com/zircleui/github-trending-plus/compare/v0.6.9...v0.6.10) (2018-11-15)
 
