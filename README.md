@@ -2,7 +2,7 @@
     <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/trending-logo.png" width="300">
 </p>
 <p align="center">
-  An experimental <a href="https://github.com/trending">Github trending</a> UI.
+  An experimental Github trending UI using <a href="https://github.com/zircleUIi/zircleUI">zircle-ui</a>.
 </p>
 <p align="center">
   <a href="https://github.com/zircleUI/zircleUI"><img alt="zircle" src="https://img.shields.io/badge/zircle-1.x-brightgreen.svg"></a>
@@ -10,7 +10,7 @@
 </p>
 
 ## Why?
-Using [Github trending](https://github.com/trending) you can find the repositories and developers that are most appealing for the community. You can filter them by selecting your preferred coding language or time frequency. It’s pretty good for having an idea of what the community is most excited about. This proposal includes two extra features: permanence of repositories & developers on trending chart and their relative gain / loss positions.
+Using Github trending you can find the repositories and developers that are most appealing for the community. You can filter them by selecting your preferred coding language or time frequency. It’s pretty good for having an idea of what the community is most excited about. This proposal includes two extra features: permanence of repositories & developers on trending chart and their relative gain / loss positions.
 
 This concept is being made with [**zircle-ui**](https://github.com/zircleUI/zircleUI) for experimental purposes.
 
