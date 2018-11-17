@@ -299,7 +299,7 @@ export default {
             vm.init()
           } else {
             vm.day = true
-            vm.sharedState.axiosError = 'No trending developers for ' + vm.sharedState.language + '. Try another languaje/time'
+            vm.sharedState.axiosError = 'No trending developers for ' + vm.sharedState.language + '. Try another language/time'
           }
         }))
         .catch((err) => {
