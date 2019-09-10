@@ -2,7 +2,7 @@
     <img src="https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/public/trending-logo.png" width="300">
 </p>
 <p align="center">
-  An experimental Github trending UI using <a href="https://github.com/zircleUIi/zircleUI">zircle-ui</a>.
+  An experimental Github trending UI using <a href="https://github.com/zircleUI/zircleUI">zircle-ui</a>.
 </p>
 <p align="center">
   <a href="https://github.com/zircleUI/zircleUI"><img alt="zircle" src="https://img.shields.io/badge/zircle-1.x-brightgreen.svg"></a>
@@ -55,4 +55,4 @@ npm run lint
 ```
 
 ## License
-[MIT Licensed | Copyright © 2018 - present | Juan Martín Muda](https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/LICENSE)
+[MIT Licensed | Copyright © 2019 - present | Juan Martín Muda](https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/LICENSE)
