@@ -55,4 +55,4 @@ npm run lint
 ```
 
 ## License
-[MIT Licensed | Copyright © 2019 - present | Juan Martín Muda](https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/LICENSE)
+[MIT Licensed | Copyright © 2018 - present | Juan Martín Muda](https://raw.githubusercontent.com/zircleUI/github-trending-plus/master/LICENSE)
