@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "animejs": "^2.2.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "js-search": "^1.4.2",
     "moment": "^2.23.0",
     "moment-duration-format": "^2.2.2",
