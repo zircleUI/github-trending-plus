@@ -40,7 +40,7 @@ import axios from 'axios'
 
 function fetchGalleries (results, since, stateError) {
   return Promise.all(results.map(record => {
-    return axios.get('https://github-trending-api.now.sh/repositories?since=' + since + '&language=' + (record.urlParam === 'c%23' ? record.urlParam : encodeURIComponent(record.urlParam)))
+    return axios.get('https://gtrend.yapie.me/repositories?since=' + since + '&language=' + (record.urlParam === 'c%23' ? record.urlParam : encodeURIComponent(record.urlParam)))
       .catch((err) => {
         console.log(err)
         stateError = err.message
@@ -126,7 +126,7 @@ export default {
       this.query = ''
       this.results = []
       axios
-        .get('https://github-trending-api.now.sh/languages')
+        .get('https://gtrend.yapie.me/languages')
         .then(function (response) {
           var res = response.data.popular
           res.push({

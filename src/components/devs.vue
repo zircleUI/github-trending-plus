@@ -265,15 +265,14 @@ export default {
           this.sharedState.languageTracked = true
       }
       axios.all([
-        axios.get('https://zircle-github-trending-ranking.now.sh/' + rankingDB),
-        axios.get('https://github-trending-api.now.sh/developers?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language))
+        // axios.get('https://zircle-github-trending-ranking.now.sh/' + rankingDB),
+        axios.get('https://gtrend.yapie.me/developers?since=' + this.sharedState.since + '&language=' + encodeURIComponent(this.sharedState.language))
       ])
-        .then(axios.spread((myjson, github) => {
+        .then(axios.spread((github) => {
           vm.sharedState.axiosError = ''
           vm.collection = []
           var full = github.data.map(function (e, index) {
-            var updated = myjson.data[myjson.data.length - 1].timestamp
-            var search = myjson.data[myjson.data.length - 1][vm.sharedState.since].devs.find(el => el.username === e.username)
+            var search = undefined
             if (search === undefined || vm.sharedState.languageTracked === true) {
               search = {
                 prevPos: -1,
@@ -283,7 +282,6 @@ export default {
             }
             e.avatar = e.avatar.replace(/s=96/gi, 's=200')
             return {
-              updated: updated,
               position: index,
               username: e.username,
               name: e.username,
