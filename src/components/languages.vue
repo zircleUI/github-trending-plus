@@ -128,7 +128,7 @@ export default {
       axios
         .get('https://gtrend.yapie.me/languages')
         .then(function (response) {
-          var res = response.data.popular
+          var res = response.data
           res.push({
             name: 'all languages',
             urlParam: ''
